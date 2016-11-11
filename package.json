@@ -7,7 +7,7 @@
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build --prod",
     "lint": "tslint \"src/**/*.ts\"",
-    "test": "ng test --watch=false",
+    "test": "ng test --w false -cc",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor"
   },
