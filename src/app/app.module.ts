@@ -4,6 +4,7 @@ import { SharedModule } from './shared';
 
 import { routing } from './app.routing';
 import { UsersModule } from './users';
+import { GroupsModule } from './groups';
 
 import { AppComponent } from './app.component';
 
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     SharedModule,
     UsersModule,
+    GroupsModule,
     routing
   ],
   providers: [],
