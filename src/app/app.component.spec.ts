@@ -3,6 +3,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from './shared';
 
 describe('App: Ui', () => {
   beforeEach(() => {
@@ -11,6 +12,7 @@ describe('App: Ui', () => {
         AppComponent
       ],
       imports: [
+        SharedModule,
         RouterTestingModule
       ]
     });
