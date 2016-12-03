@@ -1,10 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { SharedModule } from './shared';
-
-import { routing } from './app.routing';
-import { UsersModule } from './users';
-import { GroupsModule } from './groups';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -14,10 +11,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    SharedModule,
-    UsersModule,
-    GroupsModule,
-    routing
+    FormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
