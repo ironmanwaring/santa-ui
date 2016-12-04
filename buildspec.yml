@@ -12,3 +12,4 @@ artifacts:
   type: zip
   files:
     - dist/**/*
+  discard-paths: yes
