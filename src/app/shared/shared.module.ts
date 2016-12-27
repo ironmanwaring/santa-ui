@@ -4,6 +4,8 @@ import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import 'hammerjs';
+
 @NgModule({
   imports: [
     CommonModule,
