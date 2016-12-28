@@ -8,7 +8,7 @@ let Auth0Lock = require('auth0-lock').default;
 export class AuthService {
 
   // Configure Auth0
-  lock = new Auth0Lock('cqjbiQoRUP3VzuDSABVSFW7UmjrvvQtd', 'ironmanwaring.auth0.com', {});
+  lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', {});
 
  //Store profile object in auth class
   userProfile: Object;
