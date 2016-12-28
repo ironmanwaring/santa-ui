@@ -1,8 +1,9 @@
 <md-toolbar color="primary">
-    <span>Santa Swap</span>
+    <span>Welcome {{ auth.user() ? auth.user().given_name : 'to Santa Swap' }}</span>
     <span class="spacer"></span>
-    <md-icon class="toolbar-icon" routerLink="/users">face</md-icon>
-    <md-icon class="toolbar-icon" routerLink="/">home</md-icon>
+    <button md-button (click)="auth.login()" *ngIf="!auth.authenticated()">Log in</button>
+    <button md-button (click)="auth.logout()" *ngIf="auth.authenticated()">Log out</button>
+
 </md-toolbar>
 
 <router-outlet></router-outlet>
