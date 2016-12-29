@@ -112,9 +112,22 @@ Resources:
             OriginAccessIdentity
         PriceClass: PriceClass_200
         ViewerCertificate:
-          #AcmCertificateArn: !Ref AcmCertificateArn
-          CloudFrontDefaultCertificate: true
+          AcmCertificateArn: !Ref DomainCertificate
           SslSupportMethod: sni-only
+
+  DomainCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub '*.${Domain}'
+      DomainValidationOptions:
+        - DomainName: !Sub '*.${Domain}'
+          ValidationDomain: '${Domain}'
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+        
  
 Outputs:
   StackName:
