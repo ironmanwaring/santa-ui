@@ -113,7 +113,7 @@ Resources:
           - DomainName: !GetAtt NakedSite.DomainName
             Id: StaticSiteOrigin
             S3OriginConfig:
-              OriginAccessIdentity: 
+              OriginAccessIdentity: []
         PriceClass: PriceClass_200
         ViewerCertificate:
           AcmCertificateArn: !Ref DomainCertificate
