@@ -8,6 +8,9 @@ Parameters:
   Domain:
     Description: Naked site domain name (e.g. manwaring.io)
     Type: String
+  HostedZoneId:
+    Description: ID of the hosted zone for the domain
+    Type: String
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -20,6 +23,7 @@ Metadata:
           default: "Site settings"
         Parameters:
           - Domain
+          - HostedZoneId
 
 Resources:
 
@@ -57,8 +61,8 @@ Resources:
       Type: A
       AliasTarget:
         DNSName: !Ref CloudFront.DomainName
-        HostedZoneId:
-      HostedZoneId:
+        HostedZoneId: !Ref HostedZoneId
+      HostedZoneId: !Ref HostedZoneId
       Tags:
         - Key: ResourceType
           Value: Project
@@ -72,8 +76,8 @@ Resources:
       Type: A
       AliasTarget:
         DNSName: !Ref CloudFront.DomainName
-        HostedZoneId:
-      HostedZoneId:
+        HostedZoneId: !Ref HostedZoneId
+      HostedZoneId: !Ref HostedZoneId
       Tags:
         - Key: ResourceType
           Value: Project
