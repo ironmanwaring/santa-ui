@@ -63,11 +63,6 @@ Resources:
         DNSName: !GetAtt CloudFront.DomainName
         HostedZoneId: !Ref HostedZoneId
       HostedZoneId: !Ref HostedZoneId
-      Tags:
-        - Key: ResourceType
-          Value: Project
-        - Key: Project
-          Value: !Ref Project
   
   WWWRecordSet:
     Type: AWS::Route53::RecordSet
@@ -78,11 +73,6 @@ Resources:
         DNSName: !GetAtt CloudFront.DomainName
         HostedZoneId: !Ref HostedZoneId
       HostedZoneId: !Ref HostedZoneId
-      Tags:
-        - Key: ResourceType
-          Value: Project
-        - Key: Project
-          Value: !Ref Project
 
   CloudFront:
     Type: AWS::CloudFront::Distribution
@@ -114,7 +104,7 @@ Resources:
             Id: StaticSiteOrigin
             S3OriginConfig:
               OriginAccessIdentity: ''
-        PriceClass: PriceClass_200
+        PriceClass: PriceClass_100
         ViewerCertificate:
           AcmCertificateArn: !Ref DomainCertificate
           SslSupportMethod: sni-only
