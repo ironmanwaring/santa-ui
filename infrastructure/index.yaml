@@ -1,0 +1,142 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Infrastructure for static UI
+
+Parameters:
+  Project:
+    Description: Name of the project (e.g. SantaSwap)
+    Type: String
+  Domain:
+    Description: Naked site domain name (e.g. manwaring.io)
+    Type: String
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Project settings"
+        Parameters:
+          - Project
+      - Label:
+          default: "Site settings"
+        Parameters:
+          - Domain
+
+Resources:
+
+  NakedSite:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref Domain
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+  
+  WWWSite:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'www.${Domain}'
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Ref Domain
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+          
+  NakedRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref Domain
+      Type: A
+      AliasTarget:
+        DNSName: !Ref CloudFront.DomainName
+        HostedZoneId:
+      HostedZoneId:
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+  
+  WWWRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Sub 'www.${Domain}'
+      Type: A
+      AliasTarget:
+        DNSName: !Ref CloudFront.DomainName
+        HostedZoneId:
+      HostedZoneId:
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+
+  CloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref Domain
+          - !Sub 'www.${Domain}'
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ErrorCachingMinTTL: 0
+            ResponseCode: 200
+            ResponseMessagePath: /index.html
+        DefaultCacheBehavior:
+          AllowedMethods: [ GET, HEAD, OPTIONS ]
+          TargetOriginId: StaticSiteOrigin
+          ForwardedValues:
+            QueryString: true
+            Cookies:
+              Forward: none
+          DefaultTTL: 0
+          MinTTL: 0
+          MaxTTL: 0
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        Enabled: true
+        Origins:
+          DomainName: !Ref NakedSite.DomainName
+          Id: StaticSiteOrigin
+          S3OriginConfig:
+            OriginAccessIdentity
+        PriceClass: PriceClass_200
+        ViewerCertificate:
+          AcmCertificateArn: !Ref DomainCertificate
+          SslSupportMethod: sni-only
+
+  DomainCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub '*.${Domain}'
+      DomainValidationOptions:
+        - DomainName: !Sub '*.${Domain}'
+          ValidationDomain: '${Domain}'
+      Tags:
+        - Key: ResourceType
+          Value: Project
+        - Key: Project
+          Value: !Ref Project
+ 
+Outputs:
+  StackName:
+    Value: !Ref AWS::StackName
+  NakedSiteURL:
+    Description: URL for the naked site
+    Value: !Ref NakedSite.WebsiteURL
+  NakedSiteDomainName:
+    Description: Domain name used by CloudFront
+    Value: !Ref NakedSite.DomainName
+  WWWSiteURL:
+    Description: URL for the naked site
+    Value: !Ref WWWSite.WebsiteURL
