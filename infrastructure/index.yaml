@@ -144,6 +144,6 @@ Outputs:
   WWWSiteURL:
     Description: URL for the naked site
     Value: !GetAtt WWWSite.WebsiteURL
-  CloudFrontDomainName:
-    Description: URL for the CloudFront Distribution
-    Value: !GetAtt CloudFront.DomainName
+  # CloudFrontDomainName:
+  #   Description: URL for the CloudFront Distribution
+  #   Value: !GetAtt CloudFront.DomainName
