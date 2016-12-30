@@ -122,8 +122,8 @@ Resources:
       DomainValidationOptions:
         - DomainName: !Sub '*.${Domain}'
           ValidationDomain: !Ref Domain
-        - DomainName: !Ref Domain
-          ValidationDomain: !Ref Domain
+      SubjectAlternativeNames:
+        - !Ref Domain
       Tags:
         - Key: ResourceType
           Value: Project
