@@ -2,8 +2,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
 
-import { GroupDetailComponent } from './group-detail.component';
+import { GroupsComponent } from '../groups/groups.component';
+import { GroupService } from '../shared/group.service';
+import { GroupDetailComponent } from '../group-detail/group-detail.component';
+import { PersonGroupComponent } from '../person-group/person-group.component';
 
 describe('GroupDetailComponent', () => {
   let component: GroupDetailComponent;
@@ -11,7 +15,18 @@ describe('GroupDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupDetailComponent ]
+      declarations: [ 
+        GroupsComponent,
+        GroupDetailComponent,
+        PersonGroupComponent
+      ],
+      imports: [
+        SharedModule,
+      ],
+      providers: [
+        GroupService
+     ]
+
     })
     .compileComponents();
   }));

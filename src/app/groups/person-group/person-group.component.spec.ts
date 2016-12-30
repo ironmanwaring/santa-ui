@@ -4,6 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { PersonGroupComponent } from './person-group.component';
+import { SharedModule } from '../../shared/shared.module';
+import { GroupService } from '../shared/group.service';
+import { GroupsComponent } from '../groups/groups.component';
+import { GroupDetailComponent } from '../group-detail/group-detail.component';
 
 describe('PersonGroupComponent', () => {
   let component: PersonGroupComponent;
@@ -11,7 +15,17 @@ describe('PersonGroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonGroupComponent ]
+      declarations: [ 
+        PersonGroupComponent,
+        GroupsComponent,
+        GroupDetailComponent,   
+      ],
+        imports: [
+        SharedModule,
+      ],
+      providers: [
+        GroupService
+     ]
     })
     .compileComponents();
   }));
