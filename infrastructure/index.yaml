@@ -60,7 +60,7 @@ Resources:
       Name: !Ref Domain
       Type: A
       AliasTarget:
-        DNSName: !Ref CloudFront.DomainName
+        DNSName: !GetAtt CloudFront.DomainName
         HostedZoneId: !Ref HostedZoneId
       HostedZoneId: !Ref HostedZoneId
       Tags:
@@ -75,7 +75,7 @@ Resources:
       Name: !Sub 'www.${Domain}'
       Type: A
       AliasTarget:
-        DNSName: !Ref CloudFront.DomainName
+        DNSName: !GetAtt CloudFront.DomainName
         HostedZoneId: !Ref HostedZoneId
       HostedZoneId: !Ref HostedZoneId
       Tags:
@@ -144,6 +144,6 @@ Outputs:
   WWWSiteURL:
     Description: URL for the naked site
     Value: !GetAtt WWWSite.WebsiteURL
-  # CloudFrontDomainName:
-  #   Description: URL for the CloudFront Distribution
-  #   Value: !GetAtt CloudFront.DomainName
+  CloudFrontDomainName:
+    Description: URL for the CloudFront Distribution
+    Value: !GetAtt CloudFront.DomainName
