@@ -110,7 +110,7 @@ Resources:
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          DomainName: !Ref NakedSite.DomainName
+          DomainName: !GetAtt NakedSite.DomainName
           Id: StaticSiteOrigin
           S3OriginConfig:
             OriginAccessIdentity
@@ -137,10 +137,13 @@ Outputs:
     Value: !Ref AWS::StackName
   NakedSiteURL:
     Description: URL for the naked site
-    Value: !Ref NakedSite.WebsiteURL
+    Value: !GetAtt NakedSite.WebsiteURL
   NakedSiteDomainName:
     Description: Domain name used by CloudFront
-    Value: !Ref NakedSite.DomainName
+    Value: !GetAtt NakedSite.DomainName
   WWWSiteURL:
     Description: URL for the naked site
-    Value: !Ref WWWSite.WebsiteURL
+    Value: !GetAtt WWWSite.WebsiteURL
+  CloudFrontDomainName:
+    Description: URL for the CloudFront Distribution
+    Value: !GetAtt CloudFront.DomainName
