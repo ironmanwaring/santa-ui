@@ -1,11 +1,14 @@
 <md-toolbar color="primary">
     <span>Welcome {{ auth.user() ? auth.user().given_name : 'to Santa Swap' }}</span>
     <span class="spacer"></span>
+    <button md-button>Join a group</button>
     <button md-button (click)="auth.login()" *ngIf="!auth.authenticated()">Log in</button>
     <button md-button (click)="auth.logout()" *ngIf="auth.authenticated()">Log out</button>
 
 </md-toolbar>
 
-<router-outlet></router-outlet>
+<div class="router-outlet-wrapper">
+ <router-outlet></router-outlet>
+</div>
 
 <div class="background"></div>
