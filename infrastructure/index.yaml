@@ -125,7 +125,7 @@ Resources:
       DomainName: !Sub '*.${Domain}'
       DomainValidationOptions:
         - DomainName: !Sub '*.${Domain}'
-          ValidationDomain: '${Domain}'
+          ValidationDomain: !Ref Domain
       Tags:
         - Key: ResourceType
           Value: Project
