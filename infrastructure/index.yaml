@@ -110,10 +110,10 @@ Resources:
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          DomainName: !GetAtt NakedSite.DomainName
-          Id: StaticSiteOrigin
-          S3OriginConfig:
-            OriginAccessIdentity
+          - DomainName: !GetAtt NakedSite.DomainName
+            Id: StaticSiteOrigin
+            S3OriginConfig:
+              OriginAccessIdentity
         PriceClass: PriceClass_200
         ViewerCertificate:
           AcmCertificateArn: !Ref DomainCertificate
