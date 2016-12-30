@@ -95,7 +95,7 @@ Resources:
           - ErrorCode: 404
             ErrorCachingMinTTL: 0
             ResponseCode: 200
-            ResponseMessagePath: /index.html
+            ResponsePagePath: /index.html
         DefaultCacheBehavior:
           AllowedMethods: [ GET, HEAD, OPTIONS ]
           TargetOriginId: StaticSiteOrigin
