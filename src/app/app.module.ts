@@ -5,6 +5,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GroupsModule } from './groups/groups.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     SharedModule,
     UsersModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GroupsModule
   ],
   providers: [],
   bootstrap: [

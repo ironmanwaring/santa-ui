@@ -1,0 +1,19 @@
+<md-card class="person-card"> 
+  <md-card-header>
+    <img md-card-avatar src="https://lh6.googleusercontent.com/-H9m0xfCqZI4/AAAAAAAAAAI/AAAAAAAACPY/w_bmT4UdnyU/photo.jpg"/>
+    <md-card-title>{{person.name}}</md-card-title>
+    <md-card-subtitle>Shipping Address: </md-card-subtitle>
+  </md-card-header>
+
+  <md-card-content>
+    <div *ngFor = "let item of person.wants">
+      {{item}}
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <span>
+      <md-slide-toggle [checked]="true">I could be matched with this person!</md-slide-toggle>
+    </span>
+  </md-card-actions>
+</md-card>
+
