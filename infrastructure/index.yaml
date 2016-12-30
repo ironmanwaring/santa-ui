@@ -25,6 +25,12 @@ Metadata:
           - Domain
           - HostedZoneId
 
+Mappings:
+  Constants:
+    CloudFront:
+      # CloudFront HostedZoneId is hardcoded to this value, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html
+      HostedZoneId: Z2FDTNDATAQYW2
+
 Resources:
 
   NakedSite:
@@ -60,8 +66,8 @@ Resources:
       Name: !Ref Domain
       Type: A
       AliasTarget:
-        DNSName: !GetAtt CloudFront.DomainName
-        HostedZoneId: !Ref HostedZoneId
+        DNSName: !GetAtt CDN.DomainName
+        HostedZoneId: !FindInMap [ Constants, CloudFront, HostedZoneId ]
       HostedZoneId: !Ref HostedZoneId
   
   WWWRecordSet:
@@ -70,11 +76,11 @@ Resources:
       Name: !Sub 'www.${Domain}'
       Type: A
       AliasTarget:
-        DNSName: !GetAtt CloudFront.DomainName
-        HostedZoneId: !Ref HostedZoneId
+        DNSName: !GetAtt CDN.DomainName
+        HostedZoneId: !FindInMap [ Constants, CloudFront, HostedZoneId ]
       HostedZoneId: !Ref HostedZoneId
 
-  CloudFront:
+  CDN:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
@@ -134,6 +140,6 @@ Outputs:
   WWWSiteURL:
     Description: URL for the naked site
     Value: !GetAtt WWWSite.WebsiteURL
-  CloudFrontDomainName:
+  CDNDomainName:
     Description: URL for the CloudFront Distribution
-    Value: !GetAtt CloudFront.DomainName
+    Value: !GetAtt CDN.DomainName
