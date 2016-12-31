@@ -3,16 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { GroupsComponent } from './groups.component';
+import { PersonCardComponent } from './person-card.component';
 import { SharedModule } from '../../shared/shared.module';
 import { GroupService } from '../shared/group.service';
+import { GroupsComponent } from '../groups/groups.component';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
-import { PersonCardComponent } from '../person-card/person-card.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
 
-describe('GroupsComponent', () => {
-  let component: GroupsComponent;
-  let fixture: ComponentFixture<GroupsComponent>;
+describe('PersonCardComponent', () => {
+  let component: PersonCardComponent;
+  let fixture: ComponentFixture<PersonCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('GroupsComponent', () => {
         PersonCardComponent,
         GroupCardComponent   
       ],
-        imports: [
+      imports: [
         SharedModule,
       ],
       providers: [
@@ -33,7 +33,7 @@ describe('GroupsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupsComponent);
+    fixture = TestBed.createComponent(PersonCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

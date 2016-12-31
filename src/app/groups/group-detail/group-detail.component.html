@@ -5,7 +5,7 @@
 <md-tab-group>
   <md-tab label="Members">
     <div *ngFor="let member of group.members">
-      <app-person-group [person]="member"></app-person-group>
+      <app-person-card [person]="member"></app-person-card>
     </div>
   </md-tab>
   <md-tab label="Rules">

@@ -3,24 +3,26 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PersonGroupComponent } from './person-group.component';
 import { SharedModule } from '../../shared/shared.module';
-import { GroupService } from '../shared/group.service';
 import { GroupsComponent } from '../groups/groups.component';
+import { GroupService } from '../shared/group.service';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { GroupCardComponent } from '../group-card/group-card.component';
 
-describe('PersonGroupComponent', () => {
-  let component: PersonGroupComponent;
-  let fixture: ComponentFixture<PersonGroupComponent>;
+describe('GroupCardComponent', () => {
+  let component: GroupCardComponent;
+  let fixture: ComponentFixture<GroupCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        PersonGroupComponent,
+      declarations: [
         GroupsComponent,
-        GroupDetailComponent,   
+        GroupDetailComponent, 
+        PersonCardComponent,
+        GroupCardComponent   
       ],
-        imports: [
+      imports: [
         SharedModule,
       ],
       providers: [
@@ -31,7 +33,7 @@ describe('PersonGroupComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PersonGroupComponent);
+    fixture = TestBed.createComponent(GroupCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,7 +7,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { GroupsComponent } from '../groups/groups.component';
 import { GroupService } from '../shared/group.service';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
-import { PersonGroupComponent } from '../person-group/person-group.component';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { GroupCardComponent } from '../group-card/group-card.component';
 
 describe('GroupDetailComponent', () => {
   let component: GroupDetailComponent;
@@ -15,10 +16,11 @@ describe('GroupDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         GroupsComponent,
-        GroupDetailComponent,
-        PersonGroupComponent
+        GroupDetailComponent, 
+        PersonCardComponent,
+        GroupCardComponent   
       ],
       imports: [
         SharedModule,

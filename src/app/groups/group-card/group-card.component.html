@@ -1,0 +1,11 @@
+<md-card class="grp-card" routerLink="groupId"> 
+  <md-card-header>
+    <md-card-title class="grp-card-title">{{group.name}}</md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <h3>Members:</h3>
+    <md-chip-list >
+        <md-chip *ngFor="let person of group.members">{{person.name}}</md-chip>
+    </md-chip-list>
+  </md-card-content>
+</md-card>
