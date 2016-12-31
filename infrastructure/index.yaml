@@ -120,6 +120,12 @@ Resources:
         - Key: Project
           Value: !Ref Project
 
+  # EmptySiteBucket:
+  #   Type:  Custom::EmptySiteBucket
+  #   DependsOn: Site
+  #   Properties:  
+  #     ServiceToken:
+  #     BucketName: !Ref Domain
  
 Outputs:
   StackName:
