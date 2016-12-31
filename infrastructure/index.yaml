@@ -9,18 +9,18 @@ Parameters:
     Description: Naked site domain name (e.g. manwaring.io)
     Type: String
   HostedZoneId:
-    Description: ID of the hosted zone for the domain
+    Description: ID of the domain hosted zone
     Type: String
 
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: "Project settings"
+          default: Project settings
         Parameters:
           - Project
       - Label:
-          default: "Site settings"
+          default: Site settings
         Parameters:
           - Domain
           - HostedZoneId
@@ -33,27 +33,13 @@ Mappings:
 
 Resources:
 
-  NakedSite:
+  Site:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref Domain
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-      Tags:
-        - Key: ResourceType
-          Value: Project
-        - Key: Project
-          Value: !Ref Project
-  
-  WWWSite:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'www.${Domain}'
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        RedirectAllRequestsTo:
-          HostName: !Ref Domain
       Tags:
         - Key: ResourceType
           Value: Project
@@ -110,7 +96,7 @@ Resources:
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          - DomainName: !GetAtt NakedSite.DomainName
+          - DomainName: !GetAtt Site.DomainName
             Id: StaticSiteOrigin
             S3OriginConfig:
               OriginAccessIdentity: ''
@@ -137,15 +123,12 @@ Resources:
 Outputs:
   StackName:
     Value: !Ref AWS::StackName
-  NakedSiteURL:
+  SiteURL:
     Description: URL for the naked site
-    Value: !GetAtt NakedSite.WebsiteURL
-  NakedSiteDomainName:
+    Value: !GetAtt Site.WebsiteURL
+  SiteDomainName:
     Description: Domain name used by CloudFront
-    Value: !GetAtt NakedSite.DomainName
-  WWWSiteURL:
-    Description: URL for the naked site
-    Value: !GetAtt WWWSite.WebsiteURL
+    Value: !GetAtt Site.DomainName
   CDNDomainName:
     Description: URL for the CloudFront Distribution
     Value: !GetAtt CDN.DomainName
