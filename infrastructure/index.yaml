@@ -33,7 +33,7 @@ Mappings:
 
 Resources:
 
-  Site:
+  NakedSite:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref Domain
@@ -96,7 +96,7 @@ Resources:
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          - DomainName: !GetAtt Site.DomainName
+          - DomainName: !GetAtt NakedSite.DomainName
             Id: StaticSiteOrigin
             S3OriginConfig:
               OriginAccessIdentity: ''
@@ -125,10 +125,10 @@ Outputs:
     Value: !Ref AWS::StackName
   SiteURL:
     Description: URL for the naked site
-    Value: !GetAtt Site.WebsiteURL
+    Value: !GetAtt NakedSite.WebsiteURL
   SiteDomainName:
     Description: Domain name used by CloudFront
-    Value: !GetAtt Site.DomainName
+    Value: !GetAtt NakedSite.DomainName
   CDNDomainName:
     Description: URL for the CloudFront Distribution
     Value: !GetAtt CDN.DomainName
