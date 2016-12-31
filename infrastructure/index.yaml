@@ -6,7 +6,7 @@ Parameters:
     Description: Name of the project (e.g. SantaSwap)
     Type: String
   Domain:
-    Description: Naked site domain name (e.g. manwaring.io)
+    Description: Domain name (e.g. manwaring.io)
     Type: String
   HostedZoneId:
     Description: ID of the domain hosted zone
@@ -33,7 +33,7 @@ Mappings:
 
 Resources:
 
-  NakedSite:
+  Site:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref Domain
@@ -96,7 +96,7 @@ Resources:
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          - DomainName: !GetAtt NakedSite.DomainName
+          - DomainName: !GetAtt Site.DomainName
             Id: StaticSiteOrigin
             S3OriginConfig:
               OriginAccessIdentity: ''
@@ -125,10 +125,10 @@ Outputs:
     Value: !Ref AWS::StackName
   SiteURL:
     Description: URL for the naked site
-    Value: !GetAtt NakedSite.WebsiteURL
+    Value: !GetAtt Site.WebsiteURL
   SiteDomainName:
     Description: Domain name used by CloudFront
-    Value: !GetAtt NakedSite.DomainName
+    Value: !GetAtt Site.DomainName
   CDNDomainName:
     Description: URL for the CloudFront Distribution
     Value: !GetAtt CDN.DomainName
