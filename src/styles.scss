@@ -6,6 +6,13 @@
 // @import '~@angular/material/core/theming/prebuilt/purple-green.css';
 
 $background-url: url('./assets/img/santa.png');
+$font: Roboto, sans-serif;
+$font-weight-lg: 100;
+$font-size-lg: 4em;
+$font-weight-md: 300;
+$font-size-md: 2em;
+$font-weight-sm: 400;
+$font-size-sm: 1.2em;
 
 .background {
     background: $background-url;
@@ -24,4 +31,20 @@ $background-url: url('./assets/img/santa.png');
 
 body {
     margin: 0px;
+    font-family: $font;
+}
+
+.title-sm {
+    font-weight: $font-weight-sm;
+    font-size: $font-size-sm;
+}
+
+.title-md {
+    font-weight: $font-weight-md;
+    font-size: $font-size-md;
+}
+
+.title-lg {
+    font-weight: $font-weight-lg;
+    font-size: $font-size-lg;
 }

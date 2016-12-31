@@ -4,7 +4,8 @@ import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import 'hammerjs';
 
@@ -19,9 +20,11 @@ import 'hammerjs';
     FormsModule,
     HttpModule,
     FlexLayoutModule,
+    ToolbarComponent
   ],
   providers: [
     AuthService,
-  ]
+  ],
+  declarations: [ToolbarComponent]
 })
 export class SharedModule { }

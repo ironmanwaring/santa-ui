@@ -3,26 +3,31 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { LoginComponent } from './login.component';
-import { SharedModule } from '../../shared/shared.module';
+import { ToolbarComponent } from './toolbar.component';
+import { AuthService } from '../auth/auth.service';
+import { MaterialModule } from '@angular/material';
 
+import 'hammerjs';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('ToolbarComponent', () => {
+  let component: ToolbarComponent;
+  let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ ToolbarComponent ],
       imports: [
-        SharedModule,
-      ]
+        MaterialModule.forRoot(),
+      ],
+      providers: [
+        AuthService,
+      ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
