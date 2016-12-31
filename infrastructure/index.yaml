@@ -92,6 +92,10 @@ Resources:
             ErrorCachingMinTTL: 0
             ResponseCode: 200
             ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ErrorCachingMinTTL: 0
+            ResponseCode: 200
+            ResponsePagePath: /index.html
         DefaultCacheBehavior:
           AllowedMethods: [ GET, HEAD, OPTIONS ]
           TargetOriginId: StaticSiteOrigin
