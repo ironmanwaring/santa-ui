@@ -9,6 +9,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AvatarComponent } from './avatar/avatar.component';
 
 import 'hammerjs';
+import { TitleComponent } from './title/title.component';
 
 @NgModule({
   imports: [
@@ -22,14 +23,16 @@ import 'hammerjs';
     HttpModule,
     FlexLayoutModule,
     ToolbarComponent,
-    AvatarComponent
+    AvatarComponent,
+    TitleComponent
   ],
   providers: [
     AuthService,
   ],
   declarations: [
     ToolbarComponent,
-    AvatarComponent
+    AvatarComponent,
+    TitleComponent
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,6 @@
-<h1 class="grp-title title-md">Your groups</h1>
+<app-title title="Your groups"></app-title>
 
-<app-group-card *ngFor="let group of groups" [group]="group"></app-group-card>
+<div class="flex-container" fxLayout="row" fxLayoutAlign="center center">
+    <app-group-card class="flex-item" *ngFor="let group of groups" [group]="group"></app-group-card>
+</div>
+

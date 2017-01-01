@@ -1,6 +1,4 @@
-
-<h1 class="grp-details-heading title-lg">{{group.name}}</h1>
-<h2 class="grp-details-heading title-md">Group status: {{group.status}}</h2>
+<app-title [title]="group.name" [subtitle]="group.status"></app-title>
 
 <md-tab-group>
   <md-tab label="Members">
