@@ -5,5 +5,5 @@ export class Group {
     name: string;
     rules: string;
     status: string;
-    members: Person[];
+    members?: Person[];
 }
