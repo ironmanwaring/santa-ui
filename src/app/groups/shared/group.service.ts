@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Group } from './group';
-import { GROUPDATA } from './group-mocks';
+import { FULL_GROUP } from './mock-data';
 
 @Injectable()
 export class GroupService {
@@ -8,10 +8,10 @@ export class GroupService {
   constructor() { }
 
   getAll(): Group[] {
-    return GROUPDATA;
+    return FULL_GROUP;
   }
 
   getGroup(id: number): Group {
-    return GROUPDATA[0];
+    return FULL_GROUP[0];
   }
 }

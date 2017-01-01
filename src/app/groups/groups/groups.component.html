@@ -1,13 +1,6 @@
-<h1 class="grp-title">Hey! You're a part of 3 groups.</h1>
-<md-card *ngFor="let group of groups" class="grp-card" routerLink="groupId"> 
-  <md-card-header>
-    <md-card-title class="grp-card-title">{{group.name}}</md-card-title>
-  </md-card-header>
-  <md-card-content>
-    <h3>Members:</h3>
-    <md-chip-list >
-        <md-chip *ngFor="let person of group.members">{{person.name}}</md-chip>
-    </md-chip-list>
-  </md-card-content>
-</md-card>
+<app-title title="Your groups"></app-title>
+
+<div class="flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
+    <app-group-card class="flex-item" *ngFor="let group of groups" [group]="group"></app-group-card>
+</div>
 

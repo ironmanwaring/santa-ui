@@ -2,18 +2,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { GroupsComponent } from '../groups/groups.component';
+import { PersonCardComponent } from './person-card.component';
+import { SharedModule } from '../../shared/shared.module';
 import { GroupService } from '../shared/group.service';
+import { GroupsComponent } from '../groups/groups.component';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
-import { PersonCardComponent } from '../person-card/person-card.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
 
-describe('GroupDetailComponent', () => {
-  let component: GroupDetailComponent;
-  let fixture: ComponentFixture<GroupDetailComponent>;
+describe('PersonCardComponent', () => {
+  let component: PersonCardComponent;
+  let fixture: ComponentFixture<PersonCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,13 +30,12 @@ describe('GroupDetailComponent', () => {
       providers: [
         GroupService
      ]
-
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupDetailComponent);
+    fixture = TestBed.createComponent(PersonCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

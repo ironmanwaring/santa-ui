@@ -1,19 +1,16 @@
+<app-title [title]="group.name" [subtitle]="group.status"></app-title>
 
-<h1 class="grp-details-heading">{{group.name}}</h1>
-<h2 class="grp-details-heading">Group status: {{group.status}}</h2>
-
-
-  <md-tab-group>
-    <md-tab label="Members">
-      <div *ngFor="let member of group.members">
-        <app-person-group [person]="member"></app-person-group>
-      </div>
-    </md-tab>
-    <md-tab label="Rules">
-      {{group.rules}}
-    </md-tab>
-    <md-tab label="My Profile">
-      Content 3
-    </md-tab>
-  </md-tab-group>
+<md-tab-group>
+  <md-tab label="Members">
+    <div *ngFor="let member of group.members">
+      <app-person-card [person]="member"></app-person-card>
+    </div>
+  </md-tab>
+  <md-tab label="Rules">
+    {{group.rules}}
+  </md-tab>
+  <md-tab label="My Profile">
+    Content 3
+  </md-tab>
+</md-tab-group>
 
