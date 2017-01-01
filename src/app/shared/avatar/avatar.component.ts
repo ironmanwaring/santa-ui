@@ -6,7 +6,14 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent {
- @Input()
- src: String = '';
-
+  @Input()
+  src: String = '';
+  
+  size: string = 'large';
+  
+  getClass(): any {
+    let classMap = {};
+    classMap[this.size] = true;
+    return classMap;
+  }
 }

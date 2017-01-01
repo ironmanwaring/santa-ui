@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { GroupsComponent } from '../groups/groups.component';
 import { GroupService } from '../shared/group.service';
@@ -24,6 +25,7 @@ describe('GroupDetailComponent', () => {
       ],
       imports: [
         SharedModule,
+        RouterTestingModule
       ],
       providers: [
         GroupService
