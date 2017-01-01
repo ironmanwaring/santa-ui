@@ -1,6 +1,6 @@
 <app-title title="Your groups"></app-title>
 
-<div class="flex-container" fxLayout="row" fxLayoutAlign="center center">
+<div class="flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
     <app-group-card class="flex-item" *ngFor="let group of groups" [group]="group"></app-group-card>
 </div>
 
