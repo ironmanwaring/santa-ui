@@ -7,6 +7,7 @@ import { GroupService } from './shared/group.service';
 import { GroupsRoutingModule } from './groups-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GroupCardComponent } from './group-card/group-card.component';
+import { AddGroupComponent } from './add-group/add-group.component';
 
 @NgModule({
   imports: [
@@ -18,10 +19,14 @@ import { GroupCardComponent } from './group-card/group-card.component';
     GroupsComponent,
     GroupDetailComponent, 
     PersonCardComponent,
-    GroupCardComponent
+    GroupCardComponent,
+    AddGroupComponent
   ],
   providers: [
     GroupService
+  ],
+  entryComponents: [
+    AddGroupComponent
   ]
 })
 export class GroupsModule { }
