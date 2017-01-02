@@ -4,6 +4,6 @@
     <app-group-card class="flex-item" *ngFor="let group of groups" [group]="group"></app-group-card>
 </div>
 
-<button md-fab color="primary" (click)="showAddGroup()">
-  <md-icon>add_circle</md-icon>
+<button md-fab color="primary" (click)="addGroup()" class="add-group">
+  <md-icon>add</md-icon>
 </button>
