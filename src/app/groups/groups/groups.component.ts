@@ -12,7 +12,6 @@ import { AddGroupComponent } from '../add-group/add-group.component';
 export class GroupsComponent implements OnInit {
   
   groups: Group[] = [];
-  showAddGroup: boolean = false;
   
   constructor(
     private groupService: GroupService,
@@ -24,8 +23,7 @@ export class GroupsComponent implements OnInit {
   }
 
   public addGroup(): void {
-    this.showAddGroup = true;
-    this.dialog.open(AddGroupComponent);
+    let addGroup = this.dialog.open(AddGroupComponent);
   }
 
 }
