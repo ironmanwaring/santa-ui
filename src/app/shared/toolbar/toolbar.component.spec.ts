@@ -2,6 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ToolbarComponent } from './toolbar.component';
 import { AuthService } from '../auth/auth.service';
@@ -18,6 +19,7 @@ describe('ToolbarComponent', () => {
       declarations: [ ToolbarComponent ],
       imports: [
         MaterialModule.forRoot(),
+        RouterTestingModule
       ],
       providers: [
         AuthService,
