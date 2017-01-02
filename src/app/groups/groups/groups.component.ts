@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
+import { AddGroupComponent } from '../add-group/add-group.component';
 
 @Component({
   selector: 'app-groups',
@@ -22,9 +23,9 @@ export class GroupsComponent implements OnInit {
     this.groups = this.groupService.getAll();
   }
 
-  public showGroup(): void {
+  public addGroup(): void {
     this.showAddGroup = true;
-    // this.dialog.open(AddGroupDialog);
+    this.dialog.open(AddGroupComponent);
   }
 
 }
