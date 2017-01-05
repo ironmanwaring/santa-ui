@@ -4,6 +4,8 @@ import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
+
 import { AuthService } from './auth/auth.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -17,6 +19,7 @@ import { LoadingComponent } from './loading/loading.component';
     CommonModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
+    RouterModule
   ],
   exports: [
     MaterialModule,
