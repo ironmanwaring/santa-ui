@@ -7,7 +7,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { Group } from './group';
-import { FULL_GROUP } from './mock-data';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
