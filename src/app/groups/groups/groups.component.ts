@@ -4,6 +4,8 @@ import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
 import { AddGroupComponent } from '../add-group/add-group.component';
 
+import 'rxjs/Rx';
+
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
@@ -19,7 +21,9 @@ export class GroupsComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.groups = this.groupService.getAll();
+    this.groupService.getAll().subscribe(
+      groups => this.groups = groups
+    );
   }
 
   public addGroup(): void {
