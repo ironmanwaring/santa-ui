@@ -29,7 +29,7 @@ export class GroupsComponent implements OnInit {
   }
 
   public addGroup(): void {
-    let addGroup = this.dialog.open(AddGroupComponent);
+    this.dialog.open(AddGroupComponent);
   }
 
 }
