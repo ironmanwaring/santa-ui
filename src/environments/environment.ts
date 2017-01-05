@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  groupsEndpoint: ''
+  groupsEndpoint: 'https://yclp124tsj.execute-api.us-east-1.amazonaws.com/Dev'
 };
