@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-group-detail',
@@ -15,17 +18,20 @@ export class GroupDetailComponent implements OnInit {
 
  // comma separated injectables
   constructor(
-    private groupService: GroupService
+    private groupService: GroupService,
+    private route: ActivatedRoute
   ) { }
 
  // requests group form users group list
   ngOnInit () {
-    this.groupService.getGroup('4af1df30-d2f3-11e6-acaf-cf35194a9c06').subscribe(
-      group => {
-        console.log(group);
-        this.group = group;
-      }
-    );
+    this.route.params
+        .switchMap( (params: Params) => 
+    this.groupService
+        .getGroup(params['id']))
+        .subscribe( (group: Group) => {
+          this.loading = false;
+          this.group = group;
+        });
   }
 
 }
