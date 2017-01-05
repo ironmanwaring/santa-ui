@@ -13,6 +13,7 @@ import { AddGroupComponent } from '../add-group/add-group.component';
 export class GroupsComponent implements OnInit {
   
   groups: Group[] = [];
+  loading: boolean = true;
   
   constructor(
     private groupService: GroupService,
@@ -20,9 +21,11 @@ export class GroupsComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.groupService.getAll().subscribe(
-      groups => this.groups = groups
-    );
+    this.groupService.getAll()
+      .subscribe( groups => {
+        this.loading = false;
+        this.groups = groups;
+      });
   }
 
   public addGroup(): void {

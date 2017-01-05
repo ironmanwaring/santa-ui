@@ -11,6 +11,7 @@ export class GroupDetailComponent implements OnInit {
 
   // initialize with an empty group object to avoid null pointer exceptions
   group: Group = <Group>{};
+  loading: boolean = true;
 
  // comma separated injectables
   constructor(
@@ -19,7 +20,12 @@ export class GroupDetailComponent implements OnInit {
 
  // requests group form users group list
   ngOnInit () {
-    this.group = this.groupService.getGroup(1);
+    this.groupService.getGroup('4af1df30-d2f3-11e6-acaf-cf35194a9c06').subscribe(
+      group => {
+        console.log(group);
+        this.group = group;
+      }
+    );
   }
 
 }
