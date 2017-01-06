@@ -1,9 +1,11 @@
+<app-loading [loading]="loading"></app-loading>
+
 <app-title title="Your groups"></app-title>
 
-<div class="flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
-    <app-group-card class="flex-item" *ngFor="let group of groups" [group]="group"></app-group-card>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+    <app-group-card fxFlex="400px" fxFlex.xs="100%" *ngFor="let group of groups" [group]="group"></app-group-card>
 </div>
 
-<button md-fab color="primary" (click)="addGroup()" class="add-group">
+<button md-fab color="primary" (click)="addGroup()" class="add-group" mdTooltip="Create group" mdTooltipPosition="left">
   <md-icon>add</md-icon>
 </button>

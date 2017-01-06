@@ -15,6 +15,7 @@ export class AuthService {
     private router: Router
   ) {
     this.initAuthentication();
+    this.ifAuthenticatedShowProfile();
   }
 
   public login(): void {
@@ -25,7 +26,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.userProfile = null;
-    this.redirectToHome();
+    this.redirect();
   }
 
   public authenticated(): boolean {
@@ -36,7 +37,7 @@ export class AuthService {
     return this.userProfile
   }
 
-  public initAuthentication(): void {
+  private initAuthentication(): void {
     this.lock.on('authenticated', (authResult) => {
       this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
         if (error) {
@@ -48,18 +49,24 @@ export class AuthService {
     });
   }
 
-  public cacheAuthResult(authResult: any, profile: any): void {
+  private cacheAuthResult(authResult: any, profile: any): void {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('profile', JSON.stringify(profile));
     this.userProfile = profile;
-    this.redirectToGroups();
+    this.redirect();
   }
 
-  public redirectToGroups(): void {
-    this.router.navigate(['/groups']);
+  private ifAuthenticatedShowProfile() {
+    if(this.authenticated()) {
+      this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    }
   }
 
-  public redirectToHome(): void {
-    this.router.navigate(['/']);
+  private redirect(): void {
+    if(this.authenticated()) {
+      this.router.navigate(['/groups']);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

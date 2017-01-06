@@ -4,18 +4,22 @@ import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
+
 import { AuthService } from './auth/auth.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AvatarComponent } from './avatar/avatar.component';
 
 import 'hammerjs';
 import { TitleComponent } from './title/title.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
+    RouterModule
   ],
   exports: [
     MaterialModule,
@@ -24,7 +28,8 @@ import { TitleComponent } from './title/title.component';
     FlexLayoutModule,
     ToolbarComponent,
     AvatarComponent,
-    TitleComponent
+    TitleComponent,
+    LoadingComponent
   ],
   providers: [
     AuthService,
@@ -32,7 +37,8 @@ import { TitleComponent } from './title/title.component';
   declarations: [
     ToolbarComponent,
     AvatarComponent,
-    TitleComponent
+    TitleComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }
