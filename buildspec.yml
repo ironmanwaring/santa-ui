@@ -11,8 +11,8 @@ phases:
       - echo Setting users endpoint as $(cat usersEndpoint.txt)
   build:
     commands:
-      - sed -i 's/GROUPS_ENDPOINT/$(cat groupsEndpoint.txt)/g' src/environments/environment.prod.ts
-      - sed -i 's/USERS_ENDPOINT/$(cat usersEndpoint.txt)/g' src/environments/environment.prod.ts
+      - sed -i "s|GROUPS_ENDPOINT|$(cat groupsEndpoint.txt)|g" src/environments/environment.prod.ts
+      - sed -i "s|USERS_ENDPOINT|$(cat usersEndpoint.txt)|g" src/environments/environment.prod.ts
       - npm run build
 
 artifacts:
