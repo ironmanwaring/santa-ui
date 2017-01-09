@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
+import { SharedModule } from '../../shared/shared.module';
+import { UserProfileService} from '../shared/user-profile.service';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -11,7 +13,15 @@ describe('UserProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserProfileComponent ]
+      declarations: [ 
+        UserProfileComponent 
+      ],
+      imports: [
+         SharedModule
+      ],
+      providers: [
+        UserProfileService
+      ]
     })
     .compileComponents();
   }));
