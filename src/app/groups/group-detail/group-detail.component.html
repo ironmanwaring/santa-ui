@@ -2,17 +2,24 @@
 
 <app-title [title]="group.name" [subtitle]="group.status"></app-title>
 
-<md-tab-group>
-  <md-tab label="Members">
-    <div *ngFor="let member of group.members">
-      <app-person-card [person]="member"></app-person-card>
+
+  
+  <div label="Members" class="top-margin flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
+      <app-person-card  *ngFor="let member of group.members" class="flex-item" [person]="member"></app-person-card>
+  </div>
+
+<md-tab-group class="body-padding">
+  <md-tab label="Rules">
+    <div class="detail-margin">
+      {{group.rules}}
     </div>
   </md-tab>
-  <md-tab label="Rules">
-    {{group.rules}}
-  </md-tab>
+
   <md-tab label="My Profile">
-    Content 3
+    <div class="detail-margin">
+      <app-user-profile class="top-margin"></app-user-profile>
+    </div>
   </md-tab>
+
 </md-tab-group>
 

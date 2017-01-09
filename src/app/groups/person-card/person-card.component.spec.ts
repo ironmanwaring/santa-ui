@@ -10,6 +10,8 @@ import { GroupService } from '../shared/group.service';
 import { GroupsComponent } from '../groups/groups.component';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+
 
 describe('PersonCardComponent', () => {
   let component: PersonCardComponent;
@@ -21,7 +23,8 @@ describe('PersonCardComponent', () => {
         GroupsComponent,
         GroupDetailComponent, 
         PersonCardComponent,
-        GroupCardComponent   
+        GroupCardComponent,
+        UserProfileComponent   
       ],
       imports: [
         SharedModule,

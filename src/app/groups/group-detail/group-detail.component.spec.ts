@@ -10,6 +10,8 @@ import { GroupService } from '../shared/group.service';
 import { GroupDetailComponent } from '../group-detail/group-detail.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { UserProfileService} from '../shared/user-profile.service';
 
 describe('GroupDetailComponent', () => {
   let component: GroupDetailComponent;
@@ -21,14 +23,16 @@ describe('GroupDetailComponent', () => {
         GroupsComponent,
         GroupDetailComponent, 
         PersonCardComponent,
-        GroupCardComponent   
+        GroupCardComponent,
+        UserProfileComponent   
       ],
       imports: [
         SharedModule,
         RouterTestingModule
       ],
       providers: [
-        GroupService
+        GroupService,
+        UserProfileService
      ]
 
     })
