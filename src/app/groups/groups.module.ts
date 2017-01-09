@@ -8,6 +8,8 @@ import { GroupsRoutingModule } from './groups-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GroupCardComponent } from './group-card/group-card.component';
 import { AddGroupComponent } from './add-group/add-group.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileService } from './shared/user-profile.service';
 
 @NgModule({
   imports: [
@@ -20,10 +22,12 @@ import { AddGroupComponent } from './add-group/add-group.component';
     GroupDetailComponent, 
     PersonCardComponent,
     GroupCardComponent,
-    AddGroupComponent
+    AddGroupComponent,
+    UserProfileComponent
   ],
   providers: [
-    GroupService
+    GroupService,
+    UserProfileService,
   ],
   entryComponents: [
     AddGroupComponent
