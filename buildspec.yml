@@ -4,12 +4,18 @@ phases:
   install:
     commands:
       - npm i
+      - echo Getting api endpoints
+      - aws cloudformation describe-stacks --stack-name Groups-Dev --query 'Stacks[0].Outputs[?OutputKey==`GroupsEndpoint`].OutputValue' --output text > groupsEndpoint.txt
+      - echo Setting groups endpoint as $(cat groupsEndpoint.txt)
+      - aws cloudformation describe-stacks --stack-name Users-Dev --query 'Stacks[0].Outputs[?OutputKey==`UsersEndpoint`].OutputValue' --output text > usersEndpoint.txt
+      - echo Setting users endpoint as $(cat usersEndpoint.txt)
   build:
     commands:
+      - sed -i "s|GROUPS_ENDPOINT|$(cat groupsEndpoint.txt)|g" src/environments/environment.prod.ts
+      - sed -i "s|USERS_ENDPOINT|$(cat usersEndpoint.txt)|g" src/environments/environment.prod.ts
       - npm run build
 
 artifacts:
-  type: zip
   files:
     - dist/*
   discard-paths: yes

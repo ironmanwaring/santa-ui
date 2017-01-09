@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  groupsEndpoint: 'GROUPS_ENDPOINT',
+  usersEndpoint: 'USERS_ENDPOINT'
 };

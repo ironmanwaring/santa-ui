@@ -2,11 +2,17 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { GroupService } from './group.service';
+import { SharedModule } from '../../shared/shared.module';
 
 describe('GroupService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GroupService]
+      imports: [
+        SharedModule
+      ],
+      providers: [
+        GroupService
+      ]
     });
   });
 
