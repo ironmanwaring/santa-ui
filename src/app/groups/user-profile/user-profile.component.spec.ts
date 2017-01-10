@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
 import { SharedModule } from '../../shared/shared.module';
-import { UserProfileService} from '../shared/user-profile.service';
+import { UserService} from '../shared/user.service';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -20,7 +20,7 @@ describe('UserProfileComponent', () => {
          SharedModule
       ],
       providers: [
-        UserProfileService
+        UserService
       ]
     })
     .compileComponents();

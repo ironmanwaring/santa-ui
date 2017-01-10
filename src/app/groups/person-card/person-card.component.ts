@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Person } from '../shared/person';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-person-card',
@@ -10,7 +10,7 @@ export class PersonCardComponent implements OnInit {
   
   //getting data from parent component;
   @Input()
-  person: Person = <Person>{};
+  person: User = <User>{};
 
 
   constructor() { }
