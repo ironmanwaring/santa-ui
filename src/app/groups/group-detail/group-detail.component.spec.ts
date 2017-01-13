@@ -11,7 +11,7 @@ import { GroupDetailComponent } from '../group-detail/group-detail.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { UserProfileService} from '../shared/user-profile.service';
+import { UserService} from '../shared/user.service';
 
 describe('GroupDetailComponent', () => {
   let component: GroupDetailComponent;
@@ -32,7 +32,7 @@ describe('GroupDetailComponent', () => {
       ],
       providers: [
         GroupService,
-        UserProfileService
+        UserService
      ]
 
     })

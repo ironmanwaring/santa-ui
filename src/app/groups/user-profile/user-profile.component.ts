@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../shared/user-profile';
 
 /*------ injectable services ------*/
-import { UserProfileService } from '../shared/user-profile.service';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,16 +12,17 @@ import { UserProfileService } from '../shared/user-profile.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  user: UserProfile;
+  //instantiate UserProfile as an emtpy type UserProfile
+  user: UserProfile = <UserProfile>{};
   submitted: Boolean = false;
 
 
   constructor( 
-    private userProfileService: UserProfileService 
+    private userService: UserService 
   ) { }
 
   ngOnInit() {
-    this.user = this.userProfileService.getUserProfile();
+    // this.user = this.userService.getUserProfile();
   }
 
    onSubmit() { 
