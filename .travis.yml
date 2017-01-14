@@ -27,6 +27,6 @@ script:
   - npm test
   - codecov
 
-deploy:
+after_success:
   - chmod +x ./travis-deploy/deploy.sh
   # - ./travis-deploy/deploy.sh
