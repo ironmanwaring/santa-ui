@@ -12,7 +12,9 @@ if [ $TRAVIS_PULL_REQUEST != "false" ]; then
 else
     echo Deploying project with code from branch: $TRAVIS_BRANCH
     [[ $TRAVIS_BRANCH = "master" ]] && STAGE="Prod" || STAGE=$FIRST_NAME
-    echo serverless deploy --stage $STAGE
-    serverless deploy --stage $STAGE
+    echo aws cloudformation describe-stacks
+    aws cloudformation describe-stacks
+    # echo serverless deploy --stage $STAGE
+    # serverless deploy --stage $STAGE
 
 fi
