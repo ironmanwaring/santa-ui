@@ -17,7 +17,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 install:
-  - sudo pip install awscli
+  # - sudo pip install awscli
   - npm install --no-optional
 
 cache:
