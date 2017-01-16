@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/auth/auth.service';
+import { Router, NavigationEnd } from '@angular/router';
+
+import 'rxjs/add/operator/distinctUntilChanged';
+
+declare var ga: any;
 
 @Component({
   selector: 'app-root',
@@ -7,6 +11,15 @@ import { AuthService } from './shared/auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor( private auth: AuthService ) { }
-  
+
+  currentRoute: string = '';
+
+  constructor( private router: Router ) { 
+    router.events.distinctUntilChanged( (previous: any, current: any) => {
+      if (current instanceof NavigationEnd) {
+        return previous.url === current.url;
+      }
+      return true;
+    }).subscribe( (page: any) => ga('send', 'pageview', page.url) );
+  }  
 }
