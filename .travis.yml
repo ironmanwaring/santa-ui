@@ -26,5 +26,6 @@ cache:
 script:
   - npm test
   - codecov
-  - chmod +x ./travis-deploy/deploy.sh
-  - ./travis-deploy/deploy.sh
+  # TODO use this section if move to travis-ci for deploys instead of codepipeline
+  # - chmod +x ./travis-deploy/deploy.sh
+  # - ./travis-deploy/deploy.sh
