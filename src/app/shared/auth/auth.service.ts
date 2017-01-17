@@ -8,8 +8,8 @@ let Auth0Lock = require('auth0-lock').default;
 export class AuthService {
 
   lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', {});
-
   userProfile: any;
+  redirectUrl: string;
 
   constructor(
     private router: Router
@@ -44,6 +44,7 @@ export class AuthService {
           console.error(error);
         } else {
           this.cacheAuthResult(authResult, profile);
+          this.redirect();
         }
       });
     });
@@ -53,18 +54,18 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('profile', JSON.stringify(profile));
     this.userProfile = profile;
-    this.redirect();
   }
 
   private ifAuthenticatedShowProfile() {
-    if(this.authenticated()) {
+    if (this.authenticated()) {
       this.userProfile = JSON.parse(localStorage.getItem('profile'));
     }
   }
 
   private redirect(): void {
-    if(this.authenticated()) {
-      this.router.navigate(['/groups']);
+    if (this.authenticated()) {
+      let url = this.redirectUrl ? this.redirectUrl : '/groups';
+      this.router.navigate([url]);
     } else {
       this.router.navigate(['/']);
     }

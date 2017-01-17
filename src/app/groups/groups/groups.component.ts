@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MdDialog } from '@angular/material';
-
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
 import { AddGroupComponent } from '../add-group/add-group.component';
