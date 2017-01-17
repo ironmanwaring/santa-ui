@@ -3,7 +3,6 @@ import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
 import { AddGroupComponent } from '../add-group/add-group.component';
-import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-groups',
@@ -17,8 +16,7 @@ export class GroupsComponent implements OnInit {
   
   constructor(
     private groupService: GroupService,
-    public dialog: MdDialog,
-    private auth: AuthService
+    public dialog: MdDialog
   ) { }
 
   ngOnInit () {
