@@ -24,6 +24,8 @@
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
+        "stephanie": "environments/environment.stephanie.ts",
+        "phillip": "environments/environment.phillip.ts",
         "prod": "environments/environment.prod.ts"
       }
     }

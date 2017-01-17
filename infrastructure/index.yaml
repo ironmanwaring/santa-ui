@@ -5,6 +5,17 @@ Parameters:
   Project:
     Description: Name of the project (e.g. SantaSwap)
     Type: String
+  Stage:
+    Description: Stage this app should be built and deployed in
+    Type: String
+    AllowedValues:
+      - Prod
+      - Personal
+    Default: Prod
+  Name:
+    Description: Your name (if a personal stage)
+    Type: String
+    Default: NA
   Domain:
     Description: Domain name (e.g. manwaring.io)
     Type: String
@@ -19,6 +30,8 @@ Metadata:
           default: Project settings
         Parameters:
           - Project
+          - Stage
+          - Name
       - Label:
           default: Site settings
         Parameters:
