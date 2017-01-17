@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
 import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AvatarComponent } from './avatar/avatar.component';
 
@@ -33,6 +34,7 @@ import { LoadingComponent } from './loading/loading.component';
   ],
   providers: [
     AuthService,
+    AuthGuardService
   ],
   declarations: [
     ToolbarComponent,
