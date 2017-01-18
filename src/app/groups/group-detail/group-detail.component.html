@@ -7,7 +7,19 @@
 </div>
 
 <md-tab-group class="body-padding">
-  <md-tab label="Group information">
+
+  <md-tab label="Participants">
+    <div class="detail-margin">
+    </div>
+  </md-tab>
+
+  <md-tab label="My profile">
+    <div class="detail-margin">
+      <app-user-profile class="top-margin"></app-user-profile>
+    </div>
+  </md-tab>
+
+  <md-tab label="Information">
     <div class="detail-margin">
       
       <md-input-container class="full-width">
@@ -17,12 +29,9 @@
       <md-input-container class="full-width">
         <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" rows="1" (blur)="updateGroup()"></textarea>
       </md-input-container>
-    </div>
-  </md-tab>
 
-  <md-tab label="My Profile">
-    <div class="detail-margin">
-      <app-user-profile class="top-margin"></app-user-profile>
+      <button md-raised-button color="primary" disabled>Match the group</button>
+
     </div>
   </md-tab>
 
