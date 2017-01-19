@@ -7,9 +7,20 @@ let Auth0Lock = require('auth0-lock').default;
 @Injectable()
 export class AuthService {
 
-  lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', {});
+  options = {
+    theme: {
+      logo: './assets/img/santa.png'
+    },
+    languageDictionary: {
+      title: 'Log in to Santa Swap'
+    },
+    auth: {
+      redirectUrl: 'http://localhost:4200',
+      responseType: 'token'
+    }
+  };
+  lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', this.options);
   userProfile: any;
-  redirectUrl: string;
 
   constructor(
     private router: Router
@@ -35,6 +46,16 @@ export class AuthService {
 
   public user(): any {
     return this.userProfile
+  }
+
+  public cacheRedirectUrl(url: string): void {
+    localStorage.setItem('redirectUrl', url);
+  }
+
+  private getRedirectUrl(): string {
+    let redirectUrl = localStorage.getItem('redirectUrl');
+    localStorage.removeItem('redirectUrl');
+    return redirectUrl;
   }
 
   private initAuthentication(): void {
@@ -64,7 +85,7 @@ export class AuthService {
 
   private redirect(): void {
     if (this.authenticated()) {
-      let url = this.redirectUrl ? this.redirectUrl : '/groups';
+      let url = this.getRedirectUrl() ? this.getRedirectUrl() : '/groups';
       this.router.navigate([url]);
     } else {
       this.router.navigate(['/']);
