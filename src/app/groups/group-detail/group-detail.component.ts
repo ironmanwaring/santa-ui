@@ -12,18 +12,15 @@ import 'rxjs/add/operator/switchMap';
 })
 export class GroupDetailComponent implements OnInit {
 
-  // initialize with an empty group object to avoid null pointer exceptions
   group: Group = <Group>{};
   loading: boolean = true;
 
- // comma separated injectables
   constructor(
     private groupService: GroupService,
     private route: ActivatedRoute
   ) { }
 
- // requests group form users group list
-  ngOnInit () {
+  ngOnInit() {
     this.route.params
         .switchMap( (params: Params) => 
     this.groupService
@@ -31,6 +28,14 @@ export class GroupDetailComponent implements OnInit {
         .subscribe( (group: Group) => {
           this.loading = false;
           this.group = group;
+        });
+  }
+
+  updateGroup(): void {
+    this.groupService
+        .updateGroup(this.group)
+        .subscribe( (group: Group) => {
+          console.log('group updated', group);
         });
   }
 

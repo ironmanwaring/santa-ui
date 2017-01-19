@@ -31,9 +31,13 @@ export class GroupService {
   }
 
   createGroup(name: string): Observable<Group> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.endpoint, { name }, options)
+    return this.http.post(this.endpoint, { name }, this.getJsonHeaders())
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  updateGroup(group: Group): Observable<Group> {
+    return this.http.put(`${this.endpoint}/${group.id}`, group, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -54,5 +58,11 @@ export class GroupService {
     }
     console.error(message);
     return Observable.throw(message);
+  }
+
+  private getJsonHeaders(): RequestOptions {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return options;
   }
 }

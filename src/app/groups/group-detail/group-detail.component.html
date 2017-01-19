@@ -2,24 +2,37 @@
 
 <app-title [title]="group.name" [subtitle]="group.status"></app-title>
 
-
-  
-  <div label="Members" class="top-margin flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
-      <app-person-card  *ngFor="let member of group.members" class="flex-item" [person]="member"></app-person-card>
-  </div>
+<div label="Members" class="top-margin flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
+    <app-person-card  *ngFor="let member of group.members" class="flex-item" [person]="member"></app-person-card>
+</div>
 
 <md-tab-group class="body-padding">
-  <md-tab label="Rules">
+
+  <md-tab label="Participants">
     <div class="detail-margin">
-      {{group.rules}}
     </div>
   </md-tab>
 
-  <md-tab label="My Profile">
+  <md-tab label="My profile">
     <div class="detail-margin">
       <app-user-profile class="top-margin"></app-user-profile>
     </div>
   </md-tab>
 
-</md-tab-group>
+  <md-tab label="Information">
+    <div class="detail-margin">
+      
+      <md-input-container class="full-width">
+        <input md-input [(ngModel)]="group.name" placeholder="Name" (blur)="updateGroup()"/>
+      </md-input-container>
 
+      <md-input-container class="full-width">
+        <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" rows="1" (blur)="updateGroup()"></textarea>
+      </md-input-container>
+
+      <button md-raised-button color="primary" disabled>Match the group</button>
+
+    </div>
+  </md-tab>
+
+</md-tab-group>
