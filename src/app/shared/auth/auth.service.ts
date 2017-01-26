@@ -8,14 +8,10 @@ let Auth0Lock = require('auth0-lock').default;
 export class AuthService {
 
   options = {
-    theme: {
-      logo: './assets/img/santa.png'
-    },
-    languageDictionary: {
-      title: 'Log in to Santa Swap'
-    },
+    theme: { logo: './assets/img/santa.png' },
+    languageDictionary: { title: 'Log in to Santa Swap' },
     auth: {
-      redirectUrl: 'http://localhost:4200',
+      redirectUrl: window.location.protocol + '//' + window.location.host,
       responseType: 'token'
     }
   };
@@ -37,7 +33,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.userProfile = null;
-    this.redirect();
+    this.redirectOnAuthChange();
   }
 
   public authenticated(): boolean {
@@ -65,7 +61,7 @@ export class AuthService {
           console.error(error);
         } else {
           this.cacheAuthResult(authResult, profile);
-          this.redirect();
+          this.redirectOnAuthChange();
         }
       });
     });
@@ -83,9 +79,10 @@ export class AuthService {
     }
   }
 
-  private redirect(): void {
+  private redirectOnAuthChange(): void {
+    let cachedUrl = this.getRedirectUrl();
     if (this.authenticated()) {
-      let url = this.getRedirectUrl() ? this.getRedirectUrl() : '/groups';
+      let url = cachedUrl ? cachedUrl : '/groups';
       this.router.navigate([url]);
     } else {
       this.router.navigate(['/']);

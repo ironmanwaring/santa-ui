@@ -22,9 +22,7 @@ export class GroupDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params
-        .switchMap( (params: Params) => 
-    this.groupService
-        .getGroup(params['id']))
+        .switchMap( (params: Params) => this.groupService.getGroup(params['id']))
         .subscribe( (group: Group) => {
           this.loading = false;
           this.group = group;
