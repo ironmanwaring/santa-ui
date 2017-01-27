@@ -7,9 +7,16 @@ let Auth0Lock = require('auth0-lock').default;
 @Injectable()
 export class AuthService {
 
-  lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', {});
+  options = {
+    theme: { logo: './assets/img/santa.png' },
+    languageDictionary: { title: 'Log in to Santa Swap' },
+    auth: {
+      redirectUrl: window.location.protocol + '//' + window.location.host,
+      responseType: 'token'
+    }
+  };
+  lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', this.options);
   userProfile: any;
-  redirectUrl: string;
 
   constructor(
     private router: Router
@@ -26,7 +33,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.userProfile = null;
-    this.redirect();
+    this.redirectOnAuthChange();
   }
 
   public authenticated(): boolean {
@@ -37,6 +44,16 @@ export class AuthService {
     return this.userProfile
   }
 
+  public cacheRedirectUrl(url: string): void {
+    localStorage.setItem('redirectUrl', url);
+  }
+
+  private getRedirectUrl(): string {
+    let redirectUrl = localStorage.getItem('redirectUrl');
+    localStorage.removeItem('redirectUrl');
+    return redirectUrl;
+  }
+
   private initAuthentication(): void {
     this.lock.on('authenticated', (authResult) => {
       this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
@@ -44,7 +61,7 @@ export class AuthService {
           console.error(error);
         } else {
           this.cacheAuthResult(authResult, profile);
-          this.redirect();
+          this.redirectOnAuthChange();
         }
       });
     });
@@ -62,9 +79,10 @@ export class AuthService {
     }
   }
 
-  private redirect(): void {
+  private redirectOnAuthChange(): void {
+    let cachedUrl = this.getRedirectUrl();
     if (this.authenticated()) {
-      let url = this.redirectUrl ? this.redirectUrl : '/groups';
+      let url = cachedUrl ? cachedUrl : '/groups';
       this.router.navigate([url]);
     } else {
       this.router.navigate(['/']);
