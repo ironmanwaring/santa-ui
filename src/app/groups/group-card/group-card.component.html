@@ -1,11 +1,7 @@
 <md-card class="group-card" [routerLink]="['/groups', group.id]"> 
   
-  <!--<md-card-header>
-    <md-card-title class="group-card-title">{{group.name}}</md-card-title>
-  </md-card-header>-->
-  
   <md-card-content>
       <h3 class="title-md">{{group.name}}</h3>
-      <app-avatar *ngFor="let person of group.members" [src]="person.picture"></app-avatar>
+      <app-avatar *ngFor="let person of group.users" [src]="person.picture"></app-avatar>
   </md-card-content>
 </md-card>
