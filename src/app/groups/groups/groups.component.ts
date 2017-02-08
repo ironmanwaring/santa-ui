@@ -25,7 +25,6 @@ export class GroupsComponent implements OnInit {
     this.groupService.listByUser(this.auth.getUser().id)
       .subscribe( groups => {
         this.loading = false;
-        console.log(groups);
         this.groups = groups;
       });
   }
