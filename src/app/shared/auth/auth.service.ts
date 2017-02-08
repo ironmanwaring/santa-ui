@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { User } from './user';
 
 let Auth0Lock = require('auth0-lock').default;
 
@@ -16,11 +17,9 @@ export class AuthService {
     }
   };
   lock = new Auth0Lock('e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja', 'santaswap.auth0.com', this.options);
-  userProfile: any;
+  user: User;
 
-  constructor(
-    private router: Router
-  ) {
+  constructor( private router: Router ) {
     this.initAuthentication();
     this.ifAuthenticatedShowProfile();
   }
@@ -32,7 +31,7 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
-    this.userProfile = null;
+    this.user = null;
     this.redirectOnAuthChange();
   }
 
@@ -40,8 +39,8 @@ export class AuthService {
     return tokenNotExpired();
   }
 
-  public user(): any {
-    return this.userProfile
+  public getUser(): User {
+    return this.user;
   }
 
   public cacheRedirectUrl(url: string): void {
@@ -70,13 +69,17 @@ export class AuthService {
   private cacheAuthResult(authResult: any, profile: any): void {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('profile', JSON.stringify(profile));
-    this.userProfile = profile;
+    this.saveUserFromProfile(profile);
   }
 
   private ifAuthenticatedShowProfile() {
     if (this.authenticated()) {
-      this.userProfile = JSON.parse(localStorage.getItem('profile'));
+      this.saveUserFromProfile(JSON.parse(localStorage.getItem('profile')));
     }
+  }
+
+  private saveUserFromProfile(profile: any): void {
+    this.user = new User(profile);
   }
 
   private redirectOnAuthChange(): void {

@@ -3,6 +3,7 @@ import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
 import { AddGroupComponent } from '../add-group/add-group.component';
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-groups',
@@ -16,13 +17,15 @@ export class GroupsComponent implements OnInit {
   
   constructor(
     private groupService: GroupService,
+    private auth: AuthService,
     public dialog: MdDialog
   ) { }
 
   ngOnInit () {
-    this.groupService.getAll()
+    this.groupService.listByUser(this.auth.getUser().id)
       .subscribe( groups => {
         this.loading = false;
+        console.log(groups);
         this.groups = groups;
       });
   }

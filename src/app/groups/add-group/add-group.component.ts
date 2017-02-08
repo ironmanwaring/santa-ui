@@ -25,27 +25,22 @@ export class AddGroupComponent {
   ) { }
 
   public saveGroup(): void {
+    let group = { name: this.name };
+    let profile = {
+      name: this.authService.getUser().name,
+      userId: this.authService.getUser().id,
+      picture: this.authService.getUser().picture
+    };
     this.groupService
-        .createGroup(this.name)
+        .createAndJoinGroup(group, profile)
         //change to call addUserToGroup
         // .subscribe( group => this.navigateToGroup(group));
-        .subscribe( group => this.addUserToGroup(group));
+        .subscribe( group => this.navigateToGroup(group));
   }
 
   private navigateToGroup(group: Group) {
     this.dialogRef.close(group.name);
     this.router.navigate(['/groups', group.groupId]);
-  }
-
-  private addUserToGroup(group: Group) {
-    let user = {
-      name: this.authService.user().name,
-      userId: this.authService.user().user_id,
-      picture: this.authService.user().picture
-    };
-    this.userService
-        .addUserToGroup(user, group.groupId)
-        .subscribe( user => this.navigateToGroup(group))
   }
 
 }

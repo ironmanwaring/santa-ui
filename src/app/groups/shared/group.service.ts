@@ -7,47 +7,49 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { Group } from './group';
+import { User } from './user';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class GroupService {
 
-  endpoint: string = `${environment.groupsEndpoint}/groups`;
+  endpoint: string = environment.groupsEndpoint;
 
-  constructor(
-    private http: Http
-  ) { }
+  constructor( private http: Http ) { }
 
-  getAll(): Observable<Group[]> {
-    return this.http.get(this.endpoint)
+  listByUser(id: string): Observable<Group[]> {
+    return this.http.get(`${this.endpoint}/users/${id}/groups`)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   getGroup(id: string): Observable<Group> {
-    return this.http.get(`${this.endpoint}/${id}`)
+    return this.http.get(`${this.endpoint}/groups/${id}`)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  createGroup(name: string): Observable<Group> {
-    return this.http.post(this.endpoint, { name }, this.getJsonHeaders())
+  createAndJoinGroup(group: any, profile: User): Observable<Group> {
+    return this.http.post(`${this.endpoint}/groups`, {group, profile}, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.http.put(`${this.endpoint}/${group.id}`, group, this.getJsonHeaders())
+    return this.http.put(`${this.endpoint}/${group.groupId}`, group, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   private extractData(res: Response): any {
+    console.log(res);
     let body = res.json();
+    console.log(body)
     return body || { };
   }
 
   private handleError(error: Response | any): any {
+    console.log('Unexpected error :(', JSON.stringify(error));
     let message: string;
     if(error instanceof Response) {
       const body = error.json() || '';
