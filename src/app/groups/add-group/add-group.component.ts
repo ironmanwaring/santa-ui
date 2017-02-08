@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
 import { AuthService } from '../../shared/auth/auth.service';
-import { UserService } from '../shared/user.service';
-
 
 @Component({
   selector: 'app-add-group',
@@ -20,8 +18,7 @@ export class AddGroupComponent {
     public dialogRef: MdDialogRef<AddGroupComponent>,
     private groupService: GroupService,
     public router: Router,
-    private authService: AuthService,
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   public saveGroup(): void {
@@ -33,14 +30,12 @@ export class AddGroupComponent {
     };
     this.groupService
         .createAndJoinGroup(group, profile)
-        //change to call addUserToGroup
-        // .subscribe( group => this.navigateToGroup(group));
         .subscribe( group => this.navigateToGroup(group));
   }
 
   private navigateToGroup(group: Group) {
     this.dialogRef.close(group.name);
-    this.router.navigate(['/groups', group.groupId]);
+    this.router.navigate(['/groups', group.id]);
   }
 
 }

@@ -42,14 +42,11 @@ export class GroupService {
   }
 
   private extractData(res: Response): any {
-    console.log(res);
     let body = res.json();
-    console.log(body)
     return body || { };
   }
 
   private handleError(error: Response | any): any {
-    console.log('Unexpected error :(', JSON.stringify(error));
     let message: string;
     if(error instanceof Response) {
       const body = error.json() || '';
