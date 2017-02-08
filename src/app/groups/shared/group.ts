@@ -1,9 +1,9 @@
 import { User } from './user';
 
 export class Group {
-    id: string;
+    groupId: string;
     name: string;
     rules: string;
     status: string;
-    members?: User[];
+    users?: User[];
 }

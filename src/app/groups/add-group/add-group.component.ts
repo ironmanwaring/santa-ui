@@ -34,7 +34,7 @@ export class AddGroupComponent {
 
   private navigateToGroup(group: Group) {
     this.dialogRef.close(group.name);
-    this.router.navigate(['/groups', group.id]);
+    this.router.navigate(['/groups', group.groupId]);
   }
 
   private addUserToGroup(group: Group) {
@@ -44,7 +44,7 @@ export class AddGroupComponent {
       picture: this.authService.user().picture
     };
     this.userService
-        .addUserToGroup(user, group.id)
+        .addUserToGroup(user, group.groupId)
         .subscribe( user => this.navigateToGroup(group))
   }
 
