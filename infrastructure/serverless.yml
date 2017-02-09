@@ -41,7 +41,7 @@ resources:
       Type: AWS::Route53::RecordSet
       Properties:
         Name:
-          Fn::If: [ Prod, ${self:custom.domain.prod}, ${self:custom.domain.stage} ]
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
         Type: A
         AliasTarget:
           DNSName:
