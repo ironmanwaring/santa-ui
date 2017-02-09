@@ -1,0 +1,14 @@
+<div class="modal">
+  <h2 class="title-md" md-dialog-title>Invite to group</h2>
+
+  <div md-dialog-content>
+    <md-input-container>
+      <input md-input placeholder="Email" [(ngModel)]="email"/>
+    </md-input-container>
+  </div>
+
+  <div md-dialog-actions>
+    <button md-raised-button color="primary" (click)="inviteToGroup()">Invite</button>
+    <button md-button (click)="dialogRef.close()">Cancel</button>
+  </div>
+</div>

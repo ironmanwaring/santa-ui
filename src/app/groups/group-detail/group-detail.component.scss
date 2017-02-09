@@ -13,3 +13,15 @@
 .full-width {
     width: 100%;
 }
+
+.group-actions {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 30px;
+    margin-right: 20px;
+
+    button {
+        margin-top: 15px;
+    }
+}

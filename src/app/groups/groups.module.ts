@@ -8,6 +8,8 @@ import { GroupsRoutingModule } from './groups-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GroupCardComponent } from './group-card/group-card.component';
 import { AddGroupComponent } from './add-group/add-group.component';
+import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
+import { JoinGroupComponent } from './join-group/join-group.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './shared/user.service';
 
@@ -23,6 +25,8 @@ import { UserService } from './shared/user.service';
     PersonCardComponent,
     GroupCardComponent,
     AddGroupComponent,
+    InviteToGroupComponent,
+    JoinGroupComponent,
     UserProfileComponent
   ],
   providers: [
@@ -30,7 +34,9 @@ import { UserService } from './shared/user.service';
     UserService,
   ],
   entryComponents: [
-    AddGroupComponent
+    AddGroupComponent,
+    JoinGroupComponent,
+    InviteToGroupComponent
   ]
 })
 export class GroupsModule { }

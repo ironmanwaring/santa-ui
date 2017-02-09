@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
+import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { Group } from '../shared/group';
 
 import 'rxjs/add/operator/switchMap';
@@ -14,10 +16,13 @@ export class GroupDetailComponent implements OnInit {
 
   group: Group = <Group>{};
   loading: boolean = true;
+  viewAllActions: boolean = false;
+  hideActionsIntent: boolean = false;
 
   constructor(
     private groupService: GroupService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MdDialog
   ) { }
 
   ngOnInit() {
@@ -35,6 +40,21 @@ export class GroupDetailComponent implements OnInit {
         .subscribe( (group: Group) => {
           console.log('group updated', group);
         });
+  }
+
+  showInviteToGroup(): void {
+    this.dialog.open(InviteToGroupComponent);
+  }
+
+  public showAllActions(): void {
+    this.viewAllActions = true;
+    this.hideActionsIntent = false;
+    setTimeout( () => this.hideActionsIntent = false, 200);
+  }
+
+  public hideActions(): void {
+    this.viewAllActions = false;
+    setTimeout( () => this.hideActionsIntent ? this.viewAllActions = false : '', 500);
   }
 
 }

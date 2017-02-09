@@ -36,7 +36,13 @@ export class GroupService {
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.http.put(`${this.endpoint}/${group.id}`, group, this.getJsonHeaders())
+    return this.http.put(`${this.endpoint}/groups/${group.id}`, group, this.getJsonHeaders())
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  joinGroup(code: string, profile: Profile): Observable<Group> {
+    return this.http.post(`${this.endpoint}/groups/${code}/users`, profile, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }

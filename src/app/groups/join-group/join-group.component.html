@@ -1,0 +1,14 @@
+<div class="modal">
+  <h2 class="title-md" md-dialog-title>Join group</h2>
+
+  <div md-dialog-content>
+    <md-input-container>
+      <input md-input placeholder="Group code" [(ngModel)]="code"/>
+    </md-input-container>
+  </div>
+
+  <div md-dialog-actions>
+    <button md-raised-button color="primary" (click)="joinGroup()">Join</button>
+    <button md-button (click)="dialogRef.close()">Cancel</button>
+  </div>
+</div>

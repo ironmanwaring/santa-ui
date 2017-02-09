@@ -36,3 +36,9 @@
   </md-tab>
 
 </md-tab-group>
+
+<div class="group-actions" (mouseover)="showAllActions()" (mouseleave)="hideActions()">
+  <button md-fab color="primary" (click)="showInviteToGroup()" mdTooltip="Invite to group" mdTooltipPosition="left">
+    <md-icon>share</md-icon>
+  </button>
+</div>
