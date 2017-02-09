@@ -20,7 +20,6 @@ resources:
     Site:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.domain}
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
@@ -85,7 +84,7 @@ resources:
           PriceClass: PriceClass_100
           ViewerCertificate:
             AcmCertificateArn:
-              Fn::Ref: DomainCertificate
+              Ref: DomainCertificate
             SslSupportMethod: sni-only
 
     DomainCertificate:
