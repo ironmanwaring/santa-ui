@@ -31,7 +31,8 @@ resources:
         Name: ${self:custom.domain}
         Type: A
         AliasTarget:
-          DNSName: { GetAtt : CDN.DomainName }
+          DNSName:
+            GetAtt : CDN.DomainName
           HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self:custom.domainHostedZoneId}
     
@@ -41,7 +42,8 @@ resources:
         Name: www.${self:custom.domain}
         Type: A
         AliasTarget:
-          DNSName: { GetAtt : CDN.DomainName }
+          DNSName:
+            GetAtt : CDN.DomainName
           HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self:custom.domainHostedZoneId}
 
@@ -75,13 +77,15 @@ resources:
           DefaultRootObject: index.html
           Enabled: true
           Origins:
-            - DomainName: { GetAtt : Site.DomainName }
+            - DomainName:
+                GetAtt : Site.DomainName
               Id: StaticSiteOrigin
               S3OriginConfig:
                 OriginAccessIdentity: ''
           PriceClass: PriceClass_100
           ViewerCertificate:
-            AcmCertificateArn: { Ref: DomainCertificate }
+            AcmCertificateArn:
+              Ref: DomainCertificate
             SslSupportMethod: sni-only
 
     DomainCertificate:
