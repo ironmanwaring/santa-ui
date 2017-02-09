@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { Group } from './group';
-import { User } from './user';
+import { Profile } from './profile';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -29,14 +29,14 @@ export class GroupService {
                     .catch(this.handleError);
   }
 
-  createAndJoinGroup(group: any, profile: User): Observable<Group> {
+  createAndJoinGroup(group: any, profile: Profile): Observable<Group> {
     return this.http.post(`${this.endpoint}/groups`, {group, profile}, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.http.put(`${this.endpoint}/${group.groupId}`, group, this.getJsonHeaders())
+    return this.http.put(`${this.endpoint}/${group.id}`, group, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
