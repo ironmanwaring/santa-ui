@@ -42,7 +42,7 @@ resources:
         Type: A
         AliasTarget:
           DNSName: { GetAtt : CDN.DomainName }
-          HostedZoneId: !FindInMap [ Constants, CloudFront, HostedZoneId ]
+          HostedZoneId: ${self.custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self.custom.domainHostedZoneId}
 
     CDN:
