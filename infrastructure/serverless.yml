@@ -100,14 +100,3 @@ resources:
     #   Properties:  
     #     ServiceToken:
     #     BucketName: !Ref Domain
-    
-  Outputs:
-    SiteURL:
-      Description: URL for the naked site
-      Value: { GetAtt: Site.WebsiteURL }
-    SiteDomainName:
-      Description: Domain name used by CloudFront
-      Value: { GetAtt: Site.DomainName }
-    CDNDomainName:
-      Description: URL for the CloudFront Distribution
-      Value: { GetAtt: CDN.DomainName }
