@@ -1,9 +1,9 @@
-import { User } from './user';
+import { Profile } from './profile';
 
 export class Group {
-    groupId: string;
+    id: string;
     name: string;
     rules: string;
     status: string;
-    users?: User[];
+    profiles?: Profile[];
 }

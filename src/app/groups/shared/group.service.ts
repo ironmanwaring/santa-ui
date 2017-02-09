@@ -7,37 +7,42 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { Group } from './group';
+import { Profile } from './profile';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class GroupService {
 
-  endpoint: string = `${environment.groupsEndpoint}/groups`;
+  endpoint: string = environment.groupsEndpoint;
 
-  constructor(
-    private http: Http
-  ) { }
+  constructor( private http: Http ) { }
 
-  getAll(): Observable<Group[]> {
-    return this.http.get(this.endpoint)
+  listByUser(id: string): Observable<Group[]> {
+    return this.http.get(`${this.endpoint}/users/${id}/groups`)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   getGroup(id: string): Observable<Group> {
-    return this.http.get(`${this.endpoint}/${id}`)
+    return this.http.get(`${this.endpoint}/groups/${id}`)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  createGroup(name: string): Observable<Group> {
-    return this.http.post(this.endpoint, { name }, this.getJsonHeaders())
+  createAndJoinGroup(group: any, profile: Profile): Observable<Group> {
+    return this.http.post(`${this.endpoint}/groups`, {group, profile}, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   updateGroup(group: Group): Observable<Group> {
-    return this.http.put(`${this.endpoint}/${group.id}`, group, this.getJsonHeaders())
+    return this.http.put(`${this.endpoint}/groups/${group.id}`, group, this.getJsonHeaders())
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  joinGroup(code: string, profile: Profile): Observable<Group> {
+    return this.http.post(`${this.endpoint}/groups/${code}/users`, profile, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }

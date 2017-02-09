@@ -1,31 +1,31 @@
 sudo: required
-dist: trusty
 language: node_js
 node_js:
   - node
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
 install:
-  # - sudo pip install awscli
+  - npm i -g serverless
+  - npm i -g @angular/cli
   - npm install --no-optional
 
 cache:
-  - directories: node_modules
+  - directories:
+      - node_modules
+      - $(npm config get prefix)/bin/@angular/cli
+      - $(npm config get prefix)/bin/serverless
     
 script:
-  - npm test
-  - codecov
-  # TODO use this section if move to travis-ci for deploys instead of codepipeline
-  # - chmod +x ./travis-deploy/deploy.sh
-  # - ./travis-deploy/deploy.sh
+  - chmod +x ./travis-deploy.sh
+  - ./travis-deploy.sh
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: phillip.santaswap.io
+  skip_cleanup: true
+  local_dir: dist
+  detect_encoding: true
+  acl: public_read
+  on:
+    all_branches: true

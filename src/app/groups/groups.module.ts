@@ -7,9 +7,10 @@ import { GroupService } from './shared/group.service';
 import { GroupsRoutingModule } from './groups-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GroupCardComponent } from './group-card/group-card.component';
-import { AddGroupComponent } from './add-group/add-group.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
+import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
+import { JoinGroupComponent } from './join-group/join-group.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserService } from './shared/user.service';
 
 @NgModule({
   imports: [
@@ -22,15 +23,18 @@ import { UserService } from './shared/user.service';
     GroupDetailComponent, 
     PersonCardComponent,
     GroupCardComponent,
-    AddGroupComponent,
+    CreateGroupComponent,
+    InviteToGroupComponent,
+    JoinGroupComponent,
     UserProfileComponent
   ],
   providers: [
-    GroupService,
-    UserService,
+    GroupService
   ],
   entryComponents: [
-    AddGroupComponent
+    CreateGroupComponent,
+    JoinGroupComponent,
+    InviteToGroupComponent
   ]
 })
 export class GroupsModule { }

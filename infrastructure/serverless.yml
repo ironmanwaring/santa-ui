@@ -1,0 +1,137 @@
+service: SantaSwap-UI
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: local
+  deploymentBucket: automation-serverlessartifact-${opt:accountId, env:ACCOUNT_ID}
+
+custom:
+  domain:
+    prod: santaswap.io
+    stage: ${opt:stage, self:provider.stage}.santaswap.io
+  cloudFrontHostedZoneId: Z2FDTNDATAQYW2
+  domainHostedZoneId: Z2KUIEZRJCS4LU
+
+functions:
+
+resources:
+
+  Conditions:
+    Prod:
+      Fn::Equals: [ '${opt:stage, self:provider.stage}', prod ]
+  
+  Mappings:
+    S3Domains:
+      us-east-1:
+        DNS: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
+
+  Resources:
+
+    Site:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName:
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+            
+    NakedRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name:
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
+        HostedZoneId: ${self:custom.domainHostedZoneId}
+    
+    WWWRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name:
+          Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
+        HostedZoneId: ${self:custom.domainHostedZoneId}
+
+    CDN:
+      Type: AWS::CloudFront::Distribution
+      Condition: Prod
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.domain.prod}
+            - www.${self:custom.domain.prod}
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+            - ErrorCode: 403
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods: [ GET, HEAD, OPTIONS ]
+            TargetOriginId: StaticSiteOrigin
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: none
+            DefaultTTL: 0
+            MinTTL: 0
+            MaxTTL: 0
+            ViewerProtocolPolicy: redirect-to-https
+          DefaultRootObject: index.html
+          Enabled: true
+          Origins:
+            - DomainName:
+                Fn::GetAtt : Site.DomainName
+              Id: StaticSiteOrigin
+              S3OriginConfig:
+                OriginAccessIdentity: ''
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn:
+              Ref: DomainCertificate
+            SslSupportMethod: sni-only
+
+    DomainCertificate:
+      Type: AWS::CertificateManager::Certificate
+      Condition: Prod
+      Properties:
+        DomainName: '*.${self:custom.domain.prod}'
+        DomainValidationOptions:
+          - DomainName: '*.${self:custom.domain.prod'
+            ValidationDomain: ${self:custom.domain.prod}
+        SubjectAlternativeNames:
+          - ${self:custom.domain.prod}
+
+    # EmptySiteBucket:
+    #   Type:  Custom::EmptySiteBucket
+    #   DependsOn: Site
+    #   Properties:  
+    #     ServiceToken:
+    #     BucketName: !Ref Domain

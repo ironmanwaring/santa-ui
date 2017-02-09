@@ -27,7 +27,7 @@
       </md-input-container>
 
       <md-input-container class="full-width">
-        <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" rows="1" (blur)="updateGroup()"></textarea>
+        <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" [rows]="ruleRows" (blur)="updateGroup()" (keyup)="adjustRulesLines()"></textarea>
       </md-input-container>
 
       <button md-raised-button color="primary" disabled>Match the group</button>
@@ -36,3 +36,9 @@
   </md-tab>
 
 </md-tab-group>
+
+<div class="group-actions" (mouseover)="showAllActions()" (mouseleave)="hideActions()">
+  <button md-fab color="primary" (click)="showInviteToGroup()" mdTooltip="Invite to group" mdTooltipPosition="left">
+    <md-icon>share</md-icon>
+  </button>
+</div>

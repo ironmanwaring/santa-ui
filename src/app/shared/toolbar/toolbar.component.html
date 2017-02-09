@@ -1,5 +1,5 @@
 <md-toolbar color="primary">
-    <button md-button routerLink="/" class="title-sm">Welcome {{ auth.user() ? auth.user().given_name : 'to Santa Swap' }}</button>
+    <button md-button routerLink="/" class="title-sm">Welcome {{ auth.getUser() ? auth.getUser().givenName : 'to Santa Swap' }}</button>
     <span class="spacer"></span>
     <button md-button routerLink="/groups" *ngIf="auth.authenticated()">Your groups</button>
     <button md-button (click)="auth.login()" *ngIf="!auth.authenticated()">Log in</button>

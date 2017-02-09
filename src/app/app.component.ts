@@ -25,10 +25,6 @@ export class AppComponent {
       }
       return true;
     }).subscribe( (page: any) => {
-
-      // if (this.auth.)
-
-      // Send page updates to Google Analytics
       ga('send', 'pageview', page.url);
     });
   }
