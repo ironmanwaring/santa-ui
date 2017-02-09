@@ -32,7 +32,7 @@ resources:
         Type: A
         AliasTarget:
           DNSName:
-            GetAtt : CDN.DomainName
+            Fn::GetAtt : CDN.DomainName
           HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self:custom.domainHostedZoneId}
     
@@ -43,7 +43,7 @@ resources:
         Type: A
         AliasTarget:
           DNSName:
-            GetAtt : CDN.DomainName
+            Fn::GetAtt : CDN.DomainName
           HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self:custom.domainHostedZoneId}
 
@@ -78,14 +78,14 @@ resources:
           Enabled: true
           Origins:
             - DomainName:
-                GetAtt : Site.DomainName
+                Fn::GetAtt : Site.DomainName
               Id: StaticSiteOrigin
               S3OriginConfig:
                 OriginAccessIdentity: ''
           PriceClass: PriceClass_100
           ViewerCertificate:
             AcmCertificateArn:
-              Ref: DomainCertificate
+              Fn::Ref: DomainCertificate
             SslSupportMethod: sni-only
 
     DomainCertificate:
