@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
 import { Group } from '../shared/group';
-import { AddGroupComponent } from '../add-group/add-group.component';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 import { JoinGroupComponent } from '../join-group/join-group.component';
 import { AuthService } from '../../shared/auth/auth.service';
 
@@ -32,8 +32,8 @@ export class GroupsComponent implements OnInit {
       });
   }
 
-  public showAddGroup(): void {
-    this.dialog.open(AddGroupComponent);
+  public showCreateGroup(): void {
+    this.dialog.open(CreateGroupComponent);
   }
 
   public showJoinGroup(): void {

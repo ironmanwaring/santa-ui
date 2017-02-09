@@ -6,16 +6,16 @@ import { Group } from '../shared/group';
 import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
-  selector: 'app-add-group',
-  templateUrl: './add-group.component.html',
-  styleUrls: ['./add-group.component.scss']
+  selector: 'app-create-group',
+  templateUrl: './create-group.component.html',
+  styleUrls: ['./create-group.component.scss']
 })
-export class AddGroupComponent {
+export class CreateGroupComponent {
 
   name: string = '';
 
   constructor(
-    public dialogRef: MdDialogRef<AddGroupComponent>,
+    public dialogRef: MdDialogRef<CreateGroupComponent>,
     private groupService: GroupService,
     public router: Router,
     private authService: AuthService

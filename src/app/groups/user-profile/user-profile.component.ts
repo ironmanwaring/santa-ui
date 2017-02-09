@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../shared/user-profile';
 
 /*------ injectable services ------*/
-import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,9 +16,7 @@ export class UserProfileComponent implements OnInit {
   submitted: Boolean = false;
 
 
-  constructor( 
-    private userService: UserService 
-  ) { }
+  constructor(   ) { }
 
   ngOnInit() {
     // this.user = this.userService.getUserProfile();
