@@ -32,8 +32,7 @@ resources:
     Site:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName:
-          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
+        BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
@@ -42,7 +41,7 @@ resources:
       Type: AWS::Route53::RecordSet
       Properties:
         Name:
-          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
+          Fn::If: [ Prod, ${self:custom.domain.prod}, ${self:custom.domain.stage} ]
         Type: A
         AliasTarget:
           DNSName:
@@ -61,7 +60,7 @@ resources:
       Type: AWS::Route53::RecordSet
       Properties:
         Name:
-          Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
+          Fn::If: [ Prod, www.${self:custom.domain.prod}, www.${self:custom.domain.stage} ]
         Type: A
         AliasTarget:
           DNSName:
