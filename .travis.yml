@@ -9,7 +9,10 @@ install:
   - npm install --no-optional
 
 cache:
-  - directories: node_modules
+  - directories:
+      - node_modules
+      - $(npm config get prefix)/bin/@angular/cli
+      - $(npm config get prefix)/bin/serverless
     
 script:
   - chmod +x ./infrastructure/travis-deploy.sh
