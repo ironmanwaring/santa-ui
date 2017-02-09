@@ -25,7 +25,7 @@ export class AddGroupComponent {
     let group = { name: this.name };
     let profile = {
       name: this.authService.getUser().name,
-      userId: this.authService.getUser().id,
+      id: this.authService.getUser().id,
       picture: this.authService.getUser().picture
     };
     this.groupService

@@ -2,6 +2,6 @@
   
   <md-card-content>
       <h3 class="title-md">{{group.name}}</h3>
-      <app-avatar *ngFor="let person of group.users" [src]="person.picture"></app-avatar>
+      <app-avatar *ngFor="let picture of group.pictures" [src]="picture"></app-avatar>
   </md-card-content>
 </md-card>
