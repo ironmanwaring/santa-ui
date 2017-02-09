@@ -19,3 +19,11 @@ script:
   - ./infrastructure/travis-deploy.sh
   # - chmod +x ./travis-deploy.sh
   # - ./travis-deploy.sh
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: phillip.santaswap.io
+  skip_cleanup: true
+  region: us-east-1
