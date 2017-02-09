@@ -26,5 +26,6 @@ deploy:
   skip_cleanup: true
   local_dir: dist
   detect_encoding: true
+  acl: public_read
   on:
     all_branches: true
