@@ -15,10 +15,8 @@ cache:
       - $(npm config get prefix)/bin/serverless
     
 script:
-  - chmod +x ./infrastructure/travis-deploy.sh
-  - ./infrastructure/travis-deploy.sh
-  # - chmod +x ./travis-deploy.sh
-  # - ./travis-deploy.sh
+  - chmod +x ./travis-deploy.sh
+  - ./travis-deploy.sh
 
 deploy:
   provider: s3
@@ -27,3 +25,4 @@ deploy:
   bucket: phillip.santaswap.io
   skip_cleanup: true
   region: us-east-1
+  local_dir: dist
