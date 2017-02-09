@@ -20,7 +20,7 @@ resources:
     Site:
       Type: AWS::S3::Bucket
       Properties:
-      BucketName: ${self.custom.domain}
+      BucketName: ${self:custom.domain}
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
@@ -28,30 +28,30 @@ resources:
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
       Properties:
-        Name: ${self.custom.domain}
+        Name: ${self:custom.domain}
         Type: A
         AliasTarget:
           DNSName: { GetAtt : CDN.DomainName }
-          HostedZoneId: ${self.custom.cloudFrontHostedZoneId}
-        HostedZoneId: ${self.custom.domainHostedZoneId}
+          HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+        HostedZoneId: ${self:custom.domainHostedZoneId}
     
     WWWRecordSet:
       Type: AWS::Route53::RecordSet
       Properties:
-        Name: www.${self.custom.domain}
+        Name: www.${self:custom.domain}
         Type: A
         AliasTarget:
           DNSName: { GetAtt : CDN.DomainName }
-          HostedZoneId: ${self.custom.cloudFrontHostedZoneId}
-        HostedZoneId: ${self.custom.domainHostedZoneId}
+          HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+        HostedZoneId: ${self:custom.domainHostedZoneId}
 
     CDN:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
           Aliases:
-            - ${self.custom.domain}
-            - www.${self.custom.domain}
+            - ${self:custom.domain}
+            - www.${self:custom.domain}
           CustomErrorResponses:
             - ErrorCode: 404
               ErrorCachingMinTTL: 0
@@ -87,12 +87,12 @@ resources:
     DomainCertificate:
       Type: AWS::CertificateManager::Certificate
       Properties:
-        DomainName: '*.${self.custom.domain}'
+        DomainName: '*.${self:custom.domain}'
         DomainValidationOptions:
-          - DomainName: '*.${self.custom.domain}'
-            ValidationDomain: ${self.custom.domain}
+          - DomainName: '*.${self:custom.domain}'
+            ValidationDomain: ${self:custom.domain}
         SubjectAlternativeNames:
-          - ${self.custom.domain}
+          - ${self:custom.domain}
 
     # EmptySiteBucket:
     #   Type:  Custom::EmptySiteBucket
