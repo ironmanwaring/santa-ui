@@ -15,6 +15,7 @@ import 'rxjs/add/operator/switchMap';
 export class GroupDetailComponent implements OnInit {
 
   group: Group = <Group>{};
+  ruleRows: number = 1;
   loading: boolean = true;
   viewAllActions: boolean = false;
   hideActionsIntent: boolean = false;
@@ -31,6 +32,7 @@ export class GroupDetailComponent implements OnInit {
         .subscribe( (group: Group) => {
           this.loading = false;
           this.group = group;
+          this.adjustRulesLines();
         });
   }
 
@@ -40,6 +42,10 @@ export class GroupDetailComponent implements OnInit {
         .subscribe( (group: Group) => {
           console.log('group updated', group);
         });
+  }
+
+  adjustRulesLines(): void {
+    this.ruleRows = this.group.rules.split(/\r\n|\r|\n/).length;
   }
 
   showInviteToGroup(): void {
