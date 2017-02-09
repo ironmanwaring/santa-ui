@@ -26,3 +26,5 @@ deploy:
   skip_cleanup: true
   local_dir: dist
   detect_encoding: true
+  on:
+    all_branches: true
