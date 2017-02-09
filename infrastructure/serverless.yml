@@ -7,7 +7,9 @@ provider:
   deploymentBucket: automation-serverlessartifact-${opt:accountId, env:ACCOUNT_ID}
 
 custom:
-  domain: santaswap.io
+  domain:
+    prod: santaswap.io
+    stage: ${opt:stage, self:provider.stage}.santaswap.io
   cloudFrontHostedZoneId: Z2FDTNDATAQYW2
   domainHostedZoneId: Z2KUIEZRJCS4LU
 
@@ -15,10 +17,22 @@ functions:
 
 resources:
 
+  Conditions:
+    Prod:
+      Fn::Equals: [ '${opt:stage, self:provider.stage}', Prod ]
+  
+  Mappings:
+    S3Domains:
+      us-east-1:
+        DNS: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
+
   Resources:
 
     Site:
       Type: AWS::S3::Bucket
+      Name:
+        Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
       Properties:
         AccessControl: PublicRead
         WebsiteConfiguration:
@@ -27,32 +41,42 @@ resources:
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
       Properties:
-        Name: ${self:custom.domain}
+        Name:
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
         Type: A
         AliasTarget:
           DNSName:
-            Fn::GetAtt : CDN.DomainName
-          HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+            Fn::If:
+              - SSL
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - SSL
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
         HostedZoneId: ${self:custom.domainHostedZoneId}
     
     WWWRecordSet:
       Type: AWS::Route53::RecordSet
       Properties:
-        Name: www.${self:custom.domain}
+        Name:
+          Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
         Type: A
         AliasTarget:
           DNSName:
-            Fn::GetAtt : CDN.DomainName
+            Fn::GetAtt: CDN.DomainName
           HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
         HostedZoneId: ${self:custom.domainHostedZoneId}
 
     CDN:
       Type: AWS::CloudFront::Distribution
+      Condition: Prod
       Properties:
         DistributionConfig:
           Aliases:
-            - ${self:custom.domain}
-            - www.${self:custom.domain}
+            - ${self:custom.domain.prod}
+            - www.${self:custom.domain.prod}
           CustomErrorResponses:
             - ErrorCode: 404
               ErrorCachingMinTTL: 0
@@ -89,13 +113,14 @@ resources:
 
     DomainCertificate:
       Type: AWS::CertificateManager::Certificate
+      Condition: Prod
       Properties:
-        DomainName: '*.${self:custom.domain}'
+        DomainName: '*.${self:custom.domain.prod}'
         DomainValidationOptions:
-          - DomainName: '*.${self:custom.domain}'
-            ValidationDomain: ${self:custom.domain}
+          - DomainName: '*.${self:custom.domain.prod'
+            ValidationDomain: ${self:custom.domain.prod}
         SubjectAlternativeNames:
-          - ${self:custom.domain}
+          - ${self:custom.domain.prod}
 
     # EmptySiteBucket:
     #   Type:  Custom::EmptySiteBucket
