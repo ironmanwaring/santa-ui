@@ -1,9 +1,9 @@
-service: SantaSwap-UI-Infrastructure
+service: SantaSwap-UI
 
 provider:
   name: aws
   runtime: nodejs4.3
-  stage: Local
+  stage: local
   deploymentBucket: automation-serverlessartifact-${opt:accountId, env:ACCOUNT_ID}
 
 custom:
@@ -19,7 +19,7 @@ resources:
 
   Conditions:
     Prod:
-      Fn::Equals: [ '${opt:stage, self:provider.stage}', Prod ]
+      Fn::Equals: [ '${opt:stage, self:provider.stage}', prod ]
   
   Mappings:
     S3Domains:
@@ -31,9 +31,9 @@ resources:
 
     Site:
       Type: AWS::S3::Bucket
-      Name:
-        Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
       Properties:
+        BucketName:
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
@@ -47,12 +47,12 @@ resources:
         AliasTarget:
           DNSName:
             Fn::If:
-              - SSL
+              - Prod
               - Fn::GetAtt: CDN.DomainName
               - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
           HostedZoneId:
             Fn::If:
-              - SSL
+              - Prod
               - ${self:custom.cloudFrontHostedZoneId}
               - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
         HostedZoneId: ${self:custom.domainHostedZoneId}
@@ -65,8 +65,15 @@ resources:
         Type: A
         AliasTarget:
           DNSName:
-            Fn::GetAtt: CDN.DomainName
-          HostedZoneId: ${self:custom.cloudFrontHostedZoneId}
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
         HostedZoneId: ${self:custom.domainHostedZoneId}
 
     CDN:
