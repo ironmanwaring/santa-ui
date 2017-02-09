@@ -20,10 +20,10 @@ resources:
     Site:
       Type: AWS::S3::Bucket
       Properties:
-      BucketName: ${self:custom.domain}
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
+        BucketName: ${self:custom.domain}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
             
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
