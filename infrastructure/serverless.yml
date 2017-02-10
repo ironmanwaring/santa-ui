@@ -5,6 +5,11 @@ provider:
   runtime: nodejs4.3
   stage: local
   deploymentBucket: automation-serverlessartifact-${opt:accountId, env:ACCOUNT_ID}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: '*'
 
 custom:
   domain:
@@ -15,9 +20,8 @@ custom:
 
 functions:
 
-  # EmptyBucket:
-  #   handler: empty-bucket.js
-  #   name: ${self:service}-${opt:stage, self:provider.stage}-EmptyBucket
+  EmptyBucket:
+    handler: empty-bucket.js
 
 resources:
 
@@ -132,9 +136,11 @@ resources:
         SubjectAlternativeNames:
           - ${self:custom.domain.prod}
 
-    # EmptySiteBucket:
-    #   Type:  Custom::EmptySiteBucket
-    #   DependsOn: Site
-    #   Properties:  
-    #     ServiceToken:
-    #     BucketName: !Ref Domain
+    EmptySiteBucket:
+      Type: Custom::EmptySiteBucket
+      DependsOn: Site
+      Properties:  
+        ServiceToken:
+          Fn::GetAtt: EmptyBucketLambdaFunction.Arn
+        BucketName:
+          Ref: Site
