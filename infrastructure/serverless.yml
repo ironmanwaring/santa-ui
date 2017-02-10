@@ -15,6 +15,10 @@ custom:
 
 functions:
 
+  # EmptyBucket:
+  #   handler: empty-bucket.js
+  #   name: ${self:service}-${opt:stage, self:provider.stage}-EmptyBucket
+
 resources:
 
   Conditions:
@@ -123,7 +127,7 @@ resources:
       Properties:
         DomainName: '*.${self:custom.domain.prod}'
         DomainValidationOptions:
-          - DomainName: '*.${self:custom.domain.prod'
+          - DomainName: '*.${self:custom.domain.prod}'
             ValidationDomain: ${self:custom.domain.prod}
         SubjectAlternativeNames:
           - ${self:custom.domain.prod}
