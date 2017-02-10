@@ -32,7 +32,7 @@ let emptyBucket = (data) => {
     return s3.deleteObjects(params).promise();
 }
 
-let sendCloudFormationSuccess = (event, context, status) => {
+let sendCloudFormationSuccess = (event, context, responseStatus, responseData, physicalResourceId) => {
     let responseBody = JSON.stringify({
         Status: responseStatus,
         Reason: 'See the details in CloudWatch Log Stream: ' + context.logStreamName,

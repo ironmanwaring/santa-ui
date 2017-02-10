@@ -21,7 +21,7 @@ custom:
 functions:
 
   EmptyBucket:
-    handler: empty-bucket.js
+    handler: empty-bucket.handler
 
 resources:
 
