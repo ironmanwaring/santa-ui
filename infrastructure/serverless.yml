@@ -60,7 +60,7 @@ resources:
       Type: AWS::Route53::RecordSet
       Properties:
         Name:
-          Fn::If: [ Prod, www.${self:custom.domain.prod}, www.${self:custom.domain.stage} ]
+          Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
         Type: A
         AliasTarget:
           DNSName:
