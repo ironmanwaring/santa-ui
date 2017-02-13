@@ -10,13 +10,15 @@ module.exports.handler = (event, context, callback) => {
         .then(emptyBucket)
         .then( () => {
             console.log('Successfully emptied bucket');
-            sendResponse(event, context, 'SUCCESS');
+            sendResponse(event, context, callback, 'SUCCESS');
         })
         .catch( err => {
             console.log('Error while emptying bucket', err);
-            sendResponse(event, context, 'ERROR');
+            sendResponse(event, context, callback, 'ERROR');
         })
-  } else return sendResponse(event, context, 'SUCCESS');
+  } else {
+      sendResponse(event, context, callback, 'SUCCESS');
+  }
 };
 
 let getObjects = (bucket) => {
@@ -39,7 +41,7 @@ let emptyBucket = (data) => {
     return s3.deleteObjects(params).promise();
 }
 
-let sendResponse = (event, context, responseStatus, responseData, physicalResourceId) => {
+let sendResponse = (event, context, callback, responseStatus, responseData, physicalResourceId) => {
     let responseBody = JSON.stringify({
         Status: responseStatus,
         Reason: 'See the details in CloudWatch Log Stream: ' + context.logStreamName,

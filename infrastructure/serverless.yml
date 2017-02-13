@@ -13,10 +13,10 @@ provider:
 
 custom:
   domain:
-    prod: santaswap.io
-    stage: ${opt:stage, self:provider.stage}.santaswap.io
+    prod: ${opt:domain, env:DOMAIN}
+    stage: ${opt:stage, self:provider.stage}.${opt:domain, env:DOMAIN}
   cloudFrontHostedZoneId: Z2FDTNDATAQYW2
-  domainHostedZoneId: Z2KUIEZRJCS4LU
+  domainHostedZoneId: ${opt:domainHostedZoneId, env:DOMAIN_HOSTED_ZONE_ID}
 
 functions:
 

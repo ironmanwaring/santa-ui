@@ -15,14 +15,17 @@ cache:
       - $(npm config get prefix)/bin/serverless
     
 script:
-  - chmod +x ./travis-deploy.sh
-  - ./travis-deploy.sh
+  - export STAGE=$(if [ $TRAVIS_BRANCH == "master" ]; then echo "prod"; else AUTHOR_NAME=$(git log -1 $TRAVIS_COMMIT --pretty="%aN") && CAPITAL_FIRST_NAME=${AUTHOR_NAME%% *} && FIRST_NAME=${CAPITAL_FIRST_NAME,,} && echo $FIRST_NAME; fi)
+  - echo STAGE is set as $STAGE
+  - chmod +x ./.travis-deploy.sh
+  - ./.travis-deploy.sh
+  - echo Build complete, deploying application to $STAGE.$DOMAIN
 
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: phillip.santaswap.io
+  bucket: $STAGE.$DOMAIN
   skip_cleanup: true
   local_dir: dist
   detect_encoding: true
