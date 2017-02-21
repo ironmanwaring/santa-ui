@@ -1,4 +1,4 @@
-service: SantaSwap-UI
+service: santaSwap -ui
 
 provider:
   name: aws
@@ -20,7 +20,7 @@ custom:
 
 functions:
 
-  EmptyBucket:
+  emptyBucket:
     handler: empty-bucket.handler
 
 resources:
