@@ -1,4 +1,4 @@
-service: santaSwap -ui
+service: santaSwap-ui
 
 provider:
   name: aws
@@ -24,6 +24,8 @@ functions:
     handler: empty-bucket.handler
 
 resources:
+  
+  Description: Self contained Santa Swap ui application code and infrastructure including hosting, DNS, CDN, and certificates
 
   Conditions:
     Prod:
