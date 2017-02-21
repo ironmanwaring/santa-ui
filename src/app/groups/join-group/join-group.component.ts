@@ -21,7 +21,7 @@ export class JoinGroupComponent {
     private auth: AuthService
   ) { }
 
-  public saveGroup(): void {
+  public joinGroup(): void {
     let user = {
       id: this.auth.getUser().id,
       name: this.auth.getUser().name,
