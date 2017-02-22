@@ -34,15 +34,19 @@ export class GroupsComponent implements OnInit {
 
   public showCreateGroup(): void {
     this.dialog.open(CreateGroupComponent);
+    this.hideActions();
   }
 
   public showJoinGroup(): void {
     this.dialog.open(JoinGroupComponent);
+    this.hideActions();
   }
 
   public showAllActions(): void {
-    this.viewAllActions = true;
-    this.hideActionsIntent = false;
+    setTimeout( () => {
+      this.viewAllActions = true
+      this.hideActionsIntent = false;
+    }, 50);
     setTimeout( () => this.hideActionsIntent = false, 200);
   }
 
