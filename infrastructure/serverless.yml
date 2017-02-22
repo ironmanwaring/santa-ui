@@ -46,6 +46,7 @@ resources:
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
+          ErrorDocument: index.html
             
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
