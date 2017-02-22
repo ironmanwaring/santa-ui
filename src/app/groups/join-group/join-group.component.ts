@@ -21,19 +21,14 @@ export class JoinGroupComponent {
     private auth: AuthService
   ) { }
 
-  public saveGroup(): void {
-    let user = {
-      id: this.auth.getUser().id,
-      name: this.auth.getUser().name,
-      picture: this.auth.getUser().picture
-    }
+  public joinGroup(): void {
     this.groupService
-        .joinGroup(this.code, user)
+        .joinGroup(this.code, this.auth.getUser())
         .subscribe( group => this.navigateToGroup(group));
   }
 
   private navigateToGroup(group: Group) {
-    this.dialogRef.close(group.name);
+    this.dialogRef.close();
     this.router.navigate(['/groups', group.id]);
   }
 

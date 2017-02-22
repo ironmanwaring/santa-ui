@@ -18,18 +18,12 @@ export class CreateGroupComponent {
     public dialogRef: MdDialogRef<CreateGroupComponent>,
     private groupService: GroupService,
     public router: Router,
-    private authService: AuthService
+    private auth: AuthService
   ) { }
 
   public saveGroup(): void {
-    let group = { name: this.name };
-    let profile = {
-      name: this.authService.getUser().name,
-      id: this.authService.getUser().id,
-      picture: this.authService.getUser().picture
-    };
     this.groupService
-        .createAndJoinGroup(group, profile)
+        .createAndJoinGroup({ name: this.name }, this.auth.getUser())
         .subscribe( group => this.navigateToGroup(group));
   }
 

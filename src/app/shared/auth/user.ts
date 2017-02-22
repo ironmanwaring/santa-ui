@@ -9,7 +9,7 @@ export class User {
         this.email = profile.email;
         this.name = profile.name;
         this.givenName = profile.given_name
-        this.picture = profile.picture
+        this.picture = profile.picture_large ? profile.picture_large : profile.picture
         this.id = profile.user_id.replace('|', '');
     }
 }
