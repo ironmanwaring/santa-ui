@@ -22,13 +22,8 @@ export class JoinGroupComponent {
   ) { }
 
   public joinGroup(): void {
-    let user = {
-      id: this.auth.getUser().id,
-      name: this.auth.getUser().name,
-      picture: this.auth.getUser().picture
-    }
     this.groupService
-        .joinGroup(this.code, user)
+        .joinGroup(this.code, this.auth.getUser())
         .subscribe( group => this.navigateToGroup(group));
   }
 
