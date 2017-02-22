@@ -33,7 +33,7 @@ export class JoinGroupComponent {
   }
 
   private navigateToGroup(group: Group) {
-    this.dialogRef.close(group.name);
+    this.dialogRef.close();
     this.router.navigate(['/groups', group.id]);
   }
 

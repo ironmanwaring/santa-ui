@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  groupsEndpoint: 'GROUPS_ENDPOINT',
-  usersEndpoint: 'USERS_ENDPOINT'
+  groupsEndpoint: 'https://25wvahl9s5.execute-api.us-east-1.amazonaws.com/prod'
 };

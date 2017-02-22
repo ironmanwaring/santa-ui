@@ -6,36 +6,42 @@
     <app-person-card  *ngFor="let member of group.members" class="flex-item" [person]="member"></app-person-card>
 </div>
 
-<md-tab-group class="body-padding">
+<div fxLayoutAlign="center">
+  <md-tab-group fxFlex="80%" fxFlex.xs="100%">
 
-  <md-tab label="Participants">
-    <div class="detail-margin">
-    </div>
-  </md-tab>
+    <md-tab label="Participants">
+      <div class="detail-margin">
+      </div>
+    </md-tab>
 
-  <md-tab label="My profile">
-    <div class="detail-margin">
-      <app-user-profile class="top-margin"></app-user-profile>
-    </div>
-  </md-tab>
+    <md-tab label="My profile">
+      <div class="detail-margin">
+        <app-user-profile class="top-margin"></app-user-profile>
+      </div>
+    </md-tab>
 
-  <md-tab label="Information">
-    <div class="detail-margin">
-      
-      <md-input-container class="full-width">
-        <input md-input [(ngModel)]="group.name" placeholder="Name" (blur)="updateGroup()"/>
-      </md-input-container>
+    <md-tab label="Information">
+      <div class="detail-margin">
+        
+        <md-input-container class="full-width">
+          <input md-input [(ngModel)]="group.name" placeholder="Name" (blur)="updateGroup()"/>
+        </md-input-container>
 
-      <md-input-container class="full-width">
-        <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" [rows]="ruleRows" (blur)="updateGroup()" (keyup)="adjustRulesLines()"></textarea>
-      </md-input-container>
+        <md-input-container class="full-width">
+          <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" [rows]="ruleRows" (blur)="updateGroup()" (keyup)="adjustRulesLines()"></textarea>
+        </md-input-container>
 
-      <button md-raised-button color="primary" disabled>Match the group</button>
+        <md-input-container class="full-width">
+          <input md-input [ngModel]="group.code" placeholder="Code"/>
+        </md-input-container>
 
-    </div>
-  </md-tab>
+        <button md-raised-button color="primary" disabled>Match the group</button>
 
-</md-tab-group>
+      </div>
+    </md-tab>
+
+  </md-tab-group>
+</div>
 
 <div class="group-actions" (mouseover)="showAllActions()" (mouseleave)="hideActions()">
   <button md-fab color="primary" (click)="showInviteToGroup()" mdTooltip="Invite to group" mdTooltipPosition="left">
