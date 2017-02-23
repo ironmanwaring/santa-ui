@@ -20,29 +20,29 @@ custom:
 
 functions:
 
-  # emptyBucket:
-  #   handler: empty-bucket.handler
+  emptyBucket:
+    handler: empty-bucket.handler
 
-  invalidateCDN:
-    handler: invalidate-cdn.handler
-    events:
-      - s3: site
-          # bucket: site
-          # event: s3:ObjectCreated:*
+  # invalidateCDN:
+  #   handler: invalidate-cdn.handler
+  #   events:
+  #     - s3:
+  #         bucket: site
+  #         event: s3:ObjectCreated:*
 
 resources:
   
   Description: Self contained Santa Swap ui application code and infrastructure including hosting, DNS, CDN, and certificates
 
-  # Conditions:
-  #   Prod:
-  #     Fn::Equals: [ '${opt:stage, self:provider.stage}', prod ]
+  Conditions:
+    Prod:
+      Fn::Equals: [ '${opt:stage, self:provider.stage}', prod ]
   
-  # Mappings:
-  #   S3Domains:
-  #     us-east-1:
-  #       DNS: s3-website-us-east-1.amazonaws.com
-  #       HostedZoneId: Z3AQBSTGFYJSTF
+  Mappings:
+    S3Domains:
+      us-east-1:
+        DNS: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
 
   Resources:
 
@@ -50,107 +50,107 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.domain.stage}
-        # AccessControl: PublicRead
-        # WebsiteConfiguration:
-        #   IndexDocument: index.html
-        #   ErrorDocument: index.html
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
             
-    # NakedRecordSet:
-    #   Type: AWS::Route53::RecordSet
-    #   Properties:
-    #     Name:
-    #       Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
-    #     Type: A
-    #     AliasTarget:
-    #       DNSName:
-    #         Fn::If:
-    #           - Prod
-    #           - Fn::GetAtt: CDN.DomainName
-    #           - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
-    #       HostedZoneId:
-    #         Fn::If:
-    #           - Prod
-    #           - ${self:custom.cloudFrontHostedZoneId}
-    #           - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
-    #     HostedZoneId: ${self:custom.domainHostedZoneId}
+    NakedRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name:
+          Fn::If: [ Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}' ]
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
+        HostedZoneId: ${self:custom.domainHostedZoneId}
     
-    # WWWRecordSet:
-    #   Type: AWS::Route53::RecordSet
-    #   Properties:
-    #     Name:
-    #       Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
-    #     Type: A
-    #     AliasTarget:
-    #       DNSName:
-    #         Fn::If:
-    #           - Prod
-    #           - Fn::GetAtt: CDN.DomainName
-    #           - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
-    #       HostedZoneId:
-    #         Fn::If:
-    #           - Prod
-    #           - ${self:custom.cloudFrontHostedZoneId}
-    #           - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
-    #     HostedZoneId: ${self:custom.domainHostedZoneId}
+    WWWRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name:
+          Fn::If: [ Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}' ]
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, DNS ]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.cloudFrontHostedZoneId}
+              - Fn::FindInMap: [ S3Domains, { Ref: AWS::Region }, HostedZoneId ]
+        HostedZoneId: ${self:custom.domainHostedZoneId}
 
-    # CDN:
-    #   Type: AWS::CloudFront::Distribution
-    #   Condition: Prod
-    #   Properties:
-    #     DistributionConfig:
-    #       Aliases:
-    #         - ${self:custom.domain.prod}
-    #         - www.${self:custom.domain.prod}
-    #       CustomErrorResponses:
-    #         - ErrorCode: 404
-    #           ErrorCachingMinTTL: 0
-    #           ResponseCode: 200
-    #           ResponsePagePath: /index.html
-    #         - ErrorCode: 403
-    #           ErrorCachingMinTTL: 0
-    #           ResponseCode: 200
-    #           ResponsePagePath: /index.html
-    #       DefaultCacheBehavior:
-    #         AllowedMethods: [ GET, HEAD, OPTIONS ]
-    #         TargetOriginId: StaticSiteOrigin
-    #         ForwardedValues:
-    #           QueryString: true
-    #           Cookies:
-    #             Forward: none
-    #         DefaultTTL: 0
-    #         MinTTL: 0
-    #         MaxTTL: 0
-    #         ViewerProtocolPolicy: redirect-to-https
-    #       DefaultRootObject: index.html
-    #       Enabled: true
-    #       Origins:
-    #         - DomainName:
-    #             Fn::GetAtt : S3BucketSite.DomainName
-    #           Id: StaticSiteOrigin
-    #           S3OriginConfig:
-    #             OriginAccessIdentity: ''
-    #       PriceClass: PriceClass_100
-    #       ViewerCertificate:
-    #         AcmCertificateArn:
-    #           Ref: DomainCertificate
-    #         SslSupportMethod: sni-only
+    CDN:
+      Type: AWS::CloudFront::Distribution
+      Condition: Prod
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.domain.prod}
+            - www.${self:custom.domain.prod}
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+            - ErrorCode: 403
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods: [ GET, HEAD, OPTIONS ]
+            TargetOriginId: StaticSiteOrigin
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: none
+            DefaultTTL: 0
+            MinTTL: 0
+            MaxTTL: 0
+            ViewerProtocolPolicy: redirect-to-https
+          DefaultRootObject: index.html
+          Enabled: true
+          Origins:
+            - DomainName:
+                Fn::GetAtt : S3BucketSite.DomainName
+              Id: StaticSiteOrigin
+              S3OriginConfig:
+                OriginAccessIdentity: ''
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn:
+              Ref: DomainCertificate
+            SslSupportMethod: sni-only
 
-    # DomainCertificate:
-    #   Type: AWS::CertificateManager::Certificate
-    #   Condition: Prod
-    #   Properties:
-    #     DomainName: '*.${self:custom.domain.prod}'
-    #     DomainValidationOptions:
-    #       - DomainName: '*.${self:custom.domain.prod}'
-    #         ValidationDomain: ${self:custom.domain.prod}
-    #     SubjectAlternativeNames:
-    #       - ${self:custom.domain.prod}
+    DomainCertificate:
+      Type: AWS::CertificateManager::Certificate
+      Condition: Prod
+      Properties:
+        DomainName: '*.${self:custom.domain.prod}'
+        DomainValidationOptions:
+          - DomainName: '*.${self:custom.domain.prod}'
+            ValidationDomain: ${self:custom.domain.prod}
+        SubjectAlternativeNames:
+          - ${self:custom.domain.prod}
 
-    # EmptySiteBucket:
-    #   Type: Custom::EmptySiteBucket
-    #   DependsOn: S3BucketSite
-    #   Properties:  
-    #     ServiceToken:
-    #       Fn::GetAtt: EmptyBucketLambdaFunction.Arn
-    #     BucketName:
-    #       Ref: S3BucketSite
+    EmptySiteBucket:
+      Type: Custom::EmptySiteBucket
+      DependsOn: S3BucketSite
+      Properties:  
+        ServiceToken:
+          Fn::GetAtt: EmptyBucketLambdaFunction.Arn
+        BucketName:
+          Ref: S3BucketSite
