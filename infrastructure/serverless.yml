@@ -26,9 +26,9 @@ functions:
   invalidateCDN:
     handler: invalidate-cdn.handler
     events:
-      - s3:
-          bucket: site
-          event: s3:ObjectCreated:*
+      - s3: site
+          # bucket: site
+          # event: s3:ObjectCreated:*
 
 resources:
   
