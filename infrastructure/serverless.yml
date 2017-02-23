@@ -125,7 +125,7 @@ resources:
           Enabled: true
           Origins:
             - DomainName:
-                Fn::GetAtt : Site.DomainName
+                Fn::GetAtt : S3BucketSite.DomainName
               Id: StaticSiteOrigin
               S3OriginConfig:
                 OriginAccessIdentity: ''
@@ -148,9 +148,9 @@ resources:
 
     EmptySiteBucket:
       Type: Custom::EmptySiteBucket
-      DependsOn: Site
+      DependsOn: S3BucketSite
       Properties:  
         ServiceToken:
           Fn::GetAtt: EmptyBucketLambdaFunction.Arn
         BucketName:
-          Ref: Site
+          Ref: S3BucketSite
