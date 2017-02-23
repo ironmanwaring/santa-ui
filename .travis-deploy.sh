@@ -7,8 +7,8 @@ if [ $TRAVIS_PULL_REQUEST != "false" ]; then
 else
     echo Deploying serverless project with code from branch: $TRAVIS_BRANCH
     
-    echo cd infrastructure \&\& serverless deploy --stage $STAGE
-    cd infrastructure && serverless deploy --stage $STAGE
+    echo cd infrastructure \&\& serverless deploy --stage $STAGE -v
+    cd infrastructure && serverless deploy --stage $STAGE -v
 
     echo ng build --env=$STAGE
     ng build --env=$STAGE
