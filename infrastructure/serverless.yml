@@ -23,6 +23,13 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
+  invalidateCDN:
+    handler: invalidate-cdn.handler
+    events:
+      - s3:
+          bucket: site
+          event: s3:ObjectCreated:*
+
 resources:
   
   Description: Self contained Santa Swap ui application code and infrastructure including hosting, DNS, CDN, and certificates
@@ -39,7 +46,7 @@ resources:
 
   Resources:
 
-    Site:
+    S3BucketSite:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.domain.stage}
