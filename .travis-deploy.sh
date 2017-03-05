@@ -11,6 +11,6 @@ else
     cd infrastructure && serverless deploy --stage $STAGE
 
     echo ng build --env=$STAGE
-    ng build --env=$STAGE
+    ng build --env=$STAGE --output-hashing=all
 
 fi
