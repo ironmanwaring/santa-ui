@@ -23,10 +23,14 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
+  bucketEvent:
+    handler: bucket-event.handler
+
   invalidateCDN:
     handler: invalidate-cdn.handler
-    # events:
-    #   - s3: site
+    environment:
+      CDN:
+        'Fn::If': [ Prod, { Ref: CDN }, '' ]
 
 resources:
   
@@ -47,7 +51,7 @@ resources:
     S3BucketSite:
       Type: AWS::S3::Bucket
       DependsOn:
-        - InvalidateCDNLambdaPermissionS3BucketS3
+        - BucketEventLambdaPermissionS3BucketS3
       Properties:
         BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
@@ -58,15 +62,15 @@ resources:
           LambdaConfigurations:
             - Event: 's3:ObjectCreated:*'
               Function:
-                'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
+                'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
 
-    InvalidateCDNLambdaPermissionS3BucketS3:
+    BucketEventLambdaPermissionS3BucketS3:
       DependsOn:
-        - InvalidateCDNLambdaFunction
+        - BucketEventLambdaFunction
       Type: AWS::Lambda::Permission
       Properties:
         FunctionName:
-          'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
+          'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
         Action: 'lambda:InvokeFunction'
         Principal: 's3.amazonaws.com'
         SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
