@@ -23,6 +23,15 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
+  bucketEvent:
+    handler: bucket-event.handler
+
+  invalidateCDN:
+    handler: invalidate-cdn.handler
+    environment:
+      CDN:
+        'Fn::If': [ Prod, { Ref: CDN }, '' ]
+
 resources:
   
   Description: Self contained Santa Swap ui application code and infrastructure including hosting, DNS, CDN, and certificates
@@ -39,13 +48,32 @@ resources:
 
   Resources:
 
-    Site:
+    S3BucketSite:
       Type: AWS::S3::Bucket
+      DependsOn:
+        - BucketEventLambdaPermissionS3BucketS3
       Properties:
         BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
+          ErrorDocument: index.html
+        NotificationConfiguration:
+          LambdaConfigurations:
+            - Event: 's3:ObjectCreated:*'
+              Function:
+                'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+
+    BucketEventLambdaPermissionS3BucketS3:
+      DependsOn:
+        - BucketEventLambdaFunction
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName:
+          'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+        Action: 'lambda:InvokeFunction'
+        Principal: 's3.amazonaws.com'
+        SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
             
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
@@ -109,15 +137,15 @@ resources:
               QueryString: true
               Cookies:
                 Forward: none
-            DefaultTTL: 0
-            MinTTL: 0
-            MaxTTL: 0
+            DefaultTTL: 2592000 # 1 month
+            MinTTL: 2592000 # 1 month
+            MaxTTL: 31536000 # 1 year
             ViewerProtocolPolicy: redirect-to-https
           DefaultRootObject: index.html
           Enabled: true
           Origins:
             - DomainName:
-                Fn::GetAtt : Site.DomainName
+                Fn::GetAtt : S3BucketSite.DomainName
               Id: StaticSiteOrigin
               S3OriginConfig:
                 OriginAccessIdentity: ''
@@ -140,9 +168,9 @@ resources:
 
     EmptySiteBucket:
       Type: Custom::EmptySiteBucket
-      DependsOn: Site
+      DependsOn: S3BucketSite
       Properties:  
         ServiceToken:
           Fn::GetAtt: EmptyBucketLambdaFunction.Arn
         BucketName:
-          Ref: Site
+          Ref: S3BucketSite
