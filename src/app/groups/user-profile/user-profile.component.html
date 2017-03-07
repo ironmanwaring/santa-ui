@@ -2,11 +2,11 @@
 
     <!--<form>-->
      <md-input-container>
-        <input md-input placeholder="Name" name="user.name" [(ngModel)]="user.name" type="text" required>
+        <input mdInput placeholder="Name" name="user.name" [(ngModel)]="user.name" type="text" required>
      </md-input-container>
      <div></div>
       <md-input-container>
-          <input class="long-form-address" md-input placeholder="Address" name="user.address" [(ngModel)]="user.address" type="text">
+          <input class="long-form-address" mdInput placeholder="Address" name="user.address" [(ngModel)]="user.address" type="text">
       </md-input-container>
 
       <div class="form-group">
@@ -18,11 +18,11 @@
                  <md-icon>remove</md-icon>
             </button>
             <md-input-container class="long-form-want right-item">
-                <input  md-input [(ngModel)]="user.wants[i].item" type="text">
+                <input  mdInput [(ngModel)]="user.wants[i].item" type="text">
             </md-input-container>
           
             <md-input-container class="long-form-want" >
-                <input md-input [(ngModel)]="user.wants[i].link" type="text">
+                <input mdInput [(ngModel)]="user.wants[i].link" type="text">
             </md-input-container>
         </div>
 
@@ -32,11 +32,11 @@
             <md-icon>add</md-icon>
        </button>
         <md-input-container class="long-form-want right-item">
-            <input  md-input type="text">
+            <input  mdInput type="text">
         </md-input-container>
 
         <md-input-container class="long-form-want" >
-            <input md-input type="text">
+            <input mdInput type="text">
         </md-input-container>
        </div>
     <!--</form>-->

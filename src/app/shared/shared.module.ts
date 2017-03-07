@@ -18,7 +18,7 @@ import { LoadingComponent } from './loading/loading.component';
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     FlexLayoutModule.forRoot(),
     RouterModule
   ],
