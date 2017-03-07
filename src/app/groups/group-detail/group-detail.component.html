@@ -24,15 +24,15 @@
       <div class="detail-margin">
         
         <md-input-container class="full-width">
-          <input md-input [(ngModel)]="group.name" placeholder="Name" (blur)="updateGroup()"/>
+          <input mdInput [(ngModel)]="group.name" placeholder="Name" (blur)="updateGroup()"/>
         </md-input-container>
 
         <md-input-container class="full-width">
-          <textarea md-input [(ngModel)]="group.rules" placeholder="Rules" [rows]="ruleRows" (blur)="updateGroup()" (keyup)="adjustRulesLines()"></textarea>
+          <textarea mdInput [(ngModel)]="group.rules" placeholder="Rules" [rows]="ruleRows" (blur)="updateGroup()" (keyup)="adjustRulesLines()"></textarea>
         </md-input-container>
 
         <md-input-container class="full-width">
-          <input md-input [ngModel]="group.code" placeholder="Code"/>
+          <input mdInput [ngModel]="group.code" placeholder="Code"/>
         </md-input-container>
 
         <button md-raised-button color="primary" disabled>Match the group</button>
