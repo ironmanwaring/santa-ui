@@ -17,6 +17,7 @@ import 'rxjs/add/operator/switchMap';
 export class GroupDetailComponent implements OnInit {
 
   group: Group = <Group>{};
+  profiles: Profile[] = [];
   userProfile: Profile = <Profile>{};
   ruleRows: number = 1;
   loading: boolean = true;
@@ -33,12 +34,15 @@ export class GroupDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params
         .switchMap( (params: Params) => this.groupService.getGroup(params['id']))
-        .subscribe( (group: Group) => {
-          this.loading = false;
-          this.group = group;
-          this.userProfile = this.group.profiles.find( profile => profile.id === this.authService.user.id);
-          this.adjustRulesLines();
-        });
+        .subscribe( (group: Group) => this.setupGroup(group));
+  }
+
+  setupGroup(group: Group): void {
+    this.userProfile = group.profiles.find( profile => profile.id === this.authService.user.id);
+    this.profiles = group.profiles.filter( profile => profile.id !== this.authService.user.id);
+    this.group = group;
+    this.loading = false;
+    this.adjustRulesLines();
   }
 
   updateGroup(): void {

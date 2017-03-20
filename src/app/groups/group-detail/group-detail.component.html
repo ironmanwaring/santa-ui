@@ -9,15 +9,12 @@
 <div fxLayoutAlign="center">
   <md-tab-group fxFlex="80%" fxFlex.xs="100%">
 
-    <md-tab label="Participants">
-      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
-        <app-profile-card fxFlex="400px" fxFlex.xs="100%" *ngFor="let profile of group.profiles" [profile]="profile"></app-profile-card>
+    <md-tab label="People">
+      <div *ngIf="userProfile.id" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+        <app-profile-card fxFlex="400px" fxFlex.xs="100%" [profile]="userProfile" [canEdit]="true"></app-profile-card>
       </div>
-    </md-tab>
-
-    <md-tab label="My profile">
-      <div class="detail-margin">
-        <app-my-profile [profile]="userProfile"></app-my-profile>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+        <app-profile-card fxFlex="400px" fxFlex.xs="100%" *ngFor="let profile of profiles" [profile]="profile"></app-profile-card>
       </div>
     </md-tab>
 
