@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
+import { AuthService } from '../../shared/auth/auth.service';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { Group } from '../shared/group';
+import { Profile } from '../shared/profile';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -15,6 +17,7 @@ import 'rxjs/add/operator/switchMap';
 export class GroupDetailComponent implements OnInit {
 
   group: Group = <Group>{};
+  userProfile: Profile = <Profile>{};
   ruleRows: number = 1;
   loading: boolean = true;
   viewAllActions: boolean = false;
@@ -23,6 +26,7 @@ export class GroupDetailComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private route: ActivatedRoute,
+    private authService: AuthService,
     public dialog: MdDialog
   ) { }
 
@@ -32,6 +36,7 @@ export class GroupDetailComponent implements OnInit {
         .subscribe( (group: Group) => {
           this.loading = false;
           this.group = group;
+          this.userProfile = this.group.profiles.find( profile => profile.id === this.authService.user.id);
           this.adjustRulesLines();
         });
   }

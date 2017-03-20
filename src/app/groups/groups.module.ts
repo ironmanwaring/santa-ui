@@ -10,7 +10,7 @@ import { GroupCardComponent } from './group-card/group-card.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
 import { JoinGroupComponent } from './join-group/join-group.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CreateGroupComponent,
     InviteToGroupComponent,
     JoinGroupComponent,
-    UserProfileComponent
+    MyProfileComponent
   ],
   providers: [
     GroupService
