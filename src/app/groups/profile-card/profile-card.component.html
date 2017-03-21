@@ -7,11 +7,11 @@
 
   <md-card-content>
     <md-input-container class="full-width">
-      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.about" placeholder="About me" (blur)="updateProfile()"></textarea>
+      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.about" placeholder="About me" (blur)="update()"></textarea>
     </md-input-container>
     
     <md-input-container class="full-width">
-      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.wishlist" placeholder="Wishlist" (blur)="updateProfile()"></textarea>
+      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.wishlist" placeholder="Wishlist" (blur)="update()"></textarea>
     </md-input-container>
   </md-card-content>
 

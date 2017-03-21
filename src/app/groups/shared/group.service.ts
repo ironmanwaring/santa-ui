@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 
 import { Group } from './group';
 import { Profile } from './profile';
+import { User } from '../../shared/auth/user';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -43,6 +44,13 @@ export class GroupService {
 
   joinGroup(code: string, profile: Profile): Observable<Group> {
     return this.http.post(`${this.endpoint}/groups/${code}/profiles`, profile, this.getJsonHeaders())
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  updateProfile(profile: Profile, groupId: string): Observable<Profile> {
+    console.log(profile);
+    return this.http.put(`${this.endpoint}/groups/${groupId}/profiles/${profile.id}`, profile, this.getJsonHeaders())
                     .map(this.extractData)
                     .catch(this.handleError);
   }

@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Profile } from '../shared/profile';
 import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
-  styleUrls: ['./profile-card.component.scss']
+  styleUrls: ['./profile-card.component.scss'],
+  outputs: ['updateProfile']
 })
 export class ProfileCardComponent {
   
@@ -15,10 +16,14 @@ export class ProfileCardComponent {
   @Input()
   canEdit: boolean = false;
 
+  @Output()
+  updateProfile: EventEmitter<Profile> = new EventEmitter<Profile>();
+
   constructor() { }
 
-  updateProfile(): void {
-    console.log('Not implemented yet');
+  update(): void {
+    console.log(this.profile);
+    this.updateProfile.emit(this.profile);
   }
 
 }

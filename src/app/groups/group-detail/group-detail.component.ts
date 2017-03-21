@@ -48,9 +48,14 @@ export class GroupDetailComponent implements OnInit {
   updateGroup(): void {
     this.groupService
         .updateGroup(this.group)
-        .subscribe( (group: Group) => {
-          console.log('group updated', group);
-        });
+        .subscribe( (group: Group) => console.log('group updated', group));
+  }
+
+  updateProfile(profile: Profile): void {
+    console.log(profile);
+    this.groupService
+        .updateProfile(profile, this.group.id)
+        .subscribe( (profile: Profile) => console.log('Profile updated', profile));
   }
 
   adjustRulesLines(): void {
