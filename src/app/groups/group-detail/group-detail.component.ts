@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { GroupService } from '../shared/group.service';
+import { AuthService } from '../../shared/auth/auth.service';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { Group } from '../shared/group';
+import { Profile } from '../shared/profile';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -15,6 +17,8 @@ import 'rxjs/add/operator/switchMap';
 export class GroupDetailComponent implements OnInit {
 
   group: Group = <Group>{};
+  profiles: Profile[] = [];
+  userProfile: Profile = <Profile>{};
   ruleRows: number = 1;
   loading: boolean = true;
   viewAllActions: boolean = false;
@@ -23,25 +27,35 @@ export class GroupDetailComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private route: ActivatedRoute,
+    private authService: AuthService,
     public dialog: MdDialog
   ) { }
 
   ngOnInit() {
     this.route.params
         .switchMap( (params: Params) => this.groupService.getGroup(params['id']))
-        .subscribe( (group: Group) => {
-          this.loading = false;
-          this.group = group;
-          this.adjustRulesLines();
-        });
+        .subscribe( (group: Group) => this.setupGroup(group));
+  }
+
+  setupGroup(group: Group): void {
+    this.userProfile = group.profiles.find( profile => profile.id === this.authService.user.id);
+    this.profiles = group.profiles.filter( profile => profile.id !== this.authService.user.id);
+    this.group = group;
+    this.loading = false;
+    this.adjustRulesLines();
   }
 
   updateGroup(): void {
     this.groupService
         .updateGroup(this.group)
-        .subscribe( (group: Group) => {
-          console.log('group updated', group);
-        });
+        .subscribe( (group: Group) => console.log('group updated', group));
+  }
+
+  updateProfile(profile: Profile): void {
+    console.log(profile);
+    this.groupService
+        .updateProfile(profile, this.group.id)
+        .subscribe( (profile: Profile) => console.log('Profile updated', profile));
   }
 
   adjustRulesLines(): void {

@@ -1,6 +1,9 @@
 export class Profile {
+    id: string;
     name: string;
-    bio?: string;
     picture: string;
-    wants?: string[];
+    email: string;
+    address?: string;
+    about?: string;
+    wishlist?: string;
 }

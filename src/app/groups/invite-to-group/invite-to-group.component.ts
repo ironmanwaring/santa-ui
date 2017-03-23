@@ -25,8 +25,9 @@ export class InviteToGroupComponent {
     let group = { name: this.name };
     let profile = {
       name: this.authService.getUser().name,
-      userId: this.authService.getUser().id,
-      picture: this.authService.getUser().picture
+      id: this.authService.getUser().id,
+      picture: this.authService.getUser().picture,
+      email: this.authService.getUser().email
     };
     this.groupService
         .createAndJoinGroup(group, profile)

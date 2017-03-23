@@ -2,21 +2,15 @@
 
 <app-title [title]="group.name" [subtitle]="group.status"></app-title>
 
-<div label="Members" class="top-margin flex-container" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="center center">
-    <app-person-card  *ngFor="let member of group.members" class="flex-item" [person]="member"></app-person-card>
-</div>
-
 <div fxLayoutAlign="center">
   <md-tab-group fxFlex="80%" fxFlex.xs="100%">
 
-    <md-tab label="Participants">
-      <div class="detail-margin">
+    <md-tab label="People">
+      <div *ngIf="userProfile.id" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+        <app-profile-card fxFlex="400px" fxFlex.xs="100%" [profile]="userProfile" [canEdit]="true" (updateProfile)="updateProfile($event)"></app-profile-card>
       </div>
-    </md-tab>
-
-    <md-tab label="My profile">
-      <div class="detail-margin">
-        <app-user-profile class="top-margin"></app-user-profile>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap="wrap">
+        <app-profile-card fxFlex="400px" fxFlex.xs="100%" *ngFor="let profile of profiles" [profile]="profile"></app-profile-card>
       </div>
     </md-tab>
 

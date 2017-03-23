@@ -25,7 +25,7 @@ export class GroupsComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.groupService.listByUser(this.auth.getUser().id)
+    this.groupService.listByPerson(this.auth.getUser().id)
       .subscribe( groups => {
         this.loading = false;
         this.groups = groups;

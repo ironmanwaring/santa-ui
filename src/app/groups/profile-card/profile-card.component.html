@@ -1,0 +1,25 @@
+<md-card class="profile-card"> 
+  
+  <md-card-header>
+    <img md-card-avatar [src]="profile.picture"/>
+    <md-card-title>{{profile.name}}</md-card-title>
+  </md-card-header>
+
+  <md-card-content>
+    <md-input-container class="full-width">
+      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.about" placeholder="About me" (blur)="update()"></textarea>
+    </md-input-container>
+    
+    <md-input-container class="full-width">
+      <textarea mdInput [disabled]="!canEdit" [(ngModel)]="profile.wishlist" placeholder="Wishlist" (blur)="update()"></textarea>
+    </md-input-container>
+  </md-card-content>
+
+  <md-card-actions>
+    <span *ngIf="!canEdit">
+      <md-slide-toggle [checked]="true">I could be matched with this person!</md-slide-toggle>
+    </span>
+  </md-card-actions>
+
+</md-card>
+

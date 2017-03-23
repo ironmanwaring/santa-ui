@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PersonCardComponent } from './person-card.component';
+import { ProfileCardComponent } from './profile-card.component';
 import { SharedModule } from '../../shared/shared.module';
 import { GroupService } from '../shared/group.service';
 import { GroupsComponent } from '../groups/groups.component';
@@ -14,15 +14,15 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 
 describe('PersonCardComponent', () => {
-  let component: PersonCardComponent;
-  let fixture: ComponentFixture<PersonCardComponent>;
+  let component: ProfileCardComponent;
+  let fixture: ComponentFixture<ProfileCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         GroupsComponent,
         GroupDetailComponent, 
-        PersonCardComponent,
+        ProfileCardComponent,
         GroupCardComponent,
         UserProfileComponent   
       ],
@@ -38,7 +38,7 @@ describe('PersonCardComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PersonCardComponent);
+    fixture = TestBed.createComponent(ProfileCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
