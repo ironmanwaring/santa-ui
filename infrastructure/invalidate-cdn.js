@@ -19,7 +19,7 @@ const doInvalidateCDN = () => {
       CallerReference: (new Date()).getTime().toString(),
       Paths: {
         Quantity: 1,
-        Items: [ 'index.html' ]
+        Items: [ '/index.html' ]
       }
     }
   };
