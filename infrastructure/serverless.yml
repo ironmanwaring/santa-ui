@@ -23,15 +23,6 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
-  # test:
-  #   handler: bucket-event.handler
-  #   events:
-  #     - s3:
-  #         bucket: buckettest.santaswap.io
-  #         event: s3:ObjectCreated:*
-  #         rules:
-  #           - suffix: index.html
-
   invalidateCDN:
     handler: invalidate-cdn.handler
     environment:
