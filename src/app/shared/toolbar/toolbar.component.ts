@@ -8,6 +8,6 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ToolbarComponent {
 
-  constructor( private auth: AuthService ) { }
+  constructor( public auth: AuthService ) { }
 
 }

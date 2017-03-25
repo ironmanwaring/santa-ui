@@ -13,6 +13,7 @@ import { AuthService } from '../../shared/auth/auth.service';
 export class InviteToGroupComponent {
 
   name: string = '';
+  email: string = '';
 
   constructor(
     public dialogRef: MdDialogRef<InviteToGroupComponent>,
@@ -21,22 +22,26 @@ export class InviteToGroupComponent {
     private authService: AuthService
   ) { }
 
-  public saveGroup(): void {
-    let group = { name: this.name };
-    let profile = {
-      name: this.authService.getUser().name,
-      id: this.authService.getUser().id,
-      picture: this.authService.getUser().picture,
-      email: this.authService.getUser().email
-    };
-    this.groupService
-        .createAndJoinGroup(group, profile)
-        .subscribe( group => this.navigateToGroup(group));
-  }
+  // public saveGroup(): void {
+  //   let group = { name: this.name };
+  //   let profile = {
+  //     name: this.authService.getUser().name,
+  //     id: this.authService.getUser().id,
+  //     picture: this.authService.getUser().picture,
+  //     email: this.authService.getUser().email
+  //   };
+  //   this.groupService
+  //       .createAndJoinGroup(group, profile)
+  //       .subscribe( group => this.navigateToGroup(group));
+  // }
 
-  private navigateToGroup(group: Group) {
-    this.dialogRef.close(group.name);
-    this.router.navigate(['/groups', group.id]);
+  // private navigateToGroup(group: Group) {
+  //   this.dialogRef.close(group.name);
+  //   this.router.navigate(['/groups', group.id]);
+  // }
+
+  inviteToGroup() {
+    console.log('Not implemented yet');
   }
 
 }
