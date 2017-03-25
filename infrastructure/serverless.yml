@@ -56,7 +56,7 @@ resources:
     S3BucketSite:
       Type: AWS::S3::Bucket
       DependsOn:
-        - SiteUpdatedLambdaPermissionS3BucketS3
+        - BucketEventLambdaPermissionS3BucketS3
       Properties:
         BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
@@ -72,15 +72,15 @@ resources:
                     - Name: suffix
                       Value: index.html 
               Function:
-                'Fn::GetAtt': [ SiteUpdatedLambdaFunction, Arn ]
+                'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
 
-    SiteUpdatedLambdaPermissionS3BucketS3:
+    BucketEventLambdaPermissionS3BucketS3:
       DependsOn:
-        - SiteUpdatedLambdaFunction
+        - BucketEventLambdaFunction
       Type: AWS::Lambda::Permission
       Properties:
         FunctionName:
-          'Fn::GetAtt': [ SiteUpdatedLambdaFunction, Arn ]
+          'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
         Action: 'lambda:InvokeFunction'
         Principal: 's3.amazonaws.com'
         SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
