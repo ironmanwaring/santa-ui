@@ -9,7 +9,8 @@ provider:
     - Effect: Allow
       Action:
         - s3:*
-        - sns:*
+        - sns:Publish
+        - cloudfront:CreateInvalidation
       Resource: '*'
 
 custom:
