@@ -32,7 +32,8 @@ functions:
           - ''
           - - 'arn:aws:sns:'
             - { Ref: AWS::Region }
-            - ':SiteUpdated${opt:stage, self:provider.stage}'
+            - ':${opt:accountId, env:ACCOUNT_ID}:'
+            - 'SiteUpdated${opt:stage, self:provider.stage}'
 
   invalidateCDN:
     handler: invalidate-cdn.handler
