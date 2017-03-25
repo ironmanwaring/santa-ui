@@ -3,12 +3,12 @@ const AWS = require('aws-sdk');
 const sns = new AWS.SNS({ apiVersion: '2010-03-31' })
 
 module.exports.handler = (event, context, callback) => {
-  publishInvalidateCDNEvent()
+  publishSiteUpdatedEvent()
     .then( results => callback(null, results))
     .catch( err => callback(err, 'Unexpected error'));  
 };  
 
-const doPublishInvalidateCDNEvent = () => {
+const publishSiteUpdatedEvent = () => {
   const params = {
     Message: 'Site bucket was updated',
     TopicArn: process.env.SITE_UPDATED_SNS
