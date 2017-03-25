@@ -24,7 +24,7 @@ functions:
     handler: empty-bucket.handler
 
   bucketEvent:
-    handler: bucketEvent.handler
+    handler: bucket-event.handler
     environment:
       SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
 
