@@ -40,7 +40,7 @@ functions:
       - sns: 'SiteUpdated${opt:stage, self:provider.stage}'
     environment:
       CDN:
-        'Fn::If': [ Prod, { Ref: CDN }, '' ]
+        Fn::If: [ Prod, { Ref: CDN }, '' ]
 
 resources:
   
@@ -77,7 +77,7 @@ resources:
                     - Name: suffix
                       Value: index.html 
               Function:
-                'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+                Fn::GetAtt: [ BucketEventLambdaFunction, Arn ]
 
     BucketEventLambdaPermissionS3BucketS3:
       DependsOn:
@@ -85,7 +85,7 @@ resources:
       Type: AWS::Lambda::Permission
       Properties:
         FunctionName:
-          'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+          Fn::GetAtt: [ BucketEventLambdaFunction, Arn ]
         Action: 'lambda:InvokeFunction'
         Principal: 's3.amazonaws.com'
         SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
