@@ -16,7 +16,7 @@ const doInvalidateCDN = () => {
   const params = {
     DistributionId: process.env.CDN,
     InvalidationBatch: {
-      CallerReference: (new Date()).getTime(),
+      CallerReference: '' + (new Date()).getTime(),
       Paths: {
         Quantity: 1,
         Items: [ 'index.html' ]
