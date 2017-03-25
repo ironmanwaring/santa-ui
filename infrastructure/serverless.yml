@@ -23,8 +23,16 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
+  bucketEvent:
+    handler: bucketEvent.handler
+    environment:
+      SITE_UPDATED_SNS:
+        Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}'
+
   invalidateCDN:
     handler: invalidate-cdn.handler
+    events:
+      - sns: 'SiteUpdated${opt:stage, self:provider.stage}'
     environment:
       CDN:
         'Fn::If': [ Prod, { Ref: CDN }, '' ]
@@ -48,7 +56,7 @@ resources:
     S3BucketSite:
       Type: AWS::S3::Bucket
       DependsOn:
-        - InvalidateCDNLambdaPermissionS3BucketS3
+        - SiteUpdatedLambdaPermissionS3BucketS3
       Properties:
         BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
@@ -64,15 +72,15 @@ resources:
                     - Name: suffix
                       Value: index.html 
               Function:
-                'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
+                'Fn::GetAtt': [ SiteUpdatedLambdaFunction, Arn ]
 
-    InvalidateCDNLambdaPermissionS3BucketS3:
+    SiteUpdatedLambdaPermissionS3BucketS3:
       DependsOn:
-        - InvalidateCDNLambdaFunction
+        - SiteUpdatedLambdaFunction
       Type: AWS::Lambda::Permission
       Properties:
         FunctionName:
-          'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
+          'Fn::GetAtt': [ SiteUpdatedLambdaFunction, Arn ]
         Action: 'lambda:InvokeFunction'
         Principal: 's3.amazonaws.com'
         SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
