@@ -27,7 +27,8 @@ functions:
   bucketEvent:
     handler: bucket-event.handler
     environment:
-      SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+      # SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+      SITE_UPDATED_SNS: 'arn:aws:sns:us-east-1:${opt:accountId, env:ACCOUNT_ID}:SiteUpdated${opt:stage, self:provider.stage}'
 
   invalidateCDN:
     handler: invalidate-cdn.handler
