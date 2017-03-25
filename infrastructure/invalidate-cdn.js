@@ -18,8 +18,8 @@ const doInvalidateCDN = () => {
     InvalidationBatch: {
       CallerReference: (new Date()).getTime().toString(),
       Paths: {
-        Quantity: 1,
-        Items: [ '/index.html' ]
+        Quantity: 2,
+        Items: [ '/index.html', '/assets*' ]
       }
     }
   };
