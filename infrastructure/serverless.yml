@@ -26,7 +26,8 @@ functions:
   bucketEvent:
     handler: bucketEvent.handler
     environment:
-      SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+      SITE_UPDATED_SNS:
+        'Fn::GetAtt': ['SNSTopicSiteUpdated${opt:stage, self:provider.stage}', Arn ]
 
   invalidateCDN:
     handler: invalidate-cdn.handler
