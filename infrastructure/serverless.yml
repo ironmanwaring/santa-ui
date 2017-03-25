@@ -23,8 +23,14 @@ functions:
   emptyBucket:
     handler: empty-bucket.handler
 
-  bucketEvent:
-    handler: bucket-event.handler
+  # test:
+  #   handler: bucket-event.handler
+  #   events:
+  #     - s3:
+  #         bucket: buckettest.santaswap.io
+  #         event: s3:ObjectCreated:*
+  #         rules:
+  #           - suffix: index.html
 
   invalidateCDN:
     handler: invalidate-cdn.handler
@@ -51,7 +57,7 @@ resources:
     S3BucketSite:
       Type: AWS::S3::Bucket
       DependsOn:
-        - BucketEventLambdaPermissionS3BucketS3
+        - InvalidateCDNLambdaPermissionS3BucketS3
       Properties:
         BucketName: ${self:custom.domain.stage}
         AccessControl: PublicRead
@@ -61,16 +67,21 @@ resources:
         NotificationConfiguration:
           LambdaConfigurations:
             - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: suffix
+                      Value: index.html 
               Function:
-                'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+                'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
 
-    BucketEventLambdaPermissionS3BucketS3:
+    InvalidateCDNLambdaPermissionS3BucketS3:
       DependsOn:
-        - BucketEventLambdaFunction
+        - InvalidateCDNLambdaFunction
       Type: AWS::Lambda::Permission
       Properties:
         FunctionName:
-          'Fn::GetAtt': [ BucketEventLambdaFunction, Arn ]
+          'Fn::GetAtt': [ InvalidateCDNLambdaFunction, Arn ]
         Action: 'lambda:InvokeFunction'
         Principal: 's3.amazonaws.com'
         SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
