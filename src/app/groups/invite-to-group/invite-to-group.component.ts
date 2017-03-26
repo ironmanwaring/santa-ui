@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { GroupService } from '../shared/group.service';
+import { Invite } from '../shared/invite';
 import { Group } from '../shared/group';
 import { AuthService } from '../../shared/auth/auth.service';
 
@@ -12,36 +13,34 @@ import { AuthService } from '../../shared/auth/auth.service';
 })
 export class InviteToGroupComponent {
 
-  name: string = '';
-  email: string = '';
+  number: string = '';
 
   constructor(
     public dialogRef: MdDialogRef<InviteToGroupComponent>,
+    @Inject(MD_DIALOG_DATA) public data: Group,
     private groupService: GroupService,
     public router: Router,
     private authService: AuthService
   ) { }
 
-  // public saveGroup(): void {
-  //   let group = { name: this.name };
-  //   let profile = {
-  //     name: this.authService.getUser().name,
-  //     id: this.authService.getUser().id,
-  //     picture: this.authService.getUser().picture,
-  //     email: this.authService.getUser().email
-  //   };
-  //   this.groupService
-  //       .createAndJoinGroup(group, profile)
-  //       .subscribe( group => this.navigateToGroup(group));
-  // }
-
-  // private navigateToGroup(group: Group) {
-  //   this.dialogRef.close(group.name);
-  //   this.router.navigate(['/groups', group.id]);
-  // }
-
   inviteToGroup() {
-    console.log('Not implemented yet');
+    let invite = {
+      number: this.number,
+      inviter: this.authService.getUser().givenName,
+      domain: window.location.host,
+      group: {
+        name: this.data.name,
+        code: this.data.code
+      }
+    };
+    console.log(invite);
+    this.groupService
+        .inviteToGroup(invite, this.data.id)
+        .subscribe(this.showSuccess);
+  }
+
+  showSuccess() {
+    this.dialogRef.close();
   }
 
 }

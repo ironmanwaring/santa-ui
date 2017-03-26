@@ -48,7 +48,7 @@ export class GroupDetailComponent implements OnInit {
   updateGroup(): void {
     this.groupService
         .updateGroup(this.group)
-        .subscribe( (group: Group) => console.log('group updated', group));
+        .subscribe( (group: Group) => console.log('group updated', this.group));
   }
 
   updateProfile(profile: Profile): void {
@@ -63,7 +63,7 @@ export class GroupDetailComponent implements OnInit {
   }
 
   showInviteToGroup(): void {
-    this.dialog.open(InviteToGroupComponent);
+    this.dialog.open(InviteToGroupComponent, {data: this.group});
   }
 
   public showAllActions(): void {
