@@ -33,9 +33,10 @@ export class InviteToGroupComponent {
         code: this.data.code
       }
     };
-    this.groupService
-        .inviteToGroup(invite, this.data.id)
-        .subscribe(this.showSuccess);
+    // this.groupService
+    //     .inviteToGroup(invite, this.data.id)
+    //     .subscribe(this.showSuccess);
+    this.showSuccess('hello');
   }
 
   showSuccess(response: any) {
