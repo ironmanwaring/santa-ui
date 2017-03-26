@@ -39,7 +39,7 @@ export class InviteToGroupComponent {
   }
 
   showSuccess(response: any) {
-    console.log('Success, now closing');
+    console.log('Success, now closing dialogref', this.dialogRef);
     this.dialogRef.close();
   }
 
