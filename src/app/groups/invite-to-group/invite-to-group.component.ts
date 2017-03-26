@@ -33,14 +33,12 @@ export class InviteToGroupComponent {
         code: this.data.code
       }
     };
-    // this.groupService
-    //     .inviteToGroup(invite, this.data.id)
-    //     .subscribe(this.showSuccess);
-    this.showSuccess('hello');
+    this.groupService
+        .inviteToGroup(invite, this.data.id)
+        .subscribe(response => this.showSuccess(response));
   }
 
   showSuccess(response: any) {
-    console.log('Success, now closing dialogref', this.dialogRef);
     this.dialogRef.close();
   }
 
