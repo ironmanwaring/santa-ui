@@ -13,8 +13,12 @@ This project uses [Travis-CI](https://travis-ci.org/santaswap/ui) to automatical
 
 See the [.travis.yml](https://github.com/manwaring/odin/blob/master/.travis.yml) and [.travis-deploy.sh](https://github.com/manwaring/odin/blob/master/.travis-deploy.sh) files for more information about how this has been configured.
 
-# How the lambda functions work
+# How the Lambda functions work
+There are three Lambda functions deployed with this infrastructure to faciliate its management.
 
+1. **Bucket event:** This function is triggered when the index.html file is updated in the S3 bucket and proceeds to invoke a bucket updated SNS topic
+1. **Invalidate CDN:** This function is triggered by the SNS event and invalidates the CDN so that the new content can be cached and served
+1. **Empty bucket:** This function is called when the generated CloudFormation stack is deleted, and empties the S3 site bucket so that it deletes successfully with the rest of the stack resources
 
 # Architecture differences by stage
 Because of the significant amount of time it takes to deploy a new CloudFront Distribution, this portion of the architecture (including a certificate from AWS Certificate Manager) is only deployed for production stages.  In non-production stages the S3 bucket is configured for static website hosting, and the Route 53 route points directly to this rather than through a CloudFront Distribution.
