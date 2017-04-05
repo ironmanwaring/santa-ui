@@ -2,12 +2,25 @@
 This serverless application creates and manages infrastructure for the Santa Swap UI application.  It is embedded in the UI application repository to facilitate deploying and removing everything together as a single unit.
 
 # What it does
-This project uses [Travis-CI](https://travis-ci.org/santaswap/ui) to automatically create new infrastructure whenever a new branch is created, andto  update that infrastructure with each commit on the branch.  See the [.travis.yml](https://github.com/manwaring/odin/blob/master/.travis.yml) and [.travis-deploy.sh](https://github.com/manwaring/odin/blob/master/.travis-deploy.sh) files for more information about how this has been configured.
+This project uses [Travis-CI](https://travis-ci.org/santaswap/ui) to automatically create new infrastructure whenever a new branch is created, and to update that infrastructure with each commit on the branch.  To facilitate multiple branches in a shared AWS environment and on the single domain resources are namespaced with the first name of the commit author.  The only exception to this is the site's www and naked domains, which drop the stage name in production
+
+| Resource template                | Stage   | Final resource name              |
+| -------------------------------- | ------- | -------------------------------- |
+| {stage}.santaswap.io             | prod    | santaswap.io                     |
+| {stage}.santaswap.io             | phillip | phillip.santaswap.io             |
+| santaswap-ui-{stage}-bucketEvent | prod    | santaswap-ui-prod-bucketEvent    |
+| santaswap-ui-{stage}-bucketEvent | phillip | santaswap-ui-phillip-bucketEvent |
+
+See the [.travis.yml](https://github.com/manwaring/odin/blob/master/.travis.yml) and [.travis-deploy.sh](https://github.com/manwaring/odin/blob/master/.travis-deploy.sh) files for more information about how this has been configured.
+
+# How the lambda functions work
+
+
+# Architecture differences by stage
+Because of the significant amount of time it takes to deploy a new CloudFront Distribution, this portion of the architecture (including a certificate from AWS Certificate Manager) is only deployed for production stages.  In non-production stages the S3 bucket is configured for static website hosting, and the Route 53 route points directly to this rather than through a CloudFront Distribution.
 
 # How to use it
 This project is built with the [Serverless Framework](https://serverless.com/) - see their documentation for more about the tool and how to use it.
-
-To deploy this infrastructure to your AWS environment simply use your favorite CI/CD tool.  This project uses [Travis-CI](https://travis-ci.org/santaswap/ui) - 
 
 Two environment variables are used to configure the infrastructure apppropriately:
 
