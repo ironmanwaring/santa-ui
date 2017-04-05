@@ -11,7 +11,7 @@ This project uses [Travis-CI](https://travis-ci.org/santaswap/ui) to automatical
 | santaswap-ui-{stage}-bucketEvent | prod    | santaswap-ui-prod-bucketEvent    |
 | santaswap-ui-{stage}-bucketEvent | phillip | santaswap-ui-phillip-bucketEvent |
 
-See the [.travis.yml](https://github.com/manwaring/odin/blob/master/.travis.yml) and [.travis-deploy.sh](https://github.com/manwaring/odin/blob/master/.travis-deploy.sh) files for more information about how this has been configured.
+See the [.travis.yml](https://github.com/santaswap/ui/blob/master/.travis.yml) and [.travis-deploy.sh](https://github.com/santaswap/ui/blob/master/.travis-deploy.sh) files for more information about how this has been configured.
 
 # How the Lambda functions work
 There are three Lambda functions deployed with this infrastructure to faciliate its management.
