@@ -1,9 +1,27 @@
-[![Build Status][travis-badge]][travis-badge-url]
-# Santa Swap UI
-This repository contains both an Angular 2 web application and a serverless application for managing the infrastructure necessary to host it.  The rest of this README is for the Angular application - for more information on the serverless application see the [infrastructure README](https://github.com/santaswap/ui/blob/master/infrastructure/README.md)
+# Ui
 
-# How to use it
-This project is built with the [Angular CLI](https://github.com/angular/angular-cli) - see their documentation for more about the tool and how to use it.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
-[travis-badge]: https://travis-ci.org/santaswap/ui.svg?branch=master		
-[travis-badge-url]: https://travis-ci.org/santaswap/ui
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
