@@ -1,6 +1,6 @@
 <p align="center">
   <img height="150" src="https://avatars0.githubusercontent.com/u/36457275?s=400&u=16d355f384ed7f8e0655b7ed1d70ff2e411690d8&v=4e">
-  <img height="150" src="https://user-images.githubusercontent.com/2955468/44874383-0168f780-ac69-11e8-8e51-774678cbd966.png">
+  <img height="150" src="https://user-images.githubusercontent.com/2955468/48448360-6b6f4400-e764-11e8-935e-163360a04f52.png">
 </p>
 
 [![Build status][build-badge]][build-badge-url]
@@ -50,7 +50,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [dev-dependency-badge-url]: https://david-dm.org/santaswap/ui?type=dev
 [formatter-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [formatter-badge-url]: #badge
-[license-badge]: https://img.shields.io/npm/l/@santaswap/ui.svg
-[license-badge-url]: https://www.npmjs.com/package/@santaswap/ui
+[license-badge]: https://img.shields.io/github/license/santaswap/ui.svg
+[license-badge-url]: https://github.com/santaswap/ui/blob/master/LICENSE
 [vulnerability-badge]: https://snyk.io/test/github/santaswap/ui/badge.svg?targetFile=package.json
 [vulnerability-badge-url]: https://snyk.io/test/github/santaswap/ui?targetFile=package.json
