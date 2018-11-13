@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
+## Style guide recommendations
+
+[https://itnext.io/clean-code-checklist-in-angular-%EF%B8%8F-10d4db877f74](https://itnext.io/clean-code-checklist-in-angular-%EF%B8%8F-10d4db877f74)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
