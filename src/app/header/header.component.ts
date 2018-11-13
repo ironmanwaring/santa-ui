@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  providers: [ThemeService]
 })
 export class HeaderComponent implements OnInit {
   title: string = 'Santa Swap';
