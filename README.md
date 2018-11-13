@@ -42,7 +42,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-[build-badge]: https://circleci.com/gh/santaswap/ui.svg?style=shield&circle-token=29c46c698a84144d4ea9d21552f1927c87afd68e
+[build-badge]: https://circleci.com/gh/santaswap/ui.svg?style=shield&circle-token=11415a1569b0d3047665b0d45c77ea3b6b22158d
 [build-badge-url]: https://circleci.com/gh/santaswap/ui
 [dependency-badge]: https://david-dm.org/santaswap/ui.svg
 [dependency-badge-url]: https://david-dm.org/santaswap/ui
