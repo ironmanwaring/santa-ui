@@ -5,22 +5,20 @@
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item routerLink="/profile">
     <mat-icon>face</mat-icon>
     <span>Your profile</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item routerLink="/group">
     <mat-icon>group</mat-icon>
     <span>Your groups</span>
   </button>
-  <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Settings</span>
+  <button mat-menu-item (click)="enableDarkTheme()" *ngIf="!(isDarkTheme | async)">
+    <mat-icon>brightness_3</mat-icon>
+    <span>Enable dark theme</span>
   </button>
-
-  <span mat-menu-item>
-    <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"
-      >Dark theme</mat-slide-toggle
-    ></span
-  >
+  <button mat-menu-item (click)="enableLightTheme()" *ngIf="(isDarkTheme | async)">
+    <mat-icon>brightness_5</mat-icon>
+    <span>Enable light theme</span>
+  </button>
 </mat-menu>

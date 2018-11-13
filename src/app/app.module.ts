@@ -5,17 +5,21 @@ import {
   MatIconModule,
   MatMenuModule,
   MatButtonModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
-import { CoreModule } from './core/core.module';
+import { ProfileComponent } from './profile/profile.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +29,9 @@ import { CoreModule } from './core/core.module';
     MatMenuModule,
     MatButtonModule,
     MatSlideToggleModule,
-    CoreModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

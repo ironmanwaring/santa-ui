@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../core/services/theme.service';
+import { ThemeService } from '../theme/theme.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  providers: [ThemeService]
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   title: string = 'Santa Swap';
@@ -18,7 +17,11 @@ export class HeaderComponent implements OnInit {
     this.isDarkTheme = this.themeService.isDarkTheme;
   }
 
-  toggleDarkTheme(isDarkTheme: boolean) {
-    this.themeService.setDarkTheme(isDarkTheme);
+  enableDarkTheme() {
+    this.themeService.setDarkTheme(true);
+  }
+
+  enableLightTheme() {
+    this.themeService.setDarkTheme(false);
   }
 }
