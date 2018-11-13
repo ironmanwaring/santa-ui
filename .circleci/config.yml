@@ -43,7 +43,7 @@ jobs:
           command: npm rebuild node-sass
       - run:
           name: Run tests
-          command: npm test -- --progress=false --watch=false --browsers=ChromeHeadlessCI
+          command: npm test -- --progress=false --watch=false
 
 workflows:
   version: 2
