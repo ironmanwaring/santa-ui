@@ -17,5 +17,10 @@
     <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <mat-slide-toggle>Dark theme</mat-slide-toggle>
+
+  <span mat-menu-item>
+    <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"
+      >Dark theme</mat-slide-toggle
+    ></span
+  >
 </mat-menu>

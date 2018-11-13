@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -23,7 +24,8 @@ import { HeaderComponent } from './header/header.component';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
