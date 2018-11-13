@@ -17,9 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroupComponent } from './group/group.component';
+import { GroupsComponent } from './groups/groups.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent],
+  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent, GroupsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
