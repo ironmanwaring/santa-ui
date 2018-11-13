@@ -1,3 +1,4 @@
+// Theme switching based on https://grensesnittet.computas.com/dynamic-themes-in-angular-material/
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
