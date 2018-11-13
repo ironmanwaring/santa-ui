@@ -1,3 +1,15 @@
+<p align="center">
+  <img height="150" src="https://avatars0.githubusercontent.com/u/36457275?s=400&u=16d355f384ed7f8e0655b7ed1d70ff2e411690d8&v=4e">
+  <img height="150" src="https://user-images.githubusercontent.com/2955468/44874383-0168f780-ac69-11e8-8e51-774678cbd966.png">
+</p>
+
+[![Build status][build-badge]][build-badge-url]
+[![Known Vulnerabilities][vulnerability-badge]][vulnerability-badge-url]
+[![Dependency Status][dependency-badge]][dependency-badge-url]
+[![devDependency Status][dev-dependency-badge]][dev-dependency-badge-url]
+[![License][license-badge]][license-badge-url]
+[![Code style][formatter-badge]][formatter-badge-url]
+
 # Ui
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
@@ -29,3 +41,16 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+[build-badge]: https://circleci.com/gh/santaswap/ui.svg?style=shield&circle-token=29c46c698a84144d4ea9d21552f1927c87afd68e
+[build-badge-url]: https://circleci.com/gh/santaswap/ui
+[dependency-badge]: https://david-dm.org/santaswap/ui.svg
+[dependency-badge-url]: https://david-dm.org/santaswap/ui
+[dev-dependency-badge]: https://david-dm.org/santaswap/ui/dev-status.svg
+[dev-dependency-badge-url]: https://david-dm.org/santaswap/ui?type=dev
+[formatter-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[formatter-badge-url]: #badge
+[license-badge]: https://img.shields.io/npm/l/@santaswap/ui.svg
+[license-badge-url]: https://www.npmjs.com/package/@santaswap/ui
+[vulnerability-badge]: https://snyk.io/test/github/santaswap/ui/badge.svg?targetFile=package.json
+[vulnerability-badge-url]: https://snyk.io/test/github/santaswap/ui?targetFile=package.json
