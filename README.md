@@ -1,6 +1,6 @@
 <p align="center">
   <img height="150" src="https://avatars0.githubusercontent.com/u/36457275?s=400&u=16d355f384ed7f8e0655b7ed1d70ff2e411690d8&v=4e">
-  <img height="150" src="https://user-images.githubusercontent.com/2955468/48448360-6b6f4400-e764-11e8-935e-163360a04f52.png">
+  <img height="150" src="https://user-images.githubusercontent.com/2955468/48448638-4d561380-e765-11e8-9ee4-81d9556eda48.png">
 </p>
 
 [![Build status][build-badge]][build-badge-url]
