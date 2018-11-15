@@ -7,7 +7,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class ThemeService {
   private darkTheme: Subject<boolean> = new BehaviorSubject<boolean>(true);
-  // private darkTheme: Subject<boolean> = new Subject<boolean>();
   isDarkTheme = this.darkTheme.asObservable();
 
   setDarkTheme(isDarkTheme: boolean) {
