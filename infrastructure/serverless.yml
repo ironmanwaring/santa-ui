@@ -1,0 +1,94 @@
+service:
+  name: santaswap-ui
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: local
+
+custom:
+  domain:
+    prod: ${opt:domain, env:DOMAIN}
+    stage: ${opt:stage, self:provider.stage}.${opt:domain, env:DOMAIN}
+  hostedZones:
+    cloudFront: Z2FDTNDATAQYW2
+    domain: ${opt:domainHostedZoneId, env:DOMAIN_HOSTED_ZONE_ID}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          method: get
+          path: hello
+
+resources:
+  Description: Static site hosting for Santa Swap website
+
+  Conditions:
+    Prod: { Fn::Equals: ['${opt:stage, self:provider.stage}', prod] }
+
+  Mappings:
+    S3Domains:
+      us-east-1:
+        DNS: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
+
+  Resources:
+    S3BucketSite:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+
+    NakedRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name: { Fn::If: [Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}'] }
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [S3Domains, { Ref: AWS::Region }, DNS]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.hostedZones.cloudFront}
+              - Fn::FindInMap: [S3Domains, { Ref: AWS::Region }, HostedZoneId]
+        HostedZoneId: ${self:custom.hostedZones.domain}
+
+    WWWRecordSet:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        Name: { Fn::If: [Prod, 'www.${self:custom.domain.prod}', 'www.${self:custom.domain.stage}'] }
+        Type: A
+        AliasTarget:
+          DNSName:
+            Fn::If:
+              - Prod
+              - Fn::GetAtt: CDN.DomainName
+              - Fn::FindInMap: [S3domains, { Ref: AWS::Region }, DNS]
+          HostedZoneId:
+            Fn::If:
+              - Prod
+              - ${self:custom.hostedZones.cloudFront}
+              - Fn::FindInMap: [S3Domains, { Ref: AWS::Region }, HostedZoneId]
+        HostedZoneId: ${self:custom.hostedZones.domain}
+
+    DomainCertificate:
+      Type: AWS::CertificateManager::Certificate
+      Condition: Prod
+      Properties:
+        DomainName: '*.${self:custom.domain.prod}'
+        DomainValidationOptions:
+          - DomainName: '*.${self:custom.domain.prod}'
+            ValidationDomain: ${self:custom.domain.prod}
+        SubjectAlternativeNames:
+          - ${self:custom.domain.prod}
