@@ -12,6 +12,8 @@ import {
   MatExpansionModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { GroupComponent } from './group.component';
 
@@ -23,6 +25,7 @@ describe('GroupComponent', () => {
     TestBed.configureTestingModule({
       declarations: [GroupComponent],
       imports: [
+        RouterTestingModule,
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
