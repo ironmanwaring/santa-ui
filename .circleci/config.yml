@@ -33,10 +33,23 @@ anchors:
     restore_cache:
       key: build-cache-{{ .Branch }}-{{ .Revision }}
 
+  configure-aws-access: &configure-aws-access
+    run:
+      name: Configure AWS access
+      command: |
+        mkdir -p ~/.aws
+
+        cat > ~/.aws/credentials << EOL
+        [santaswap]
+        aws_access_key_id = $AWS_ACCESS_KEY
+        aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+        EOL
+
   build-site-infrastructure: &build-site-infrastructure
     <<: *container-config
     steps:
       - checkout
+      - *configure-aws-access
       - run:
           name: Install infrastructure dependencies
           command: cd infrastructure && npm i
@@ -53,6 +66,7 @@ anchors:
       - checkout
       - *load-dependency-cache
       - *load-build-cache
+      - *configure-aws-access
       - run:
           name: Deploy site
           command: echo Deploying site for $STAGE
@@ -134,7 +148,7 @@ workflows:
 
       - build-site-infrastructure-branch:
           <<: *branch-only
-          context: santaswap-domain-info
+          context: santaswap-aws
           requires:
             - build-site
       - deploy-site-branch:
@@ -144,7 +158,7 @@ workflows:
 
       - build-site-infrastructure-prod:
           <<: *prod-only
-          context: santaswap-domain-info
+          context: santaswap-aws
           requires:
             - build-site
       - deploy-site-prod:
