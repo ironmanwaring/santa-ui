@@ -11,6 +11,7 @@ import {
   MatCardModule
 } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
+import { GroupMembersPipe } from './group-members.pipe';
 
 import { GroupCardComponent } from './group-card.component';
 
@@ -32,7 +33,7 @@ describe('GroupCardComponent', () => {
         MatInputModule,
         MatCardModule
       ],
-      declarations: [GroupCardComponent]
+      declarations: [GroupCardComponent, GroupMembersPipe]
     }).compileComponents();
   }));
 

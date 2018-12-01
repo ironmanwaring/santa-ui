@@ -15,6 +15,7 @@ import {
   MatInputModule,
   MatCardModule
 } from '@angular/material';
+import { GroupMembersPipe } from '../group-card/group-members.pipe';
 
 describe('GroupsComponent', () => {
   let component: GroupsComponent;
@@ -22,7 +23,7 @@ describe('GroupsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GroupsComponent, GroupCardComponent],
+      declarations: [GroupsComponent, GroupCardComponent, GroupMembersPipe],
       imports: [
         BrowserAnimationsModule,
         RouterTestingModule,
