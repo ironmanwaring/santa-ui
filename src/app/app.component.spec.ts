@@ -13,6 +13,7 @@ import {
   MatSelectModule,
   MatInputModule
 } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -29,6 +30,7 @@ describe('AppComponent', () => {
         MatSelectModule,
         MatInputModule
       ],
+      providers: [CookieService],
       declarations: [AppComponent, HeaderComponent]
     }).compileComponents();
   }));

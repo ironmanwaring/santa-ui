@@ -12,6 +12,7 @@ import {
   MatSelectModule,
   MatInputModule
 } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -30,7 +31,8 @@ describe('HeaderComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule
-      ]
+      ],
+      providers: [CookieService]
     }).compileComponents();
   }));
 
