@@ -8,6 +8,10 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: local
+  iamRoleStatements:
+    - Effect: Allow
+      Action: cloudfront:CreateInvalidation
+      Resource: '*'
 
 custom:
   domain:
@@ -18,8 +22,10 @@ custom:
     domain: ${opt:domainHostedZoneId, env:DOMAIN_HOSTED_ZONE_ID}
 
 functions:
-  hello:
-    handler: handler.hello
+  invalidateCDN:
+    handler: invalidate-cdn.handler
+    environment:
+      CDN: { Fn::If: [Prod, { Ref: CDN }, ''] }
 
 resources:
   Description: Static site hosting for Santa Swap website
@@ -42,6 +48,16 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
+        NotificationConfiguration:
+          LambdaConfigurations:
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: suffix
+                      Value: index.html
+              Function:
+                Fn::GetAtt: [InvalidateCDNLambdaFunction, Arn]
 
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
