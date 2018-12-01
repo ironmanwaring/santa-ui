@@ -1,4 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  MatToolbarModule,
+  MatIconModule,
+  MatMenuModule,
+  MatButtonModule,
+  MatSlideToggleModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule,
+  MatCardModule,
+  MatExpansionModule
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { GroupComponent } from './group.component';
 
@@ -8,9 +21,21 @@ describe('GroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupComponent ]
-    })
-    .compileComponents();
+      declarations: [GroupComponent],
+      imports: [
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatExpansionModule,
+        MatCardModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

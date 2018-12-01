@@ -9,7 +9,8 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatExpansionModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CookieService } from 'ngx-cookie-service';
@@ -47,6 +48,8 @@ import { GroupMembersPipe } from './group-card/group-members.pipe';
     MatSelectModule,
     MatInputModule,
     MatCardModule,
+
+    MatExpansionModule,
     FlexLayoutModule
   ],
   providers: [CookieService],

@@ -12,7 +12,8 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatCardModule,
-  MatInputModule
+  MatInputModule,
+  MatExpansionModule
 } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -30,6 +31,7 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
+        MatExpansionModule,
         MatCardModule
       ],
       providers: [CookieService],
