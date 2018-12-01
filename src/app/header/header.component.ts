@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  title: string = 'Santa Swap';
+  title: string = 'SANTA SWAP';
   isDarkTheme: Observable<boolean>;
 
   constructor(private themeService: ThemeService) {}

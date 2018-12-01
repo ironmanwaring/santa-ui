@@ -1,4 +1,4 @@
-<mat-card routerLink="/groups/{{ group?.id }}" class="group-card">
+<mat-card class="group-card">
   <mat-card-header
     ><div mat-card-avatar class="avatar"></div>
     <mat-card-title>{{ group?.name }}</mat-card-title>
@@ -14,6 +14,7 @@
   -->
 
   <mat-card-actions>
-    <button mat-button>GO TO GROUP</button> <button mat-button>INVITE TO GROUP</button>
+    <button mat-button routerLink="/groups/{{ group?.id }}">VIEW GROUP</button>
+    <button mat-button>INVITE TO GROUP</button>
   </mat-card-actions>
 </mat-card>
