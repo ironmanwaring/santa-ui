@@ -11,6 +11,7 @@ import {
   MatInputModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +37,7 @@ import { GroupsComponent } from './groups/groups.component';
     MatInputModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
