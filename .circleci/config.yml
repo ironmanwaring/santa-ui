@@ -81,7 +81,7 @@ anchors:
           command: |
             echo Deploying site for stage $STAGE
             BUCKET=$STAGE.$DOMAIN
-            aws s3 sync dist s3://BUCKET/ --delete --acl public-read
+            aws s3 sync dist s3://$BUCKET/ --delete --acl public-read
       - run:
           name: Deploy site
           command: echo Deploying site for stage $STAGE
