@@ -13,9 +13,21 @@ anchors:
         environment:
           TERM: dumb
 
+  cache-dependencies: &cache-dependencies
+    save_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+      paths:
+        - node_modules
+
   load-dependency-cache: &load-dependency-cache
     restore_cache:
       key: dependency-cache-{{ checksum "package.json" }}
+
+  cache-build: &cache-build
+    save_cache:
+      key: build-cache-{{ .Branch }}-{{ .Revision }}
+      paths:
+        - dist
 
   load-build-cache: &load-build-cache
     restore_cache:
@@ -32,10 +44,7 @@ jobs:
       - run:
           name: Install dependencies
           command: npm i
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - *cache-dependencies
 
   test-site:
     <<: *container-config
@@ -57,10 +66,7 @@ jobs:
       - run:
           name: Build site
           command: npm run build:ci
-      - save_cache:
-          key: build-cache-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - dist
+      - *cache-build
 
   build-site-infrastructure:
     <<: *container-config
