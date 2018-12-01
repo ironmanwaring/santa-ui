@@ -19,7 +19,7 @@ anchors:
 
   load-build-cache: &load-build-cache
     restore_cache:
-      key: build-cache-{{ echo $CIRCLE_SHA1 }}
+      key: build-cache-{{ .Branch }}-{{ .Revision }}
 
 ## Circle CI configuration, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2
@@ -58,7 +58,7 @@ jobs:
           name: Build site
           command: npm run build:ci
       - save_cache:
-          key: build-cache-{{ echo $CIRCLE_SHA1 }}
+          key: build-cache-{{ .Branch }}-{{ .Revision }}
           paths:
             - dist
 
