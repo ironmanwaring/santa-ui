@@ -8,25 +8,21 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatInputModule,
-  MatCardModule,
-  MatExpansionModule
+  MatCardModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { GroupMembersPipe } from './group-members.pipe';
 
-import { GroupComponent } from './group.component';
+import { GroupCardComponent } from './group-card.component';
 
-describe('GroupComponent', () => {
-  let component: GroupComponent;
-  let fixture: ComponentFixture<GroupComponent>;
+describe('GroupCardComponent', () => {
+  let component: GroupCardComponent;
+  let fixture: ComponentFixture<GroupCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GroupComponent],
       imports: [
         RouterTestingModule,
-        BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
         MatMenuModule,
@@ -35,14 +31,14 @@ describe('GroupComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatExpansionModule,
         MatCardModule
-      ]
+      ],
+      declarations: [GroupCardComponent, GroupMembersPipe]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupComponent);
+    fixture = TestBed.createComponent(GroupCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
