@@ -13,9 +13,13 @@ anchors:
         environment:
           TERM: dumb
 
-  load-cache: &load-cache
+  load-dependency-cache: &load-dependency-cache
     restore_cache:
       key: dependency-cache-{{ checksum "package.json" }}
+
+  load-build-cache: &load-build-cache
+    restore_cache:
+      key: build-cache-${!CIRCLE_SHA1}
 
 ## Circle CI configuration, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2
@@ -24,7 +28,7 @@ jobs:
     <<: *container-config
     steps:
       - checkout
-      - *load-cache
+      - *load-dependency-cache
       - run:
           name: Install dependencies
           command: npm i
@@ -37,13 +41,26 @@ jobs:
     <<: *container-config
     steps:
       - checkout
-      - *load-cache
+      - *load-dependency-cache
       - run:
           name: Rebuild node-sass
           command: npm rebuild node-sass
       - run:
           name: Run tests
           command: npm test -- --progress=false --watch=false
+
+  build:
+    <<: *container-config
+    steps:
+      - checkout
+      - *load-dependency-cache
+      - run:
+          name: Build site
+          command: npm run build:prod
+      - save_cache:
+          key: build-cache-${!CIRCLE_SHA1}
+          paths:
+            - dist
 
 workflows:
   version: 2
@@ -53,3 +70,6 @@ workflows:
       - test:
           requires:
             - install
+      - build:
+          required:
+            - test

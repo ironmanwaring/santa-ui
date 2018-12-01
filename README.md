@@ -10,7 +10,7 @@
 [![License][license-badge]][license-badge-url]
 [![Code style][formatter-badge]][formatter-badge-url]
 
-# Ui
+# Santa Swap UI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 

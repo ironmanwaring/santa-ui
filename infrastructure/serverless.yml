@@ -38,9 +38,10 @@ resources:
         HostedZoneId: Z3AQBSTGFYJSTF
 
   Resources:
-    S3BucketSite:
+    SiteS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
+        BucketName: { Fn::If: [Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}'] }
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
@@ -74,7 +75,7 @@ resources:
             Fn::If:
               - Prod
               - Fn::GetAtt: CDN.DomainName
-              - Fn::FindInMap: [S3domains, { Ref: AWS::Region }, DNS]
+              - Fn::FindInMap: [S3Domains, { Ref: AWS::Region }, DNS]
           HostedZoneId:
             Fn::If:
               - Prod
@@ -92,3 +93,45 @@ resources:
             ValidationDomain: ${self:custom.domain.prod}
         SubjectAlternativeNames:
           - ${self:custom.domain.prod}
+
+    CDN:
+      Type: AWS::CloudFront::Distribution
+      Condition: Prod
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.domain.prod}
+            - www.${self:custom.domain.prod}
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+            - ErrorCode: 403
+              ErrorCachingMinTTL: 0
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods: [GET, HEAD, OPTIONS]
+            TargetOriginId: StaticSiteOrigin
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: none
+            DefaultTTL: 2592000 # 1 month
+            MinTTL: 2592000 # 1 month
+            MaxTTL: 31536000 # 1 year
+            ViewerProtocolPolicy: redirect-to-https
+          DefaultRootObject: index.html
+          Enabled: true
+          Origins:
+            - DomainName:
+                Fn::GetAtt: SiteS3Bucket.DomainName
+              Id: StaticSiteOrigin
+              S3OriginConfig:
+                OriginAccessIdentity: ''
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn:
+              Ref: DomainCertificate
+            SslSupportMethod: sni-only
