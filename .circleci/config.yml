@@ -33,6 +33,44 @@ anchors:
     restore_cache:
       key: build-cache-{{ .Branch }}-{{ .Revision }}
 
+  build-site-infrastructure: &build-site-infrastructure
+    <<: *container-config
+    steps:
+      - checkout
+      - run:
+          name: Install infrastructure dependencies
+          command: cd infrastructure && npm i
+      - run:
+          name: Build site infrastructure
+          command: |
+            [[ ! -z "$STAGE" ]] || STAGE=$CIRCLE_BRANCH
+            echo Building site infrastructure for $STAGE
+            cd infrastructure && npm run deploy -- --stage $STAGE
+
+  deploy-site: &deploy-site
+    <<: *container-config
+    steps:
+      - checkout
+      - *load-dependency-cache
+      - *load-build-cache
+      - run:
+          name: Deploy site
+          command: echo Deploying site for $STAGE
+
+  branch-only: &branch-only
+    filters:
+      branches:
+        ignore: master
+
+  prod-only: &prod-only
+    filters:
+      branches:
+        only: master
+
+  prod-config: &prod-config
+    environment:
+      - STAGE: prod
+
 ## Circle CI configuration, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2
 jobs:
@@ -68,24 +106,19 @@ jobs:
           command: npm run build:ci
       - *cache-build
 
-  build-site-infrastructure:
-    <<: *container-config
-    steps:
-      - checkout
-      - *load-dependency-cache
-      - run:
-          name: Build site infrastructure
-          command: echo 'Building site infrastructure'
+  build-site-infrastructure-prod:
+    <<: *build-site-infrastructure
+    <<: *prod-config
 
-  deploy-site:
-    <<: *container-config
-    steps:
-      - checkout
-      - *load-dependency-cache
-      - *load-build-cache
-      - run:
-          name: Deploy site
-          command: echo 'Deploying site'
+  build-site-infrastructure-branch:
+    <<: *build-site-infrastructure
+
+  deploy-site-prod:
+    <<: *deploy-site
+    <<: *prod-config
+
+  deploy-site-branch:
+    <<: *deploy-site
 
 workflows:
   version: 2
@@ -98,9 +131,23 @@ workflows:
       - build-site:
           requires:
             - test-site
-      - build-site-infrastructure:
+
+      - build-site-infrastructure-branch:
+          <<: *branch-only
+          context: santaswap-domain-info
           requires:
             - build-site
-      - deploy-site:
+      - deploy-site-branch:
+          <<: *branch-only
           requires:
-            - build-site-infrastructure
+            - build-site-infrastructure-branch
+
+      - build-site-infrastructure-prod:
+          <<: *prod-only
+          context: santaswap-domain-info
+          requires:
+            - build-site
+      - deploy-site-prod:
+          <<: *prod-only
+          requires:
+            - build-site-infrastructure-prod

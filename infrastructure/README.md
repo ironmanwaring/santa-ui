@@ -1,3 +1,7 @@
+TODO: add note about setting up in circle with santaswap-domain-info context
+DOMAIN
+DOMAIN_HOSTED_ZONE_ID
+
 # Santa Swap infrastructure
 
 This serverless application creates and manages infrastructure for the Santa Swap UI application. It is embedded in the UI application repository to facilitate deploying and removing everything together as a single unit.
