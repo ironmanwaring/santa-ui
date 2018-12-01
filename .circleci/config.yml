@@ -49,7 +49,7 @@ jobs:
           name: Run tests
           command: npm test -- --progress=false --watch=false
 
-  build:
+  build-site:
     <<: *container-config
     steps:
       - checkout
@@ -62,6 +62,25 @@ jobs:
           paths:
             - dist
 
+  build-site-infrastructure:
+    <<: *container-config
+    steps:
+      - checkout
+      - *load-dependency-cache
+      - run:
+          name: Build site infrastructure
+          command: echo 'Building site infrastructure'
+
+  deploy:
+    <<: *container-config
+    steps:
+      - checkout
+      - *load-dependency-cache
+      - *load-build-cache
+      - run:
+          name: Deploy site
+          command: echo 'Deploying site'
+
 workflows:
   version: 2
   test:
@@ -70,6 +89,9 @@ workflows:
       - test:
           requires:
             - install
-      - build:
-          required:
+      - build-site:
+          requires:
             - test
+      - build-site-infrastructure:
+          required:
+            - build-site-infrastructure
