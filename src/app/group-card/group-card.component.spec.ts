@@ -10,6 +10,7 @@ import {
   MatInputModule,
   MatCardModule
 } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { GroupCardComponent } from './group-card.component';
 
@@ -19,7 +20,18 @@ describe('GroupCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatCardModule],
+      imports: [
+        RouterTestingModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatCardModule
+      ],
       declarations: [GroupCardComponent]
     }).compileComponents();
   }));
