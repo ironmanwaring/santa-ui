@@ -27,14 +27,20 @@ functions:
   invalidateCDN:
     handler: invalidate-cdn.handler
     events:
-      - sns: 'SiteUpdated${opt:stage, self:provider.stage}'
+      - sns: SiteUpdated${opt:stage, self:provider.stage}
     environment:
       CDN: { Fn::If: [Prod, { Ref: CDN }, ''] }
 
   bucketEvent:
     handler: bucket-event.handler
     environment:
-      SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+      SITE_UPDATED_SNS:
+        Fn::Join:
+          - ':'
+          - - 'arn:aws:sns'
+            - Ref: AWS::Region
+            - Ref: AWS::AccountId
+            - SiteUpdated${opt:stage, self:provider.stage}
 
 resources:
   Description: Static site hosting for Santa Swap website
