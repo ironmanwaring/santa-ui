@@ -19,12 +19,12 @@ anchors:
 
   load-build-cache: &load-build-cache
     restore_cache:
-      key: build-cache-${!CIRCLE_SHA1}
+      key: build-cache-{{ echo $CIRCLE_SHA1 }}
 
 ## Circle CI configuration, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2
 jobs:
-  install:
+  install-dependencies:
     <<: *container-config
     steps:
       - checkout
@@ -37,7 +37,7 @@ jobs:
           paths:
             - node_modules
 
-  test:
+  test-site:
     <<: *container-config
     steps:
       - checkout
@@ -47,7 +47,7 @@ jobs:
           command: npm rebuild node-sass
       - run:
           name: Run tests
-          command: npm test -- --progress=false --watch=false
+          command: npm run test:ci
 
   build-site:
     <<: *container-config
@@ -56,9 +56,9 @@ jobs:
       - *load-dependency-cache
       - run:
           name: Build site
-          command: npm run build:prod
+          command: npm run build:ci
       - save_cache:
-          key: build-cache-${!CIRCLE_SHA1}
+          key: build-cache-{{ echo $CIRCLE_SHA1 }}
           paths:
             - dist
 
@@ -71,7 +71,7 @@ jobs:
           name: Build site infrastructure
           command: echo 'Building site infrastructure'
 
-  deploy:
+  deploy-site:
     <<: *container-config
     steps:
       - checkout
@@ -85,13 +85,16 @@ workflows:
   version: 2
   test:
     jobs:
-      - install
-      - test:
+      - install-dependencies
+      - test-site:
           requires:
-            - install
+            - install-dependencies
       - build-site:
           requires:
-            - test
+            - test-site
       - build-site-infrastructure:
           requires:
             - build-site
+      - deploy-site:
+          requires:
+            - build-site-infrastructure

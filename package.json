@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --output-path dist",
-    "build:prod": "ng build --prod --output-path dist",
+    "build:ci": "npm run build -- --prod --no-progress --aot",
     "test": "ng test",
+    "test:ci": "npm test -- --progress=false --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
