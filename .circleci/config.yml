@@ -7,9 +7,15 @@
 #
 # To validate changes use an online parser, eg. http://yaml-online-parser.appspot.com/
 anchors:
-  container-config: &container-config
+  node-container-config: &node-container-config
     docker:
       - image: circleci/node:10-browsers
+        environment:
+          TERM: dumb
+
+  python-container-config: &python-container-config
+    docker:
+      - image: circleci/python:3.7.1
         environment:
           TERM: dumb
 
@@ -40,13 +46,13 @@ anchors:
         mkdir -p ~/.aws
 
         cat > ~/.aws/credentials << EOL
-        [santaswap]
+        [default]
         aws_access_key_id = $AWS_ACCESS_KEY
         aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
         EOL
 
   build-site-infrastructure: &build-site-infrastructure
-    <<: *container-config
+    <<: *node-container-config
     steps:
       - checkout
       - *configure-aws-access
@@ -57,19 +63,28 @@ anchors:
           name: Build site infrastructure
           command: |
             [[ ! -z "$STAGE" ]] || STAGE=$CIRCLE_BRANCH
-            echo Building site infrastructure for $STAGE
+            echo Building site infrastructure for stage $STAGE
             cd infrastructure && npm run deploy -- --stage $STAGE
 
   deploy-site: &deploy-site
-    <<: *container-config
+    <<: *python-container-config
     steps:
       - checkout
       - *load-dependency-cache
       - *load-build-cache
       - *configure-aws-access
       - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - deploy:
+          name: Deploy to S3
+          command: |
+            echo Deploying site for stage $STAGE
+            BUCKET=$STAGE.$DOMAIN
+            aws s3 sync dist s3://BUCKET/ --delete --acl public-read
+      - run:
           name: Deploy site
-          command: echo Deploying site for $STAGE
+          command: echo Deploying site for stage $STAGE
 
   branch-only: &branch-only
     filters:
@@ -89,7 +104,7 @@ anchors:
 version: 2
 jobs:
   install-dependencies:
-    <<: *container-config
+    <<: *node-container-config
     steps:
       - checkout
       - *load-dependency-cache
@@ -99,7 +114,7 @@ jobs:
       - *cache-dependencies
 
   test-site:
-    <<: *container-config
+    <<: *node-container-config
     steps:
       - checkout
       - *load-dependency-cache
@@ -111,7 +126,7 @@ jobs:
           command: npm run test:ci
 
   build-site:
-    <<: *container-config
+    <<: *node-container-config
     steps:
       - checkout
       - *load-dependency-cache
@@ -136,7 +151,7 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  pipeline:
     jobs:
       - install-dependencies
       - test-site:
@@ -153,6 +168,7 @@ workflows:
             - build-site
       - deploy-site-branch:
           <<: *branch-only
+          context: santaswap-aws
           requires:
             - build-site-infrastructure-branch
 
@@ -163,5 +179,6 @@ workflows:
             - build-site
       - deploy-site-prod:
           <<: *prod-only
+          context: santaswap-aws
           requires:
             - build-site-infrastructure-prod
