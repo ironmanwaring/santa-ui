@@ -1,11 +1,11 @@
 import { CloudFront } from 'aws-sdk';
-import { wrapper, WrapperSignature } from '@manwaring/lambda-wrapper';
+import { snsWrapper, SnsSignature } from '@manwaring/lambda-wrapper';
 
 const cloudFront = new CloudFront({ apiVersion: '2016-11-25' });
 
-export const handler = wrapper(async ({ event, success, error }: WrapperSignature) => {
+export const handler = snsWrapper(async ({ event, success, error }: SnsSignature) => {
   try {
-    console.info('Received S3 event', JSON.stringify(event));
+    console.info('Received SNS event', JSON.stringify(event));
     if (process.env.CDN) {
       await invalidateCDN();
     }

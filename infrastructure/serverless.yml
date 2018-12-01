@@ -10,7 +10,9 @@ provider:
   stage: local
   iamRoleStatements:
     - Effect: Allow
-      Action: cloudfront:CreateInvalidation
+      Action:
+        - sns:Publish
+        - cloudfront:CreateInvalidation
       Resource: '*'
 
 custom:
@@ -24,8 +26,15 @@ custom:
 functions:
   invalidateCDN:
     handler: invalidate-cdn.handler
+    events:
+      - sns: 'SiteUpdated${opt:stage, self:provider.stage}'
     environment:
       CDN: { Fn::If: [Prod, { Ref: CDN }, ''] }
+
+  bucketEvent:
+    handler: bucket-event.handler
+    environment:
+      SITE_UPDATED_SNS: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
 
 resources:
   Description: Static site hosting for Santa Swap website
@@ -57,7 +66,7 @@ resources:
                     - Name: suffix
                       Value: index.html
               Function:
-                Fn::GetAtt: [InvalidateCDNLambdaFunction, Arn]
+                Fn::GetAtt: [BucketEventLambdaFunction, Arn]
 
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
