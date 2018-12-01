@@ -20,10 +20,6 @@ custom:
 functions:
   hello:
     handler: handler.hello
-    events:
-      - http:
-          method: get
-          path: hello
 
 resources:
   Description: Static site hosting for Santa Swap website
