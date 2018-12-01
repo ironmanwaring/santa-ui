@@ -1,3 +1,4 @@
-<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-  <div *ngFor="let group of (groups | async)" routerLink="/groups/{{group.id}}">{{ group.name }}</div>
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+  <app-group-card fxFlex="1 2 50%" *ngFor="let group of (groups | async)" [group]="group"></app-group-card>
+  <button mat-fab><mat-icon>add</mat-icon></button>
 </div>

@@ -11,6 +11,7 @@ import {
   MatSlideToggleModule,
   MatFormFieldModule,
   MatSelectModule,
+  MatCardModule,
   MatInputModule
 } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
@@ -28,7 +29,8 @@ describe('AppComponent', () => {
         MatSlideToggleModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatInputModule
+        MatInputModule,
+        MatCardModule
       ],
       providers: [CookieService],
       declarations: [AppComponent, HeaderComponent]

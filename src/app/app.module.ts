@@ -8,7 +8,8 @@ import {
   MatSlideToggleModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatCardModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,9 +21,10 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { GroupCardComponent } from './group-card/group-card.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent, GroupsComponent],
+  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent, GroupsComponent, GroupCardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +37,7 @@ import { GroupsComponent } from './groups/groups.component';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatCardModule,
     FlexLayoutModule
   ],
   providers: [CookieService],
