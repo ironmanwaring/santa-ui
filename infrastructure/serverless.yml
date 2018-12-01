@@ -41,7 +41,7 @@ resources:
     SiteS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: { Fn::If: [Prod, '${self:custom.domain.prod}', '${self:custom.domain.stage}'] }
+        BucketName: '${self:custom.domain.stage}'
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
