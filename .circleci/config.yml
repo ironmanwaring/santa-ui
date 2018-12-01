@@ -93,5 +93,5 @@ workflows:
           requires:
             - test
       - build-site-infrastructure:
-          required:
+          requires:
             - build-site-infrastructure
