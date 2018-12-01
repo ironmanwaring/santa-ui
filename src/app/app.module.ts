@@ -22,9 +22,18 @@ import { ProfileComponent } from './profile/profile.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupCardComponent } from './group-card/group-card.component';
+import { GroupMembersPipe } from './group-card/group-members.pipe';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ProfileComponent, GroupComponent, GroupsComponent, GroupCardComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ProfileComponent,
+    GroupComponent,
+    GroupsComponent,
+    GroupCardComponent,
+    GroupMembersPipe
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

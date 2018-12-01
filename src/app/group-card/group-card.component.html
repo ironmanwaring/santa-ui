@@ -1,5 +1,19 @@
-<mat-card>
-  <mat-card-title>{{ group?.name }}</mat-card-title>
-  <mat-card-subtitle>{{ group?.status }}</mat-card-subtitle>
-  <mat-card-actions> <button mat-button routerLink="/groups/{{ group?.id }}">VIEW</button> </mat-card-actions>
+<mat-card routerLink="/groups/{{ group?.id }}" class="group-card">
+  <mat-card-header
+    ><div mat-card-avatar class="avatar"></div>
+    <mat-card-title>{{ group?.name }}</mat-card-title>
+    <mat-card-subtitle>{{ group?.members | groupMembers }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- <img mat-card-image src="/assets/santa.png" /> -->
+
+  <!--
+    <mat-card-content>
+      <p>{{ group?.description }}</p>
+    </mat-card-content>
+  -->
+
+  <mat-card-actions>
+    <button mat-button>GO TO GROUP</button> <button mat-button>INVITE TO GROUP</button>
+  </mat-card-actions>
 </mat-card>
