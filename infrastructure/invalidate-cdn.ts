@@ -5,7 +5,7 @@ const cloudFront = new CloudFront({ apiVersion: '2016-11-25' });
 
 export const handler = snsWrapper(async ({ event, success, error }: SnsSignature) => {
   try {
-    console.info('Received SNS event', JSON.stringify(event));
+    console.info('Received SNS event', event);
     if (process.env.CDN) {
       await invalidateCDN();
     }
