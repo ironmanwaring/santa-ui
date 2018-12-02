@@ -76,16 +76,13 @@ anchors:
       - run:
           name: Install awscli
           command: sudo pip install awscli
-      - deploy:
+      - run:
           name: Deploy to S3
           command: |
             [[ ! -z "$STAGE" ]] || STAGE=$CIRCLE_BRANCH
             echo Deploying site for stage $STAGE
             BUCKET=$STAGE.$DOMAIN
             aws s3 sync dist s3://$BUCKET/ --delete --acl public-read
-      - run:
-          name: Deploy site
-          command: echo Deploying site for stage $STAGE
 
   branch-only: &branch-only
     filters:
