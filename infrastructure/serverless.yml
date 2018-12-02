@@ -63,16 +63,27 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-        # NotificationConfiguration:
-        #   LambdaConfigurations:
-        #     - Event: 's3:ObjectCreated:*'
-        #       Filter:
-        #         S3Key:
-        #           Rules:
-        #             - Name: suffix
-        #               Value: index.html
-        #       Function:
-        #         Fn::GetAtt: [BucketEventLambdaFunction, Arn]
+        NotificationConfiguration:
+          LambdaConfigurations:
+            - Event: 's3:ObjectCreated:*'
+              Filter:
+                S3Key:
+                  Rules:
+                    - Name: suffix
+                      Value: index.html
+              Function:
+                Fn::GetAtt: [BucketEventLambdaFunction, Arn]
+
+    BucketEventLambdaPermission:
+      DependsOn:
+        - BucketEventLambdaFunction
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName:
+          Fn::GetAtt: [BucketEventLambdaFunction, Arn]
+        Action: 'lambda:InvokeFunction'
+        Principal: 's3.amazonaws.com'
+        SourceArn: 'arn:aws:s3:::${self:custom.domain.stage}'
 
     NakedRecordSet:
       Type: AWS::Route53::RecordSet
