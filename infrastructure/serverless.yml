@@ -2,6 +2,7 @@ service:
   name: santaswap-ui
 
 plugins:
+  - serverless-plugin-iopipe
   - serverless-webpack
 
 provider:
@@ -14,6 +15,8 @@ provider:
         - sns:Publish
         - cloudfront:CreateInvalidation
       Resource: '*'
+  environment:
+    IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
 
 custom:
   domain:
