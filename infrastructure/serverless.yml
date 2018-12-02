@@ -17,6 +17,7 @@ provider:
       Resource: '*'
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
+    IOPIPE_LOGGER_ENABLED: true
 
 custom:
   domain:
