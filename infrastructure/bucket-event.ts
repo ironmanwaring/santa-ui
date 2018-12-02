@@ -14,8 +14,9 @@ export const handler = wrapper(async ({ event, success, error }: WrapperSignatur
 });
 
 const publishSiteUpdatedEvent = () => {
+  const message = 'Site bucket was updated';
   const params = {
-    Message: 'Site bucket was updated',
+    Message: JSON.stringify({ message }),
     TopicArn: process.env.SITE_UPDATED_SNS
   };
   console.info('Publishing to bucket event sns with params', params);
