@@ -7,7 +7,7 @@ export const handler = wrapper(async ({ event, success, error }: WrapperSignatur
   try {
     console.info('Received bucket event', JSON.stringify(event));
     await publishSiteUpdatedEvent();
-    success('Successfully published to bucket event sns');
+    success();
   } catch (err) {
     error(err);
   }
