@@ -1,6 +1,6 @@
 <p align="center">
   <img height="150" src="https://avatars0.githubusercontent.com/u/36457275?s=400&u=16d355f384ed7f8e0655b7ed1d70ff2e411690d8&v=4e">
-  <img height="150" src="https://user-images.githubusercontent.com/2955468/48448638-4d561380-e765-11e8-9ee4-81d9556eda48.png">
+  <img height="150" src="https://user-images.githubusercontent.com/2955468/49351678-9a514980-f682-11e8-80cf-e24e0c032c10.png">
 </p>
 
 [![Build status][build-badge]][build-badge-url] [![Known Vulnerabilities][vulnerability-badge]][vulnerability-badge-url] [![Dependency Status][dependency-badge]][dependency-badge-url] [![devDependency Status][dev-dependency-badge]][dev-dependency-badge-url] [![License][license-badge]][license-badge-url] [![Code style][formatter-badge]][formatter-badge-url]
