@@ -52,7 +52,17 @@ functions:
       - Effect: Allow
         Action:
           - sns:Publish
-        Resource: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+        Resource:
+          Fn::Join:
+            [
+              ':',
+              [
+                'arn:aws:sns',
+                { Ref: AWS::Region },
+                { Ref: AWS::AccountId },
+                'SiteUpdated${opt:stage, self:provider.stage}',
+              ],
+            ]
 
 resources:
   Description: Static site hosting for Santa Swap website
