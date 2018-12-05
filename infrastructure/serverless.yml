@@ -5,7 +5,6 @@ plugins:
   - serverless-plugin-iopipe
   - serverless-webpack
   - serverless-plugin-iam-checker
-  - serverless-iam-roles-per-function
 
 provider:
   name: aws
@@ -18,7 +17,7 @@ provider:
     - Effect: Allow
         Action: sns:Publish
         Resource:
-          Fn::Join: [':',['arn:aws:sns',{ Ref: AWS::Region },{ Ref: AWS::AccountId },'SiteUpdated${opt:stage, self:provider.stage}',],]
+          Fn::Join: [':',['arn:aws:sns',{ Ref: AWS::Region },{ Ref: AWS::AccountId },'SiteUpdated${opt:stage, self:provider.stage}',]]
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
     IOPIPE_LOGGER_ENABLED: true
