@@ -34,7 +34,7 @@ custom:
   hostedZones:
     cloudFront: Z2FDTNDATAQYW2
     domain: ${opt:domainHostedZoneId, env:DOMAIN_HOSTED_ZONE_ID}
-  iamChecher:
+  iamChecker:
     resources:
       # Unfortunately need to allow wildcard only because CloudFront doesn't support resource ARNs in IAM
       allowWildcardOnly: true
