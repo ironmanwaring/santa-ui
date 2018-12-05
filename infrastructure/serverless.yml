@@ -19,7 +19,8 @@ provider:
       Action:
         - cloudfront:CreateInvalidation
       Resource:
-        Fn::Join: [ ':', [arn:aws:cloudfront:, { Ref: AWS::AccountId}, { Fn::Join: ['', ['distribution', { Ref: CDN }]]}]]
+        Fn::Join:
+          [':', ['arn:aws:cloudfront:', { Ref: AWS::AccountId }, { Fn::Join: ['/', ['distribution', { Ref: CDN }]] }]]
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
     IOPIPE_LOGGER_ENABLED: true
