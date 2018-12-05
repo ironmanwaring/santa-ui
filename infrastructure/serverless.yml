@@ -13,17 +13,23 @@ provider:
   stage: local
   iamRoleStatements:
     - Effect: Allow
-        Action:
-          - cloudfront:CreateInvalidation
-        Resource:
-          Fn::Join:
-            [':', ['arn:aws:cloudfront:', { Ref: AWS::AccountId }, { Fn::Join: ['/', ['distribution', { Ref: CDN }]] }]]
-    - Effect: Allow
-      Action:
-        - sns:Publish
+      Action: cloudfront:CreateInvalidation
       Resource:
         Fn::Join:
-          [':', ['arn:aws:sns', { Ref: AWS::Region }, { Ref: AWS::AccountId }, 'SiteUpdated${opt:stage, self:provider.stage}', ], ]
+          [':', ['arn:aws:cloudfront:', { Ref: AWS::AccountId }, { Fn::Join: ['/', ['distribution', { Ref: CDN }]] }]]
+    - Effect: Allow
+      Action: sns:Publish
+      Resource:
+        Fn::Join:
+          [
+            ':',
+            [
+              'arn:aws:sns',
+              { Ref: AWS::Region },
+              { Ref: AWS::AccountId },
+              'SiteUpdated${opt:stage, self:provider.stage}',
+            ],
+          ]
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
     IOPIPE_LOGGER_ENABLED: true
