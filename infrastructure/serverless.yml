@@ -15,9 +15,10 @@ provider:
       Action: cloudfront:CreateInvalidation
       Resource: '*'
     - Effect: Allow
-        Action: sns:Publish
-        Resource:
-          Fn::Join: [':',['arn:aws:sns',{ Ref: AWS::Region },{ Ref: AWS::AccountId },'SiteUpdated${opt:stage, self:provider.stage}',]]
+      Action: sns:Publish
+      Resource:
+        Fn::Join:
+          [':'['arn:aws:sns',{ Ref: AWS::Region },{ Ref: AWS::AccountId },'SiteUpdated${opt:stage, self:provider.stage}',],]
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
     IOPIPE_LOGGER_ENABLED: true
