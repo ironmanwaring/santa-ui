@@ -34,8 +34,9 @@ functions:
       - Effect: Allow
         Action: cloudfront:CreateInvalidation
         Resource:
-          Fn::Join:
-            [':', ['arn:aws:cloudfront:', { Ref: AWS::AccountId }, { Fn::Join: ['/', ['distribution', { Ref: CDN }]] }]]
+          '*'
+          # Fn::Join:
+          #   [':', ['arn:aws:cloudfront:', { Ref: AWS::AccountId }, { Fn::Join: ['/', ['distribution', { Ref: CDN }]] }]]
 
   bucketEvent:
     handler: bucket-event.handler
