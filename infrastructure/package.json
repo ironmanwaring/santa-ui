@@ -1,8 +1,7 @@
 {
   "name": "santaswap-ui-infrastructure",
-  "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
+  "description": "Infrastructure for the Santa Swap website",
+  "license": "MIT",
   "scripts": {
     "deploy": "sls deploy"
   },
@@ -15,6 +14,7 @@
     "@types/aws-lambda": "8.10.1",
     "@types/node": "^8.0.57",
     "serverless": "^1.34.1",
+    "serverless-plugin-iam-checker": "0.0.43",
     "serverless-plugin-iopipe": "^1.6.2",
     "serverless-webpack": "^5.1.1",
     "source-map-support": "^0.5.6",
@@ -22,5 +22,14 @@
     "typescript": "^2.9.2",
     "webpack": "^4.5.0"
   },
-  "license": "MIT"
+  "iopipe": {
+    "plugins": [
+      [
+        "@iopipe/logger",
+        {
+          "enabled": true
+        }
+      ]
+    ]
+  }
 }

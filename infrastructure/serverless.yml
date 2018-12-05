@@ -4,6 +4,7 @@ service:
 plugins:
   - serverless-plugin-iopipe
   - serverless-webpack
+  - serverless-plugin-iam-checker
 
 provider:
   name: aws
@@ -13,8 +14,12 @@ provider:
     - Effect: Allow
       Action:
         - sns:Publish
+      Resource: { Ref: 'SNSTopicSiteUpdated${opt:stage, self:provider.stage}' }
+    - Effect: Allow
+      Action:
         - cloudfront:CreateInvalidation
-      Resource: '*'
+      Resource:
+        Fn::Join: [ ':', [arn:aws:cloudfront:, { Ref: AWS::AccountId}, { Fn::Join: ['', ['distribution', { Ref: CDN }]]}]]
   environment:
     IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
     IOPIPE_LOGGER_ENABLED: true
