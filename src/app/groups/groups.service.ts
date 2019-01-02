@@ -9,15 +9,27 @@ export class GroupsService {
       name: 'Manwaring family',
       id: '1',
       status: 'Matched',
-      members: ['Phillip', 'Stephanie', 'Andrew', 'Laurel', 'Claire']
+      members: ['Phillip Manwaring', 'Stephanie Manwaring', 'Andrew Manwaring', 'Laurel Manwaring', 'Claire Manwaring']
     },
     {
       name: 'Godinez family',
       id: '2',
       status: 'Open',
-      members: ['Stephanie', 'Allan', 'Gretel', 'Brian', 'Phillip', 'Josh']
+      members: [
+        'Stephanie Manwaring',
+        'Allan Godinez',
+        'Gretel Godinez',
+        'Brian Godinez',
+        'Phillip Manwaring',
+        'Josh Godinez'
+      ]
     },
-    { name: 'NY friends', id: '3', status: 'Closed', members: ['Stephanie', 'Ben', 'Stephanie'] }
+    {
+      name: 'NY friends',
+      id: '3',
+      status: 'Closed',
+      members: ['Stephanie Sunderland', 'Ben Sunderland', 'Stephanie Manwaring']
+    }
   ];
 
   private _groups: Subject<Group[]> = new BehaviorSubject<Group[]>(this.GROUPS);
