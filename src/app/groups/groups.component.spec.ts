@@ -15,6 +15,7 @@ import {
   MatInputModule,
   MatCardModule
 } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 import { GroupMembersPipe } from '../group-card/group-members.pipe';
 
 describe('GroupsComponent', () => {
@@ -35,7 +36,8 @@ describe('GroupsComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatCardModule
+        MatCardModule,
+        HttpClientModule
       ]
     }).compileComponents();
   }));
