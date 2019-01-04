@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AuthService } from '../auth/auth.service';
 import { CallbackComponent } from './callback.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -30,7 +31,8 @@ describe('CallbackComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule
-      ]
+      ],
+      providers: [AuthService]
     }).compileComponents();
   }));
 

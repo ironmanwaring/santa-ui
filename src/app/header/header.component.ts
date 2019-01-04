@@ -25,8 +25,4 @@ export class HeaderComponent implements OnInit {
   enableLightTheme() {
     this.themeService.setDarkTheme(false);
   }
-
-  login() {
-    this.authService.login();
-  }
 }

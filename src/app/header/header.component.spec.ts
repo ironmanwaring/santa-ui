@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AuthService } from '../auth/auth.service';
 import { HeaderComponent } from './header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -32,7 +33,7 @@ describe('HeaderComponent', () => {
         MatSelectModule,
         MatInputModule
       ],
-      providers: [CookieService]
+      providers: [CookieService, AuthService]
     }).compileComponents();
   }));
 
