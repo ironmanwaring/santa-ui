@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthService } from '../auth/auth.service';
 import { HomeComponent } from './home.component';
@@ -23,6 +24,7 @@ describe('HomeComponent', () => {
       declarations: [HomeComponent],
       imports: [
         BrowserAnimationsModule,
+        RouterTestingModule,
         MatToolbarModule,
         MatIconModule,
         MatMenuModule,
