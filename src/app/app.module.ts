@@ -12,8 +12,12 @@ import {
   MatCardModule,
   MatExpansionModule
 } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { CookieService } from 'ngx-cookie-service';
+import { AutosizeModule } from 'ngx-autosize';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,7 +58,11 @@ import { CallbackComponent } from './callback/callback.component';
     MatInputModule,
     MatCardModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AutosizeModule
   ],
   providers: [CookieService, AuthService],
   bootstrap: [AppComponent]

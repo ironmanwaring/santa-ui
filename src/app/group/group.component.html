@@ -4,10 +4,14 @@
       <mat-panel-title>Your profile</mat-panel-title>
       <mat-panel-description><mat-icon>face</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
-    <form class="profile-form">
-      <mat-form-field class="full-width"><input matInput placeholder="Name"/></mat-form-field>
-      <mat-form-field class="full-width"><textarea matInput placeholder="Address"></textarea> </mat-form-field>
-      <mat-form-field class="full-width"><textarea matInput placeholder="Gift ideas"></textarea> </mat-form-field>
+    <form class="profile-form" [formGroup]="profile">
+      <mat-form-field class="full-width"><input matInput placeholder="Name" formControlName="name"/></mat-form-field>
+      <mat-form-field class="full-width"
+        ><textarea matInput autosize placeholder="Address" formControlName="address"></textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width"
+        ><textarea matInput autosize placeholder="Gift ideas" formControlName="giftIdeas"></textarea>
+      </mat-form-field>
     </form>
   </mat-expansion-panel>
 
@@ -24,7 +28,7 @@
       <mat-panel-title>Group members</mat-panel-title>
       <mat-panel-description><mat-icon>people_outline</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
-    <p *ngFor="let member of group?.members">{{ member }}</p>
+    <p *ngFor="let member of group?.members">{{ member.name }}</p>
     <p>TODO Action to invite</p>
     <p>TODO Show pending invitations</p>
     <p>TODO Action for each to indicate if willing to match</p>

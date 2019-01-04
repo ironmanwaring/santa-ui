@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="center center">
-  <app-group-card *ngFor="let group of (groups | async)" [group]="group"></app-group-card>
+  <app-group-card *ngFor="let group of groups" [group]="group"></app-group-card>
 </div>
 
 <div class="actions">

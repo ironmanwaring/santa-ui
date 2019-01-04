@@ -9,11 +9,14 @@ import { Group } from './group';
   styleUrls: ['./groups.component.scss']
 })
 export class GroupsComponent implements OnInit {
-  groups: Observable<Group[]>;
+  groups: Group[];
 
   constructor(private groupsService: GroupsService) {}
 
   ngOnInit() {
-    this.groups = this.groupsService.groups;
+    this.groupsService.getGroups().subscribe((data: Group[]) => {
+      this.groups = data;
+      console.log(data);
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +34,8 @@ describe('AppComponent', () => {
         MatSelectModule,
         MatInputModule,
         MatExpansionModule,
-        MatCardModule
+        MatCardModule,
+        HttpClientModule
       ],
       providers: [CookieService, AuthService],
       declarations: [AppComponent, HeaderComponent]

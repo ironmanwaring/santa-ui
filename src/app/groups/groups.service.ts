@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { Group } from './group';
+import { Group, GroupDetail } from './group';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class GroupsService {
+  constructor(private http: HttpClient) {}
   GROUPS: Group[] = [
     {
       name: 'Manwaring family',
-      id: '1',
-      status: 'Matched',
+      groupId: '1',
+      code: 'SDFJKL',
       members: ['Phillip Manwaring', 'Stephanie Manwaring', 'Andrew Manwaring', 'Laurel Manwaring', 'Claire Manwaring']
     },
     {
       name: 'Godinez family',
-      id: '2',
-      status: 'Open',
+      groupId: '2',
+      code: 'KLJSDF',
       members: [
         'Stephanie Manwaring',
         'Allan Godinez',
@@ -26,17 +29,23 @@ export class GroupsService {
     },
     {
       name: 'NY friends',
-      id: '3',
-      status: 'Closed',
+      groupId: '3',
+      code: 'SDFJKL',
       members: ['Stephanie Sunderland', 'Ben Sunderland', 'Stephanie Manwaring']
     }
   ];
 
-  private _groups: Subject<Group[]> = new BehaviorSubject<Group[]>(this.GROUPS);
+  // private _groups: Subject<Group[]> = new BehaviorSubject<Group[]>(this.GROUPS);
 
-  groups = this._groups.asObservable();
+  // groups = this._groups.asObservable();
 
-  getGroup(id: string): Group {
-    return this.GROUPS.find(group => group.id === id);
+  getGroups(): Observable<Group[]> {
+    const userId = 'b5f6d9c9-cc8c-4654-9083-208548d2dbce';
+    return <Observable<Group[]>>this.http.get(`${environment.apiUrl}/users/${userId}/groups`);
+  }
+
+  getGroup(groupId: string): Observable<GroupDetail> {
+    const userId = 'b5f6d9c9-cc8c-4654-9083-208548d2dbce';
+    return <Observable<GroupDetail>>this.http.get(`${environment.apiUrl}/users/${userId}/groups/${groupId}`);
   }
 }

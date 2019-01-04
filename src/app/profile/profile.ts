@@ -1,4 +1,11 @@
 export class Profile {
+  userId: string;
   name: string;
-  age: number;
+}
+
+export class ProfileDetail {
+  userId: string;
+  name: string;
+  address: string;
+  giftIdeas: string;
 }
