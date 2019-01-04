@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../theme/theme.service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   title: string = 'SANTA SWAP';
   isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, private authService: AuthService) {}
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
@@ -23,5 +24,9 @@ export class HeaderComponent implements OnInit {
 
   enableLightTheme() {
     this.themeService.setDarkTheme(false);
+  }
+
+  login() {
+    this.authService.login();
   }
 }

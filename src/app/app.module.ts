@@ -18,21 +18,26 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupCardComponent } from './group-card/group-card.component';
 import { GroupMembersPipe } from './group-card/group-members.pipe';
+import { AuthService } from './auth/auth.service';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     HeaderComponent,
     ProfileComponent,
     GroupComponent,
     GroupsComponent,
     GroupCardComponent,
+    CallbackComponent,
     GroupMembersPipe
   ],
   imports: [
@@ -48,11 +53,10 @@ import { GroupMembersPipe } from './group-card/group-members.pipe';
     MatSelectModule,
     MatInputModule,
     MatCardModule,
-
     MatExpansionModule,
     FlexLayoutModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

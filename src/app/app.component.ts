@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { AuthService } from './auth/auth.service';
 import { ThemeService } from './theme/theme.service';
 
 @Component({
@@ -11,9 +11,14 @@ import { ThemeService } from './theme/theme.service';
 export class AppComponent implements OnInit {
   isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, public authService: AuthService) {
+    authService.handleAuthentication();
+  }
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.authService.renewTokens();
+    }
   }
 }
