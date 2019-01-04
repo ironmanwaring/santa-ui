@@ -1,30 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { GroupsService } from './groups.service';
 
 describe('GroupsService', () => {
-  // beforeEach(async(() => {
-  //   TestBed.configureTestingModule({
-  //     imports: [
-  //       BrowserAnimationsModule,
-  //       RouterTestingModule,
-  //       MatToolbarModule,
-  //       MatIconModule,
-  //       MatMenuModule,
-  //       MatButtonModule,
-  //       MatSlideToggleModule,
-  //       MatFormFieldModule,
-  //       MatSelectModule,
-  //       MatInputModule,
-  //       MatExpansionModule,
-  //       MatCardModule,
-  //       HttpClientModule
-  //     ],
-  //     providers: [CookieService, AuthService],
-  //     declarations: [AppComponent, HeaderComponent]
-  //   }).compileComponents();
-  // }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule]
+    }).compileComponents();
+  }));
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

@@ -12,8 +12,11 @@ import {
   MatExpansionModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { AutosizeModule } from 'ngx-autosize';
 
 import { GroupComponent } from './group.component';
 
@@ -36,7 +39,11 @@ describe('GroupComponent', () => {
         MatSelectModule,
         MatInputModule,
         MatExpansionModule,
-        MatCardModule
+        MatCardModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AutosizeModule
       ]
     }).compileComponents();
   }));
