@@ -14,7 +14,7 @@ export class AuthService {
     clientID: 'e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja',
     domain: 'santaswap.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: `${window.location.origin}/callback`,
     scope: 'openid'
   });
 
