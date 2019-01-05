@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Auth0UserProfile } from 'auth0-js';
 import * as auth0 from 'auth0-js';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -48,7 +49,7 @@ export class AuthService {
     }
 
     const self = this;
-    this.auth0.client.userInfo(this._accessToken, (err, profile) => {
+    this.auth0.client.userInfo(this._accessToken, (err, profile: Auth0UserProfile) => {
       if (profile) {
         self.user = new User(profile);
         this.saveUser().subscribe(data => {
@@ -79,18 +80,24 @@ export class AuthService {
 
   private localLogin(authResult): void {
     // Set isLoggedIn flag in localStorage
+    console.log('setting logged in local storage');
     localStorage.setItem('isLoggedIn', 'true');
+    console.log(localStorage.getItem('isLoggedIn'));
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
   }
 
   public renewTokens(): void {
+    console.log('renewing the tokens');
     this.auth0.checkSession({}, (err, authResult) => {
+      console.log('check session response');
       if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log('Got a new token');
         this.localLogin(authResult);
+        this.getProfile();
       } else if (err) {
-        console.log(`Could not get a new token (${err.error}: ${err.error_description})`);
+        console.log(`Could not get a new token (${err.error}: ${err.errorDescription})`);
         this.logout();
       }
     });

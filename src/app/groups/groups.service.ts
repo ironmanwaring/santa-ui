@@ -13,7 +13,6 @@ export class GroupsService {
     const group = {
       name: 'New Group'
     };
-    console.log('Creating new group');
     return this.http.post<Group>(`${environment.apiUrl}/users/${this.auth.user.userId}/groups`, group);
   }
 

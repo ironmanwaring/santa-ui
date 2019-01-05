@@ -11,16 +11,15 @@ import { Group } from './group';
 export class GroupsComponent implements OnInit {
   groups: Group[];
 
+  group: Group;
+
   constructor(private groupsService: GroupsService) {}
 
   ngOnInit() {
-    this.groupsService.getGroups().subscribe((data: Group[]) => {
-      this.groups = data;
-      console.log(data);
-    });
+    this.groupsService.getGroups().subscribe(groups => (this.groups = groups));
   }
 
   createGroup() {
-    this.groupsService.createGroup().subscribe(data => console.log(data));
+    this.groupsService.createGroup().subscribe(group => (this.group = group));
   }
 }
