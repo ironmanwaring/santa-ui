@@ -1,12 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
+import { AuthService } from '../auth/auth.service';
 import { GroupsService } from './groups.service';
 
 describe('GroupsService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
+      imports: [SharedModule],
+      providers: [AuthService]
     }).compileComponents();
   }));
   beforeEach(() => TestBed.configureTestingModule({}));

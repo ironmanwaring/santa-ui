@@ -1,20 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '../shared/shared.module';
 
 import { AuthService } from '../auth/auth.service';
 import { CallbackComponent } from './callback.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
-  MatButtonModule,
-  MatSlideToggleModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatInputModule,
-  MatProgressBarModule
-} from '@angular/material';
 
 describe('CallbackComponent', () => {
   let component: CallbackComponent;
@@ -23,19 +12,7 @@ describe('CallbackComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CallbackComponent],
-      imports: [
-        BrowserAnimationsModule,
-        RouterTestingModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatProgressBarModule
-      ],
+      imports: [RouterTestingModule, SharedModule],
       providers: [AuthService]
     }).compileComponents();
   }));

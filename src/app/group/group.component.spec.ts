@@ -1,22 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
-  MatButtonModule,
-  MatSlideToggleModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatInputModule,
-  MatCardModule,
-  MatExpansionModule
-} from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { AutosizeModule } from 'ngx-autosize';
 
 import { GroupComponent } from './group.component';
 
@@ -27,24 +11,7 @@ describe('GroupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [GroupComponent],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatCardModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AutosizeModule
-      ]
+      imports: [RouterTestingModule, SharedModule]
     }).compileComponents();
   }));
 

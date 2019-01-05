@@ -1,19 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '../shared/shared.module';
 
 import { AuthService } from '../auth/auth.service';
 import { HomeComponent } from './home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
-  MatButtonModule,
-  MatSlideToggleModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatInputModule
-} from '@angular/material';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -22,18 +12,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [
-        BrowserAnimationsModule,
-        RouterTestingModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule
-      ],
+      imports: [SharedModule, RouterTestingModule],
       providers: [AuthService]
     }).compileComponents();
   }));
