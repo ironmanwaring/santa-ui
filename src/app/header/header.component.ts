@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../theme/theme.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { ProgressService } from '../progress/progress.service';
 
 @Component({
   selector: 'app-header',
@@ -11,18 +12,28 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit {
   title: string = 'SANTA SWAP';
   isDarkTheme: Observable<boolean>;
+  isInProgress: Observable<boolean>;
 
-  constructor(private themeService: ThemeService, private auth: AuthService) {}
+  constructor(private theme: ThemeService, private auth: AuthService, private progress: ProgressService) {}
 
   ngOnInit() {
-    this.isDarkTheme = this.themeService.isDarkTheme;
+    this.isDarkTheme = this.theme.isDarkTheme;
+    this.isInProgress = this.progress.isInProgress;
   }
 
   enableDarkTheme() {
-    this.themeService.setDarkTheme(true);
+    this.theme.setDarkTheme(true);
   }
 
   enableLightTheme() {
-    this.themeService.setDarkTheme(false);
+    this.theme.setDarkTheme(false);
+  }
+
+  enableSpinner() {
+    this.progress.setInProgress();
+  }
+
+  disableSpinner() {
+    this.progress.setResolved();
   }
 }

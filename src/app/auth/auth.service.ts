@@ -6,6 +6,7 @@ import * as auth0 from 'auth0-js';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from './user';
+import { ProgressService } from '../progress/progress.service';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
     scope: 'openid'
   });
 
-  constructor(public router: Router, private http: HttpClient) {
+  constructor(public router: Router, private http: HttpClient, private progress: ProgressService) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
@@ -37,9 +38,6 @@ export class AuthService {
   }
 
   public login(): void {
-    const options = {
-      logo: 'https://santaswap.io/assets/santa.png'
-    };
     this.auth0.authorize();
   }
 
@@ -47,13 +45,13 @@ export class AuthService {
     if (!this._accessToken) {
       throw new Error('Access token must exist to fetch profile');
     }
-
     const self = this;
     this.auth0.client.userInfo(this._accessToken, (err, profile: Auth0UserProfile) => {
       if (profile) {
         self.user = new User(profile);
         this.saveUser().subscribe(data => {
           this.router.navigate(['/groups']);
+          this.progress.setResolved();
         });
       } else {
         console.log(err);
@@ -64,6 +62,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this.progress.setInProgress();
         window.location.hash = '';
         this.localLogin(authResult);
         this.getProfile();
@@ -92,6 +91,7 @@ export class AuthService {
     this.auth0.checkSession({}, (err, authResult) => {
       console.log('check session response');
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this.progress.setInProgress();
         console.log('Got a new token');
         this.localLogin(authResult);
         this.getProfile();

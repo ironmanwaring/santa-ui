@@ -3,6 +3,11 @@
   <button mat-icon-button routerLink="/">{{ title }}</button> <span class="spacer"></span>
   <mat-icon>ac_unit</mat-icon>
 </mat-toolbar>
+<mat-progress-bar
+  [mode]="(isInProgress | async) ? 'indeterminate' : 'determinate'"
+  value="0"
+  class="spinner"
+></mat-progress-bar>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item routerLink="/profile">
@@ -20,5 +25,13 @@
   <button mat-menu-item (click)="enableLightTheme()" *ngIf="(isDarkTheme | async)">
     <mat-icon>brightness_5</mat-icon>
     <span>Enable light theme</span>
+  </button>
+  <button mat-menu-item (click)="enableSpinner()">
+    <mat-icon>brightness_5</mat-icon>
+    <span>Enable spinner</span>
+  </button>
+  <button mat-menu-item (click)="disableSpinner()">
+    <mat-icon>brightness_5</mat-icon>
+    <span>Disable spinner</span>
   </button>
 </mat-menu>
