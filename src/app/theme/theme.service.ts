@@ -8,7 +8,7 @@ export class ThemeService {
   isDarkTheme = this.darkTheme.asObservable();
 
   constructor() {
-    const isDarkTheme: string = window.localStorage.get('isDarkTheme');
+    const isDarkTheme: string = window.localStorage.getItem('isDarkTheme');
     if (isDarkTheme) {
       this.darkTheme.next(JSON.parse(isDarkTheme));
     }
@@ -16,6 +16,6 @@ export class ThemeService {
 
   setDarkTheme(isDarkTheme: boolean) {
     this.darkTheme.next(isDarkTheme);
-    window.localStorage.set('isDarkTheme', JSON.stringify(isDarkTheme));
+    window.localStorage.setItem('isDarkTheme', JSON.stringify(isDarkTheme));
   }
 }
