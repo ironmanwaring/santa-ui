@@ -1,41 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './auth/auth.service';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
-  MatButtonModule,
-  MatSlideToggleModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatCardModule,
-  MatInputModule,
-  MatExpansionModule
-} from '@angular/material';
+import { SharedModule } from './shared/shared.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        RouterTestingModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatCardModule,
-        HttpClientModule
-      ],
+      imports: [SharedModule, RouterTestingModule],
       providers: [AuthService],
       declarations: [AppComponent, HeaderComponent]
     }).compileComponents();

@@ -8,27 +8,30 @@ import { ProfileDetail } from '../profile/profile';
 
 @Injectable({ providedIn: 'root' })
 export class GroupsService {
+  private BASE_URL: string = environment.apiUrl;
+
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   createGroup(): Observable<Group> {
     const group = {
       name: 'New Group'
     };
-    return this.http.post<Group>(`${environment.apiUrl}/users/${this.auth.user.userId}/groups`, group);
+    const userId = this.auth.user ? this.auth.user.userId : '';
+    return this.http.post<Group>(`${this.BASE_URL}/users/${userId}/groups`, group);
   }
 
   getGroups(): Observable<Group[]> {
-    return this.http.get<Group[]>(`${environment.apiUrl}/users/${this.auth.user.userId}/groups`);
+    const userId = this.auth.user ? this.auth.user.userId : '';
+    return this.http.get<Group[]>(`${this.BASE_URL}/users/${userId}/groups`);
   }
 
   getGroup(groupId: string): Observable<GroupDetail> {
-    return this.http.get<GroupDetail>(`${environment.apiUrl}/users/${this.auth.user.userId}/groups/${groupId}`);
+    const userId = this.auth.user ? this.auth.user.userId : '';
+    return this.http.get<GroupDetail>(`${this.BASE_URL}/users/${userId}/groups/${groupId}`);
   }
 
   updateProfile(groupId: string, profile: ProfileDetail): Observable<ProfileDetail> {
-    return this.http.post<ProfileDetail>(
-      `${environment.apiUrl}/groups/${groupId}/users/${this.auth.user.userId}/profile`,
-      profile
-    );
+    const userId = this.auth.user ? this.auth.user.userId : '';
+    return this.http.post<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${userId}/profile`, profile);
   }
 }

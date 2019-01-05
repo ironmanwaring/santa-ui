@@ -11,17 +11,17 @@ import { ThemeService } from './theme/theme.service';
 export class AppComponent implements OnInit {
   isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService, public authService: AuthService) {
-    authService.handleAuthentication();
+  constructor(private theme: ThemeService, public auth: AuthService) {
+    auth.handleAuthentication();
   }
 
   ngOnInit() {
-    this.isDarkTheme = this.themeService.isDarkTheme;
+    this.isDarkTheme = this.theme.isDarkTheme;
 
     console.log('seeing if logged in');
     if (localStorage.getItem('isLoggedIn') === 'true') {
       console.log('logged in, renewing token');
-      this.authService.renewTokens();
+      this.auth.renewTokens();
     }
   }
 }
