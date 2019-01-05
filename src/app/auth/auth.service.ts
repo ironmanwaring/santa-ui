@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import * as auth0 from 'auth0-js';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
   private _idToken: string;
   private _accessToken: string;
   private _expiresAt: number;
-  userProfile: any;
+  user: User;
 
   auth0 = new auth0.WebAuth({
     clientID: 'e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja',
@@ -18,7 +21,7 @@ export class AuthService {
     scope: 'openid'
   });
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private http: HttpClient) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
@@ -47,10 +50,14 @@ export class AuthService {
     const self = this;
     this.auth0.client.userInfo(this._accessToken, (err, profile) => {
       if (profile) {
-        self.userProfile = profile;
+        self.user = new User(profile);
       }
       console.log(err);
       console.log(profile);
+      this.saveUser().subscribe(data => {
+        console.log('saved user');
+        this.router.navigate(['/groups']);
+      });
     });
   }
 
@@ -67,13 +74,17 @@ export class AuthService {
     });
   }
 
+  private saveUser(): Observable<Object> {
+    console.log('saving user');
+    return this.http.post(`${environment.apiUrl}/users`, this.user);
+  }
+
   private localLogin(authResult): void {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    this.router.navigate(['/groups']);
   }
 
   public renewTokens(): void {

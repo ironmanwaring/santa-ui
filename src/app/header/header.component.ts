@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   title: string = 'SANTA SWAP';
   isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService, private authService: AuthService) {}
+  constructor(private themeService: ThemeService, private auth: AuthService) {}
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;

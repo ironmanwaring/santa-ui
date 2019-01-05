@@ -12,7 +12,8 @@ import {
   MatSlideToggleModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 describe('CallbackComponent', () => {
@@ -32,7 +33,8 @@ describe('CallbackComponent', () => {
         MatSlideToggleModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatInputModule
+        MatInputModule,
+        MatProgressBarModule
       ],
       providers: [AuthService]
     }).compileComponents();

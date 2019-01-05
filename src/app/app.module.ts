@@ -10,7 +10,8 @@ import {
   MatSelectModule,
   MatInputModule,
   MatCardModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,6 +59,7 @@ import { CallbackComponent } from './callback/callback.component';
     MatInputModule,
     MatCardModule,
     MatExpansionModule,
+    MatProgressBarModule,
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,

@@ -19,4 +19,8 @@ export class GroupsComponent implements OnInit {
       console.log(data);
     });
   }
+
+  createGroup() {
+    this.groupsService.createGroup().subscribe(data => console.log(data));
+  }
 }
