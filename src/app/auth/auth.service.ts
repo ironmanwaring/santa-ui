@@ -51,13 +51,12 @@ export class AuthService {
     this.auth0.client.userInfo(this._accessToken, (err, profile) => {
       if (profile) {
         self.user = new User(profile);
+        this.saveUser().subscribe(data => {
+          this.router.navigate(['/groups']);
+        });
+      } else {
+        console.log(err);
       }
-      console.log(err);
-      console.log(profile);
-      this.saveUser().subscribe(data => {
-        console.log('saved user');
-        this.router.navigate(['/groups']);
-      });
     });
   }
 
@@ -75,7 +74,6 @@ export class AuthService {
   }
 
   private saveUser(): Observable<Object> {
-    console.log('saving user');
     return this.http.post(`${environment.apiUrl}/users`, this.user);
   }
 
