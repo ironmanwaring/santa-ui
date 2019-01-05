@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../groups/groups.service';
 import { GroupDetail } from '../groups/group';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProfileDetail } from '../profile/profile';
 
 @Component({
   selector: 'app-group',
@@ -10,23 +10,25 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-  group: GroupDetail;
+  group: GroupDetail = new GroupDetail();
 
-  profile: FormGroup;
+  profile: ProfileDetail = new ProfileDetail();
 
-  constructor(private groupsService: GroupsService, private route: ActivatedRoute, private formBuilder: FormBuilder) {}
+  constructor(private groupsService: GroupsService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     const groupId = this.route.snapshot.paramMap.get('id');
-    this.groupsService.getGroup(groupId).subscribe((group: GroupDetail) => {
+    this.groupsService.getGroup(groupId).subscribe(group => {
       this.group = group;
-      console.log(group);
-      this.profile.patchValue(group.profile);
+      this.profile = group.profile;
     });
-    this.profile = this.formBuilder.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      giftIdeas: []
+  }
+
+  updateProfile() {
+    console.log('Updating profile');
+    this.groupsService.updateProfile(this.group.groupId, this.profile).subscribe(profile => {
+      console.log('Profile updated');
+      console.log(profile);
     });
   }
 }

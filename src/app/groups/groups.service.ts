@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { Group, GroupDetail } from './group';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+import { ProfileDetail } from '../profile/profile';
 
 @Injectable({ providedIn: 'root' })
 export class GroupsService {
@@ -22,5 +23,12 @@ export class GroupsService {
 
   getGroup(groupId: string): Observable<GroupDetail> {
     return this.http.get<GroupDetail>(`${environment.apiUrl}/users/${this.auth.user.userId}/groups/${groupId}`);
+  }
+
+  updateProfile(groupId: string, profile: ProfileDetail): Observable<ProfileDetail> {
+    return this.http.post<ProfileDetail>(
+      `${environment.apiUrl}/groups/${groupId}/users/${this.auth.user.userId}/profile`,
+      profile
+    );
   }
 }

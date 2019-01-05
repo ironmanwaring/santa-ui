@@ -82,7 +82,6 @@ export class AuthService {
     // Set isLoggedIn flag in localStorage
     console.log('setting logged in local storage');
     localStorage.setItem('isLoggedIn', 'true');
-    console.log(localStorage.getItem('isLoggedIn'));
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
