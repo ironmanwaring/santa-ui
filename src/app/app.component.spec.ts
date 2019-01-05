@@ -17,7 +17,6 @@ import {
   MatInputModule,
   MatExpansionModule
 } from '@angular/material';
-import { CookieService } from 'ngx-cookie-service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -37,7 +36,7 @@ describe('AppComponent', () => {
         MatCardModule,
         HttpClientModule
       ],
-      providers: [CookieService, AuthService],
+      providers: [AuthService],
       declarations: [AppComponent, HeaderComponent]
     }).compileComponents();
   }));

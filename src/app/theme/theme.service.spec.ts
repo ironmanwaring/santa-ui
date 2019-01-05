@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { CookieService } from 'ngx-cookie-service';
 
 import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      providers: [CookieService]
+      providers: []
     })
   );
 

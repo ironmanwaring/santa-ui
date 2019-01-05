@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from './shared/shared.module';
-import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -28,7 +27,7 @@ import { AuthService } from './auth/auth.service';
     GroupMembersPipe
   ],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
-  providers: [CookieService, AuthService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

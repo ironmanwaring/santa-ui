@@ -4,7 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AuthService } from '../auth/auth.service';
 import { HeaderComponent } from './header.component';
-import { CookieService } from 'ngx-cookie-service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -14,7 +13,7 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       imports: [SharedModule, RouterTestingModule],
-      providers: [CookieService, AuthService]
+      providers: [AuthService]
     }).compileComponents();
   }));
 
