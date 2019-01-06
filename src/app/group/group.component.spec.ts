@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { GroupComponent } from './group.component';
 import { AuthService } from '../auth/auth.service';
+import { GroupDetailsComponent } from '../group-details/group-details.component';
 
 describe('GroupComponent', () => {
   let component: GroupComponent;
@@ -11,7 +12,7 @@ describe('GroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GroupComponent],
+      declarations: [GroupComponent, GroupDetailsComponent],
       imports: [RouterTestingModule, SharedModule],
       providers: [AuthService]
     }).compileComponents();
