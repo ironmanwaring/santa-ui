@@ -1,7 +1,8 @@
 <mat-toolbar class="toolbar">
   <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-  <button mat-icon-button routerLink="/">{{ title }}</button> <span class="spacer"></span>
-  <mat-icon>ac_unit</mat-icon>
+  <button mat-icon-button routerLink="/">SANTA SWAP</button> <span class="spacer"></span>
+  <span *ngIf="(auth.user.name | async)">Welcome, {{ auth.user.name }}</span>
+  <mat-icon *ngIf="!(auth.user.name | async)">ac_unit</mat-icon>
 </mat-toolbar>
 <mat-progress-bar
   [mode]="(isInProgress | async) ? 'indeterminate' : 'determinate'"
@@ -10,28 +11,36 @@
 ></mat-progress-bar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/profile">
-    <mat-icon>face</mat-icon>
-    <span>Your profile</span>
+  <button mat-menu-item routerLink="/create-or-join" *ngIf="auth.isAuthenticated()">
+    <mat-icon>create</mat-icon>
+    <span>Create or join group</span>
   </button>
-  <button mat-menu-item routerLink="/groups">
+  <button mat-menu-item routerLink="/groups" *ngIf="auth.isAuthenticated()">
     <mat-icon>group</mat-icon>
-    <span>Your groups</span>
+    <span>View your groups</span>
   </button>
-  <button mat-menu-item (click)="enableDarkTheme()" *ngIf="!(isDarkTheme | async)">
+  <button mat-menu-item (click)="theme.enableDarkTheme()" *ngIf="!(isDarkTheme | async)">
     <mat-icon>brightness_3</mat-icon>
     <span>Enable dark theme</span>
   </button>
-  <button mat-menu-item (click)="enableLightTheme()" *ngIf="(isDarkTheme | async)">
+  <button mat-menu-item (click)="theme.enableLightTheme()" *ngIf="(isDarkTheme | async)">
     <mat-icon>brightness_5</mat-icon>
     <span>Enable light theme</span>
   </button>
-  <button mat-menu-item (click)="enableSpinner()">
-    <mat-icon>brightness_5</mat-icon>
+  <button mat-menu-item (click)="auth.logout()" *ngIf="auth.isAuthenticated()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+  <button mat-menu-item (click)="auth.login()" *ngIf="!auth.isAuthenticated()">
+    <mat-icon>fingerprint</mat-icon>
+    <span>Login</span>
+  </button>
+  <!-- <button mat-menu-item (click)="enableSpinner()">
+    <mat-icon>code</mat-icon>
     <span>Enable spinner</span>
   </button>
   <button mat-menu-item (click)="disableSpinner()">
-    <mat-icon>brightness_5</mat-icon>
+    <mat-icon>code</mat-icon>
     <span>Disable spinner</span>
-  </button>
+  </button> -->
 </mat-menu>

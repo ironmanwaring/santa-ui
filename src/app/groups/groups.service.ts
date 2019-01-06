@@ -5,33 +5,61 @@ import { Group, GroupDetail } from './group';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { ProfileDetail } from '../profile/profile';
+import { ProgressService } from '../progress/progress.service';
+import { User } from '../auth/user';
 
 @Injectable({ providedIn: 'root' })
 export class GroupsService {
   private BASE_URL: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  userId: string;
 
-  createGroup(): Observable<Group> {
+  private _groups: Subject<Group[]> = new Subject<Group[]>();
+  groups = this._groups.asObservable();
+
+  private _group: Subject<GroupDetail> = new Subject<GroupDetail>();
+  group = this._group.asObservable();
+
+  constructor(private http: HttpClient, private auth: AuthService, private progress: ProgressService) {
+    this.auth.user.subscribe(user => {
+      this.userId = user.userId;
+      this.getGroups();
+    });
+  }
+
+  createGroup(): void {
+    this.progress.setInProgress();
     const group = {
       name: 'New Group'
     };
-    const userId = this.auth.user ? this.auth.user.userId : '';
-    return this.http.post<Group>(`${this.BASE_URL}/users/${userId}/groups`, group);
+    this.http.post<GroupDetail>(`${this.BASE_URL}/users/${this.userId}/groups`, group).subscribe(group => {
+      this._group.next(group);
+      this.progress.setResolved();
+    });
   }
 
-  getGroups(): Observable<Group[]> {
-    const userId = this.auth.user ? this.auth.user.userId : '';
-    return this.http.get<Group[]>(`${this.BASE_URL}/users/${userId}/groups`);
+  getGroups(): void {
+    this.progress.setInProgress();
+    this.http.get<Group[]>(`${this.BASE_URL}/users/${this.userId}/groups`).subscribe(groups => {
+      this._groups.next(groups);
+      this.progress.setResolved();
+    });
   }
 
-  getGroup(groupId: string): Observable<GroupDetail> {
-    const userId = this.auth.user ? this.auth.user.userId : '';
-    return this.http.get<GroupDetail>(`${this.BASE_URL}/users/${userId}/groups/${groupId}`);
+  getGroup(groupId: string): void {
+    this.progress.setInProgress();
+    this.http.get<GroupDetail>(`${this.BASE_URL}/users/${this.userId}/groups/${groupId}`).subscribe(group => {
+      this._group.next(group);
+      this.progress.setResolved();
+    });
   }
 
-  updateProfile(groupId: string, profile: ProfileDetail): Observable<ProfileDetail> {
-    const userId = this.auth.user ? this.auth.user.userId : '';
-    return this.http.post<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${userId}/profile`, profile);
+  updateProfile(groupId: string, profile: ProfileDetail): void {
+    this.progress.setInProgress();
+    this.http
+      .post<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${this.userId}/profile`, profile)
+      .subscribe(profile => {
+        this.progress.setResolved();
+      });
   }
 }

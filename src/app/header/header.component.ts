@@ -10,7 +10,6 @@ import { ProgressService } from '../progress/progress.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  title: string = 'SANTA SWAP';
   isDarkTheme: Observable<boolean>;
   isInProgress: Observable<boolean>;
 
@@ -21,19 +20,11 @@ export class HeaderComponent implements OnInit {
     this.isInProgress = this.progress.isInProgress;
   }
 
-  enableDarkTheme() {
-    this.theme.setDarkTheme(true);
-  }
+  // enableSpinner() {
+  //   this.progress.setInProgress();
+  // }
 
-  enableLightTheme() {
-    this.theme.setDarkTheme(false);
-  }
-
-  enableSpinner() {
-    this.progress.setInProgress();
-  }
-
-  disableSpinner() {
-    this.progress.setResolved();
-  }
+  // disableSpinner() {
+  //   this.progress.setResolved();
+  // }
 }

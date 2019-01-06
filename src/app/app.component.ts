@@ -17,10 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.isDarkTheme = this.theme.isDarkTheme;
-
-    console.log('seeing if logged in');
     if (localStorage.getItem('isLoggedIn') === 'true') {
-      console.log('logged in, renewing token');
       this.auth.renewTokens();
     }
   }

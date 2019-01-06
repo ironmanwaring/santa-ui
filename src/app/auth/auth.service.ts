@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Auth0UserProfile } from 'auth0-js';
 import * as auth0 from 'auth0-js';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,9 @@ export class AuthService {
   private _idToken: string;
   private _accessToken: string;
   private _expiresAt: number;
-  user: User;
+
+  private _user: Subject<User> = new Subject<User>();
+  user: Observable<User> = this._user.asObservable();
 
   auth0 = new auth0.WebAuth({
     clientID: 'e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja',
@@ -29,29 +31,24 @@ export class AuthService {
     this._expiresAt = 0;
   }
 
-  get accessToken(): string {
-    return this._accessToken;
-  }
-
-  get idToken(): string {
-    return this._idToken;
-  }
-
   public login(): void {
     this.auth0.authorize();
   }
 
-  public getProfile(): void {
+  private getProfile(): void {
     if (!this._accessToken) {
       throw new Error('Access token must exist to fetch profile');
     }
     const self = this;
     this.auth0.client.userInfo(this._accessToken, (err, profile: Auth0UserProfile) => {
       if (profile) {
-        self.user = new User(profile);
-        this.saveUser().subscribe(data => {
-          this.router.navigate(['/groups']);
-          this.progress.setResolved();
+        const user = new User(profile);
+        console.log(user);
+        self._user.next(user);
+        // localStorage.setItem('user', JSON.stringify(user));
+        self.saveUser(user).subscribe(data => {
+          self.router.navigate(['/groups']);
+          self.progress.setResolved();
         });
       } else {
         console.log(err);
@@ -73,13 +70,11 @@ export class AuthService {
     });
   }
 
-  private saveUser(): Observable<Object> {
-    return this.http.post(`${environment.apiUrl}/users`, this.user);
+  private saveUser(user: User): Observable<Object> {
+    return this.http.post(`${environment.apiUrl}/users`, user);
   }
 
   private localLogin(authResult): void {
-    // Set isLoggedIn flag in localStorage
-    console.log('setting logged in local storage');
     localStorage.setItem('isLoggedIn', 'true');
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
@@ -87,12 +82,10 @@ export class AuthService {
   }
 
   public renewTokens(): void {
-    console.log('renewing the tokens');
+    this._user.next(JSON.parse(localStorage.getItem('user')));
     this.auth0.checkSession({}, (err, authResult) => {
-      console.log('check session response');
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.progress.setInProgress();
-        console.log('Got a new token');
         this.localLogin(authResult);
         this.getProfile();
       } else if (err) {
@@ -103,12 +96,12 @@ export class AuthService {
   }
 
   public logout(): void {
-    // Remove tokens and expiry time
     this._accessToken = '';
     this._idToken = '';
     this._expiresAt = 0;
-    // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+    this._user.next(<User>{});
     // Go back to the home route
     this.router.navigate(['']);
   }

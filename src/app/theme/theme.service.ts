@@ -14,8 +14,16 @@ export class ThemeService {
     }
   }
 
-  setDarkTheme(isDarkTheme: boolean) {
-    this.darkTheme.next(isDarkTheme);
-    window.localStorage.setItem('isDarkTheme', JSON.stringify(isDarkTheme));
+  enableDarkTheme() {
+    this.updateDarkTheme(true);
+  }
+
+  enableLightTheme() {
+    this.updateDarkTheme(false);
+  }
+
+  private updateDarkTheme(darkTheme: boolean) {
+    this.darkTheme.next(darkTheme);
+    window.localStorage.setItem('isDarkTheme', JSON.stringify(darkTheme));
   }
 }

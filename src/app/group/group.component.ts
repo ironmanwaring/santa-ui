@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GroupsService } from '../groups/groups.service';
 import { GroupDetail } from '../groups/group';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileDetail } from '../profile/profile';
-import { ProgressService } from '../progress/progress.service';
 
 @Component({
   selector: 'app-group',
@@ -11,29 +11,13 @@ import { ProgressService } from '../progress/progress.service';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-  group: GroupDetail;
+  group: Observable<GroupDetail>;
 
-  profile: ProfileDetail;
-
-  constructor(private groupsService: GroupsService, private route: ActivatedRoute, private progress: ProgressService) {}
+  constructor(private groupService: GroupsService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.progress.setInProgress();
-    const groupId = this.route.snapshot.paramMap.get('id');
-    this.groupsService.getGroup(groupId).subscribe(group => {
-      this.group = group;
-      this.profile = group.profile;
-      this.progress.setResolved();
-    });
-  }
-
-  updateProfile() {
-    this.progress.setInProgress();
-    console.log('Updating profile');
-    this.groupsService.updateProfile(this.group.groupId, this.profile).subscribe(profile => {
-      console.log('Profile updated');
-      console.log(profile);
-      this.progress.setResolved();
-    });
+    this.group = this.groupService.group;
+    const groupId = this.route.snapshot.paramMap.get('groupId');
+    this.groupService.getGroup(groupId);
   }
 }
