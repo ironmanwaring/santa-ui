@@ -3,6 +3,7 @@ import { ThemeService } from '../theme/theme.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ProgressService } from '../progress/progress.service';
+import { User } from '../auth/user';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   isDarkTheme: Observable<boolean>;
   isInProgress: Observable<boolean>;
 
-  constructor(private theme: ThemeService, private auth: AuthService, private progress: ProgressService) {}
+  constructor(private theme: ThemeService, public auth: AuthService, private progress: ProgressService) {}
 
   ngOnInit() {
     this.isDarkTheme = this.theme.isDarkTheme;

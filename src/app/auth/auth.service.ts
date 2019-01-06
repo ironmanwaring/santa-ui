@@ -15,7 +15,7 @@ export class AuthService {
   private _expiresAt: number;
 
   private _user: Subject<User> = new Subject<User>();
-  user: Observable<User> = this._user.asObservable();
+  user = this._user.asObservable();
 
   auth0 = new auth0.WebAuth({
     clientID: 'e0VgaUxRSIvPUVOy5Sx5rkgAdeN5rzja',
