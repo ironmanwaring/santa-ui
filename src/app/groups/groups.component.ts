@@ -15,6 +15,5 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit() {
     this.groups = this.groupService.groups;
-    this.groupService.getGroups();
   }
 }

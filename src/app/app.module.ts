@@ -15,6 +15,8 @@ import { GroupDetailsComponent } from './group-details/group-details.component';
 import { AuthService } from './auth/auth.service';
 import { CreateOrJoinComponent } from './create-or-join/create-or-join.component';
 import { UserNamePipe } from './header/user-name.pipe';
+import { CreateCardComponent } from './create-card/create-card.component';
+import { JoinCardComponent } from './join-card/join-card.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UserNamePipe } from './header/user-name.pipe';
     GroupDetailsComponent,
     GroupMembersPipe,
     UserNamePipe,
-    CreateOrJoinComponent
+    CreateOrJoinComponent,
+    CreateCardComponent,
+    JoinCardComponent
   ],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
   providers: [AuthService],

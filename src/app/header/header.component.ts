@@ -13,12 +13,14 @@ import { User } from '../auth/user';
 export class HeaderComponent implements OnInit {
   isDarkTheme: Observable<boolean>;
   isInProgress: Observable<boolean>;
+  user: User;
 
   constructor(private theme: ThemeService, public auth: AuthService, private progress: ProgressService) {}
 
   ngOnInit() {
     this.isDarkTheme = this.theme.isDarkTheme;
     this.isInProgress = this.progress.isInProgress;
+    this.auth.user.subscribe(user => (this.user = user));
   }
 
   // enableSpinner() {

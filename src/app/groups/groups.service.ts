@@ -22,8 +22,10 @@ export class GroupsService {
 
   constructor(private http: HttpClient, private auth: AuthService, private progress: ProgressService) {
     this.auth.user.subscribe(user => {
-      this.userId = user.userId;
-      this.getGroups();
+      if (user) {
+        this.userId = user.userId;
+        this.getGroups();
+      }
     });
   }
 

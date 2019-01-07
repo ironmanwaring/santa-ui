@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Auth0UserProfile } from 'auth0-js';
 import * as auth0 from 'auth0-js';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ export class AuthService {
   private _accessToken: string;
   private _expiresAt: number;
 
-  private _user: Subject<User> = new Subject<User>();
+  private _user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   user = this._user.asObservable();
 
   auth0 = new auth0.WebAuth({

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { GroupsService } from '../groups/groups.service';
 import { GroupDetail } from '../groups/group';
 import { ActivatedRoute } from '@angular/router';
-import { ProfileDetail } from '../profile/profile';
 
 @Component({
   selector: 'app-group',
