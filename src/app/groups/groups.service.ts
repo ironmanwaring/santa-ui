@@ -73,7 +73,7 @@ export class GroupsService {
   updateProfile(groupId: string, profile: ProfileDetail): void {
     this.progress.setInProgress();
     this.http
-      .post<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${this.userId}/profile`, profile)
+      .put<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${this.userId}`, profile)
       .subscribe(profile => {
         this.progress.setResolved();
       });
