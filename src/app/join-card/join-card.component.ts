@@ -7,12 +7,12 @@ import { GroupsService } from '../groups/groups.service';
   styleUrls: ['./join-card.component.scss']
 })
 export class JoinCardComponent implements OnInit {
-  code: string;
+  groupCode: string;
   constructor(private groupService: GroupsService) {}
 
   ngOnInit() {}
 
   joinGroup() {
-    this.groupService.joinGroup(this.code);
+    this.groupService.joinGroup(this.groupCode);
   }
 }

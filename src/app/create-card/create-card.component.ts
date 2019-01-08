@@ -7,12 +7,12 @@ import { GroupsService } from '../groups/groups.service';
   styleUrls: ['./create-card.component.scss']
 })
 export class CreateCardComponent implements OnInit {
-  name: string;
+  groupName: string;
   constructor(private groupService: GroupsService) {}
 
   ngOnInit() {}
 
   createGroup() {
-    this.groupService.createGroup(this.name);
+    this.groupService.createGroup(this.groupName);
   }
 }
