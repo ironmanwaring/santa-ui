@@ -43,7 +43,6 @@ export class AuthService {
     this.auth0.client.userInfo(this._accessToken, (err, profile: Auth0UserProfile) => {
       if (profile) {
         const user = new User(profile);
-        console.log(user);
         self._user.next(user);
         // localStorage.setItem('user', JSON.stringify(user));
         self.saveUser(user).subscribe(data => {

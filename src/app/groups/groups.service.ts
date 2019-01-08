@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 import { ProfileDetail } from '../profile/profile';
 import { ProgressService } from '../progress/progress.service';
 import { User } from '../auth/user';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class GroupsService {
@@ -14,13 +15,18 @@ export class GroupsService {
 
   userId: string;
 
-  private _groups: Subject<Group[]> = new Subject<Group[]>();
+  private _groups: BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>([]);
   groups = this._groups.asObservable();
 
-  private _group: Subject<GroupDetail> = new Subject<GroupDetail>();
+  private _group: BehaviorSubject<GroupDetail> = new BehaviorSubject<GroupDetail>(null);
   group = this._group.asObservable();
 
-  constructor(private http: HttpClient, private auth: AuthService, private progress: ProgressService) {
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private progress: ProgressService,
+    private router: Router
+  ) {
     this.auth.user.subscribe(user => {
       if (user) {
         this.userId = user.userId;
@@ -29,13 +35,21 @@ export class GroupsService {
     });
   }
 
-  createGroup(): void {
+  createGroup(name: string): void {
     this.progress.setInProgress();
-    const group = {
-      name: 'New Group'
-    };
+    const group = { name };
     this.http.post<GroupDetail>(`${this.BASE_URL}/users/${this.userId}/groups`, group).subscribe(group => {
       this._group.next(group);
+      this.router.navigate([`/groups/${group.groupId}`]);
+      this.progress.setResolved();
+    });
+  }
+
+  joinGroup(code: string): void {
+    this.progress.setInProgress();
+    this.http.post<GroupDetail>(`${this.BASE_URL}/groups/${code}/users/${this.userId}`, { code }).subscribe(group => {
+      this._group.next(group);
+      this.router.navigate([`/groups/${group.groupId}`]);
       this.progress.setResolved();
     });
   }

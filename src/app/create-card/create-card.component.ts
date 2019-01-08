@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupsService } from '../groups/groups.service';
 
 @Component({
   selector: 'app-create-card',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCardComponent implements OnInit {
   name: string;
-  constructor() {}
+  constructor(private groupService: GroupsService) {}
 
   ngOnInit() {}
+
+  createGroup() {
+    this.groupService.createGroup(this.name);
+  }
 }

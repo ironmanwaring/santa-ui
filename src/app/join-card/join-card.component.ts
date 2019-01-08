@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupsService } from '../groups/groups.service';
 
 @Component({
   selector: 'app-join-card',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinCardComponent implements OnInit {
   code: string;
-  constructor() {}
+  constructor(private groupService: GroupsService) {}
 
   ngOnInit() {}
+
+  joinGroup() {
+    this.groupService.joinGroup(this.code);
+  }
 }

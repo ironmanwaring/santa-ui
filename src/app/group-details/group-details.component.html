@@ -1,3 +1,5 @@
+<h1>{{ group.name }}</h1>
+
 <mat-accordion class="accordion" *ngIf="group">
   <mat-expansion-panel expanded>
     <mat-expansion-panel-header>
@@ -55,6 +57,7 @@
       <mat-panel-title>Group settings</mat-panel-title>
       <mat-panel-description><mat-icon>settings</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
+    <p>{{ group.code }}</p>
     <p>TODO Rules (amount limits, etc.)</p>
     <p>TODO Action to match</p>
   </mat-expansion-panel>
