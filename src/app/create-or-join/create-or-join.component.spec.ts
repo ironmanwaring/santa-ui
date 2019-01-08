@@ -12,7 +12,7 @@ describe('CreateOrJoinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CreateCardComponent, JoinCardComponent, RouterTestingModule],
+      imports: [RouterTestingModule],
       declarations: [CreateOrJoinComponent],
       providers: [AuthService]
     }).compileComponents();
