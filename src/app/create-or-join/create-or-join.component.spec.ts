@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateOrJoinComponent } from './create-or-join.component';
+import { CreateCardComponent } from '../create-card/create-card.component';
+import { JoinCardComponent } from '../join-card/join-card.component';
 
 describe('CreateOrJoinComponent', () => {
   let component: CreateOrJoinComponent;
@@ -8,9 +10,9 @@ describe('CreateOrJoinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateOrJoinComponent ]
-    })
-    .compileComponents();
+      imports: [CreateCardComponent, JoinCardComponent],
+      declarations: [CreateOrJoinComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

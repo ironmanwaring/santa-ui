@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateCardComponent } from './create-card.component';
+import { GroupsService } from '../groups/groups.service';
+import { SharedModule } from '../shared/shared.module';
 
 describe('CreateCardComponent', () => {
   let component: CreateCardComponent;
@@ -8,9 +10,10 @@ describe('CreateCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateCardComponent ]
-    })
-    .compileComponents();
+      imports: [SharedModule],
+      declarations: [CreateCardComponent],
+      providers: [GroupsService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
