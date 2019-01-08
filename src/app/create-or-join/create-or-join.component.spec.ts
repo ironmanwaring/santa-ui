@@ -4,6 +4,7 @@ import { CreateOrJoinComponent } from './create-or-join.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
 import { JoinCardComponent } from '../join-card/join-card.component';
 import { AuthService } from '../auth/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateOrJoinComponent', () => {
   let component: CreateOrJoinComponent;
@@ -11,7 +12,7 @@ describe('CreateOrJoinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CreateCardComponent, JoinCardComponent],
+      imports: [CreateCardComponent, JoinCardComponent, RouterTestingModule],
       declarations: [CreateOrJoinComponent],
       providers: [AuthService]
     }).compileComponents();

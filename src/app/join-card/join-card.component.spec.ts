@@ -4,6 +4,7 @@ import { JoinCardComponent } from './join-card.component';
 import { GroupsService } from '../groups/groups.service';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../auth/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('JoinCardComponent', () => {
   let component: JoinCardComponent;
@@ -11,7 +12,7 @@ describe('JoinCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, RouterTestingModule],
       declarations: [JoinCardComponent],
       providers: [GroupsService, AuthService]
     }).compileComponents();
