@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { JoinCardComponent } from './join-card.component';
 import { GroupsService } from '../groups/groups.service';
 import { SharedModule } from '../shared/shared.module';
+import { AuthService } from '../auth/auth.service';
 
 describe('JoinCardComponent', () => {
   let component: JoinCardComponent;
@@ -12,7 +13,7 @@ describe('JoinCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [JoinCardComponent],
-      providers: [GroupsService]
+      providers: [GroupsService, AuthService]
     }).compileComponents();
   }));
 
