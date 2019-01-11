@@ -17,6 +17,7 @@ import { CreateOrJoinComponent } from './create-or-join/create-or-join.component
 import { UserNamePipe } from './header/user-name.pipe';
 import { CreateCardComponent } from './create-card/create-card.component';
 import { JoinCardComponent } from './join-card/join-card.component';
+import { GroupStatusPipe } from './group-card/group-status.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { JoinCardComponent } from './join-card/join-card.component';
     GroupDetailsComponent,
     GroupMembersPipe,
     UserNamePipe,
+    GroupStatusPipe,
     CreateOrJoinComponent,
     CreateCardComponent,
     JoinCardComponent
