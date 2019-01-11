@@ -1,7 +1,7 @@
 <h1>{{ group?.name }}</h1>
 
 <mat-accordion class="accordion" *ngIf="group">
-  <mat-expansion-panel expanded>
+  <mat-expansion-panel [expanded]="!group.matched">
     <mat-expansion-panel-header>
       <mat-panel-title>Your profile</mat-panel-title>
       <mat-panel-description><mat-icon>face</mat-icon></mat-panel-description>
@@ -33,7 +33,7 @@
     </form>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="group.matched" *ngIf="group.matched">
     <mat-expansion-panel-header>
       <mat-panel-title>Your assignment</mat-panel-title>
       <mat-panel-description><mat-icon>card_giftcard</mat-icon></mat-panel-description>
@@ -56,8 +56,9 @@
       <mat-panel-title>Group settings</mat-panel-title>
       <mat-panel-description><mat-icon>settings</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
-    <p>Code to join group: {{ group.code }}</p>
-    <button mat-button (click)="groupService.matchGroup(group.groupId)">
+    <!-- TODO: add group rules-->
+    <p *ngIf="!group.matched">Code to join group: {{ group.code }}</p>
+    <button mat-button (click)="groupService.matchGroup(group.groupId)" *ngIf="!group.matched">
       <mat-icon>transform</mat-icon>
       <span>Match group</span>
     </button>
