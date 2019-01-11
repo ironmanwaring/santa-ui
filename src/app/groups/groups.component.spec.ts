@@ -6,6 +6,8 @@ import { GroupsComponent } from './groups.component';
 import { GroupCardComponent } from '../group-card/group-card.component';
 import { AuthService } from '../auth/auth.service';
 import { GroupMembersPipe } from '../group-card/group-members.pipe';
+import { CreateCardComponent } from '../create-card/create-card.component';
+import { JoinCardComponent } from '../join-card/join-card.component';
 
 describe('GroupsComponent', () => {
   let component: GroupsComponent;
@@ -13,7 +15,7 @@ describe('GroupsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GroupsComponent, GroupCardComponent, GroupMembersPipe],
+      declarations: [GroupsComponent, GroupCardComponent, GroupMembersPipe, CreateCardComponent, JoinCardComponent],
       imports: [RouterTestingModule, SharedModule],
       providers: [AuthService]
     }).compileComponents();

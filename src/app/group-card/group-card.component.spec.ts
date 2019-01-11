@@ -12,7 +12,7 @@ import {
 } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GroupMembersPipe } from './group-members.pipe';
-
+import { GroupStatusPipe } from './group-status.pipe';
 import { GroupCardComponent } from './group-card.component';
 
 describe('GroupCardComponent', () => {
@@ -33,7 +33,7 @@ describe('GroupCardComponent', () => {
         MatInputModule,
         MatCardModule
       ],
-      declarations: [GroupCardComponent, GroupMembersPipe]
+      declarations: [GroupCardComponent, GroupMembersPipe, GroupStatusPipe]
     }).compileComponents();
   }));
 
