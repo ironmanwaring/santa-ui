@@ -14,7 +14,7 @@ export class GroupDetailsComponent implements OnInit {
   @Input()
   group: GroupDetail;
 
-  constructor(private groupService: GroupsService) {}
+  constructor(public groupService: GroupsService) {}
 
   ngOnInit() {}
 

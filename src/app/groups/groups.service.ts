@@ -70,6 +70,16 @@ export class GroupsService {
     });
   }
 
+  matchGroup(groupId: string): void {
+    this.progress.setInProgress();
+    this.http
+      .post<GroupDetail>(`${this.BASE_URL}/users/${this.userId}/groups/${groupId}/match`, null)
+      .subscribe(group => {
+        this._group.next(group);
+        this.progress.setResolved();
+      });
+  }
+
   updateProfile(groupId: string, profile: ProfileDetail): void {
     this.progress.setInProgress();
     this.http

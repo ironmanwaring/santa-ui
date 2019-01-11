@@ -1,6 +1,9 @@
 export class Profile {
   userId: string;
   name: string;
+  address: string;
+  giftIdeas: string;
+  recipient: Profile;
 }
 
 export class ProfileDetail {
@@ -8,4 +11,5 @@ export class ProfileDetail {
   name: string;
   address: string;
   giftIdeas: string;
+  recipient: Profile;
 }
