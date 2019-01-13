@@ -20,11 +20,11 @@
   </button>
   <button mat-menu-item (click)="theme.enableDarkTheme()" *ngIf="!(isDarkTheme | async)">
     <mat-icon>brightness_3</mat-icon>
-    <span>Enable dark theme</span>
+    <span>Switch to dark theme</span>
   </button>
   <button mat-menu-item (click)="theme.enableLightTheme()" *ngIf="(isDarkTheme | async)">
     <mat-icon>brightness_5</mat-icon>
-    <span>Enable light theme</span>
+    <span>Switch to light theme</span>
   </button>
   <button mat-menu-item (click)="auth.logout()" *ngIf="auth.isAuthenticated()">
     <mat-icon>exit_to_app</mat-icon>

@@ -3,7 +3,7 @@
 <mat-accordion class="accordion" *ngIf="group">
   <mat-expansion-panel [expanded]="!group.matched">
     <mat-expansion-panel-header>
-      <mat-panel-title>Your profile</mat-panel-title>
+      <mat-panel-title>Profile</mat-panel-title>
       <mat-panel-description><mat-icon>face</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
     <form class="profile-form">
@@ -35,7 +35,7 @@
 
   <mat-expansion-panel [expanded]="group.matched" *ngIf="group.matched">
     <mat-expansion-panel-header>
-      <mat-panel-title>Your assignment</mat-panel-title>
+      <mat-panel-title>Assignment</mat-panel-title>
       <mat-panel-description><mat-icon>card_giftcard</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
     <p>Name: {{ group.profile.recipient.name }}</p>
@@ -45,7 +45,7 @@
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Group members</mat-panel-title>
+      <mat-panel-title>Members</mat-panel-title>
       <mat-panel-description><mat-icon>people_outline</mat-icon></mat-panel-description>
     </mat-expansion-panel-header>
     <p *ngFor="let member of group?.members">{{ member.name }}</p>
