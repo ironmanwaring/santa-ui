@@ -13,6 +13,7 @@ import { GroupMembersPipe } from './group-card/group-members.pipe';
 import { CallbackComponent } from './callback/callback.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
 import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
 import { CreateOrJoinComponent } from './create-or-join/create-or-join.component';
 import { UserNamePipe } from './header/user-name.pipe';
 import { CreateCardComponent } from './create-card/create-card.component';
@@ -37,7 +38,7 @@ import { GroupStatusPipe } from './group-card/group-status.pipe';
     JoinCardComponent
   ],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
