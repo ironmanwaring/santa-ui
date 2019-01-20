@@ -10,11 +10,11 @@
 ></mat-progress-bar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/create-or-join" *ngIf="auth.isAuthenticated()">
+  <button mat-menu-item routerLink="/create-or-join" *ngIf="(auth.isLoggedIn | async)">
     <mat-icon>create</mat-icon>
     <span>Create or join group</span>
   </button>
-  <button mat-menu-item routerLink="/groups" *ngIf="auth.isAuthenticated()">
+  <button mat-menu-item routerLink="/groups" *ngIf="(auth.isLoggedIn | async)">
     <mat-icon>group</mat-icon>
     <span>View your groups</span>
   </button>
@@ -26,11 +26,11 @@
     <mat-icon>brightness_5</mat-icon>
     <span>Switch to light theme</span>
   </button>
-  <button mat-menu-item (click)="auth.logout()" *ngIf="auth.isAuthenticated()">
+  <button mat-menu-item (click)="auth.logout()" *ngIf="(auth.isLoggedIn | async)">
     <mat-icon>exit_to_app</mat-icon>
     <span>Logout</span>
   </button>
-  <button mat-menu-item (click)="auth.login()" *ngIf="!auth.isAuthenticated()">
+  <button mat-menu-item (click)="auth.login()" *ngIf="!(auth.isLoggedIn | async)">
     <mat-icon>fingerprint</mat-icon>
     <span>Login</span>
   </button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth/auth.service';
+import { AuthService, IS_LOGGED_IN } from './auth/auth.service';
 import { ThemeService } from './theme/theme.service';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   setTheme() {
     this.isDarkTheme = this.theme.isDarkTheme;
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    if (localStorage.getItem(IS_LOGGED_IN) === 'true') {
       this.auth.renewTokens();
     }
   }
