@@ -36,59 +36,71 @@ export class GroupsService {
   }
 
   createGroup(name: string): void {
-    this.progress.setInProgress();
-    const request = { name, user: this.user };
-    this.http.post<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups`, request).subscribe(group => {
-      this._group.next(group);
-      this.router.navigate([`/groups/${group.groupId}`]);
-      this.progress.setResolved();
-    });
-  }
-
-  joinGroup(code: string): void {
-    this.progress.setInProgress();
-    const request = this.user;
-    this.http
-      .post<GroupDetail>(`${this.BASE_URL}/groups/${code}/users/${this.user.userId}`, request)
-      .subscribe(group => {
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      const request = { name, user: this.user };
+      this.http.post<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups`, request).subscribe(group => {
         this._group.next(group);
         this.router.navigate([`/groups/${group.groupId}`]);
         this.progress.setResolved();
       });
+    }
+  }
+
+  joinGroup(code: string): void {
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      const request = this.user;
+      this.http
+        .post<GroupDetail>(`${this.BASE_URL}/groups/${code}/users/${this.user.userId}`, request)
+        .subscribe(group => {
+          this._group.next(group);
+          this.router.navigate([`/groups/${group.groupId}`]);
+          this.progress.setResolved();
+        });
+    }
   }
 
   getGroups(): void {
-    this.progress.setInProgress();
-    this.http.get<Group[]>(`${this.BASE_URL}/users/${this.user.userId}/groups`).subscribe(groups => {
-      this._groups.next(groups);
-      this.progress.setResolved();
-    });
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      this.http.get<Group[]>(`${this.BASE_URL}/users/${this.user.userId}/groups`).subscribe(groups => {
+        this._groups.next(groups);
+        this.progress.setResolved();
+      });
+    }
   }
 
   getGroup(groupId: string): void {
-    this.progress.setInProgress();
-    this.http.get<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups/${groupId}`).subscribe(group => {
-      this._group.next(group);
-      this.progress.setResolved();
-    });
-  }
-
-  matchGroup(groupId: string): void {
-    this.progress.setInProgress();
-    this.http
-      .post<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups/${groupId}/match`, null)
-      .subscribe(group => {
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      this.http.get<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups/${groupId}`).subscribe(group => {
         this._group.next(group);
         this.progress.setResolved();
       });
+    }
+  }
+
+  matchGroup(groupId: string): void {
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      this.http
+        .post<GroupDetail>(`${this.BASE_URL}/users/${this.user.userId}/groups/${groupId}/match`, null)
+        .subscribe(group => {
+          this._group.next(group);
+          this.progress.setResolved();
+        });
+    }
   }
 
   updateProfile(groupId: string, profile: ProfileDetail): void {
-    this.progress.setInProgress();
-    this.http
-      .put<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${this.user.userId}`, profile)
-      .subscribe(profile => {
-        this.progress.setResolved();
-      });
+    if (this.user && this.user.userId) {
+      this.progress.setInProgress();
+      this.http
+        .put<ProfileDetail>(`${this.BASE_URL}/groups/${groupId}/users/${this.user.userId}`, profile)
+        .subscribe(profile => {
+          this.progress.setResolved();
+        });
+    }
   }
 }
