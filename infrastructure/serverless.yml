@@ -2,8 +2,9 @@ service:
   name: santaswap-ui
 
 plugins:
-  - serverless-plugin-iopipe
+  - serverless-plugin-epsagon
   - serverless-webpack
+  - serverless-cloudformation-resource-counter
   - serverless-plugin-iam-checker
 
 provider:
@@ -24,13 +25,16 @@ provider:
             - Ref: AWS::AccountId
             - SiteUpdated${opt:stage, self:provider.stage}
   environment:
-    IOPIPE_TOKEN: ${env:IOPIPE_TOKEN}
-    IOPIPE_LOGGER_ENABLED: true
+    REVISION: ${file(helper.js):revision}
+    STAGE: ${opt:stage, self:provider.stage}
 
 custom:
   domain:
     prod: ${opt:domain, env:DOMAIN}
     stage: ${opt:stage, self:provider.stage}.${opt:domain, env:DOMAIN}
+  epsagon:
+    token: ${env:EPSAGON_TOKEN}
+    appName: ${self:service.name}-${opt:stage, self:provider.stage}
   hostedZones:
     cloudFront: Z2FDTNDATAQYW2
     domain: ${opt:domainHostedZoneId, env:DOMAIN_HOSTED_ZONE_ID}
