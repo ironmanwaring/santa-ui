@@ -3,11 +3,14 @@
   "description": "Infrastructure for the Santa Swap website",
   "license": "MIT",
   "scripts": {
-    "deploy": "sls deploy"
+    "deploy": "sls deploy",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@manwaring/lambda-wrapper": "^0.1.16",
-    "epsagon": "^1.8.0"
+    "epsagon": "^1.8.0",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.1",
@@ -22,5 +25,6 @@
     "ts-loader": "^4.2.0",
     "typescript": "^2.9.2",
     "webpack": "^4.5.0"
-  }
+  },
+  "snyk": true
 }
