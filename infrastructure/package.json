@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@manwaring/lambda-wrapper": "^0.1.16",
-    "epsagon": "^1.8.0"
+    "epsagon": "^1.103.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.1",
